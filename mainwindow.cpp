@@ -851,8 +851,6 @@ void MainWindow::on_comboBox_4_currentIndexChanged(int index)
 void MainWindow::Steelplot(){
     m_customPlot=ui->widget_3;
        m_customPlot->showTracer(true);
-
-
        // add title layout element:
        m_customPlot->plotLayout()->insertRow(0);
        m_customPlot->plotLayout()->addElement(0, 0, new QCPTextElement(m_customPlot, "钢筋沿桥长变化图", QFont("黑体", 12, QFont::Bold)));
@@ -896,27 +894,19 @@ void MainWindow::Steelplot(){
        pGraph->setData(x,y0);
        pGraph->setPen(QPen(Qt::blue));
 
-     /*  pGraph = m_customPlot->addGraph();
-       //        m_customPlot->graph(0)->setData(x, y0);
-       pGraph->setName("cos曲线");
-       pGraph->setData(x,y1);
-       pGraph->setPen(QPen(Qt::darkYellow));
-       //
-       pGraph = m_customPlot->addGraph();
-       //        m_customPlot->graph(0)->setData(x, y0);
-       pGraph->setName("我的曲线");
-       pGraph->setData(x,y2);
-       pGraph->setPen(QPen(Qt::green));*/
+
 
        // give the axes some labels:
        m_customPlot->xAxis->setLabel("截面位置");
        m_customPlot->yAxis->setLabel("钢筋布放高度");
 
-       // set axes ranges, so we see all data:
-    //   m_customPlot->xAxis->setRange(5, 23);
-   //    m_customPlot->yAxis->setRange(0, 1);
        m_customPlot->rescaleAxes(true);
 
        m_customPlot->replot();
 
+}
+
+void MainWindow::on_commandLinkButton_6_clicked()
+{
+    //绘制钢筋图
 }
