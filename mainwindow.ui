@@ -36,8 +36,990 @@
      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
     </property>
     <property name="currentIndex">
-     <number>4</number>
+     <number>0</number>
     </property>
+    <widget class="QWidget" name="tab_4">
+     <attribute name="title">
+      <string>参数输入页</string>
+     </attribute>
+     <widget class="QLabel" name="label_225">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>450</y>
+        <width>61</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:16pt; color:#ff0000;&quot;&gt;中梁&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
+     </widget>
+     <widget class="QTableWidget" name="tableWidget_162">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>490</y>
+        <width>322</width>
+        <height>299</height>
+       </rect>
+      </property>
+      <property name="verticalScrollBarPolicy">
+       <enum>Qt::ScrollBarAlwaysOff</enum>
+      </property>
+      <property name="horizontalScrollBarPolicy">
+       <enum>Qt::ScrollBarAlwaysOff</enum>
+      </property>
+      <property name="sizeAdjustPolicy">
+       <enum>QAbstractScrollArea::AdjustIgnored</enum>
+      </property>
+      <property name="editTriggers">
+       <set>QAbstractItemView::DoubleClicked</set>
+      </property>
+      <property name="tabKeyNavigation">
+       <bool>true</bool>
+      </property>
+      <property name="rowCount">
+       <number>8</number>
+      </property>
+      <property name="columnCount">
+       <number>4</number>
+      </property>
+      <attribute name="horizontalHeaderVisible">
+       <bool>false</bool>
+      </attribute>
+      <attribute name="horizontalHeaderDefaultSectionSize">
+       <number>80</number>
+      </attribute>
+      <attribute name="verticalHeaderVisible">
+       <bool>false</bool>
+      </attribute>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <column>
+       <property name="text">
+        <string>b4</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>h4</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>b5</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>h5</string>
+       </property>
+      </column>
+      <item row="0" column="0">
+       <property name="text">
+        <string>d1</string>
+       </property>
+      </item>
+      <item row="0" column="1">
+       <property name="text">
+        <string>d2</string>
+       </property>
+      </item>
+      <item row="0" column="2">
+       <property name="text">
+        <string>d3</string>
+       </property>
+      </item>
+      <item row="0" column="3">
+       <property name="text">
+        <string>b1</string>
+       </property>
+      </item>
+      <item row="1" column="0">
+       <property name="text">
+        <string>0.2</string>
+       </property>
+      </item>
+      <item row="1" column="1">
+       <property name="text">
+        <string>0.2</string>
+       </property>
+      </item>
+      <item row="1" column="2">
+       <property name="text">
+        <string>0.2</string>
+       </property>
+      </item>
+      <item row="1" column="3">
+       <property name="text">
+        <string>1.2</string>
+       </property>
+      </item>
+      <item row="2" column="0">
+       <property name="text">
+        <string>b2</string>
+       </property>
+      </item>
+      <item row="2" column="1">
+       <property name="text">
+        <string>b4</string>
+       </property>
+      </item>
+      <item row="2" column="2">
+       <property name="text">
+        <string>h4</string>
+       </property>
+      </item>
+      <item row="2" column="3">
+       <property name="text">
+        <string>b5</string>
+       </property>
+      </item>
+      <item row="3" column="0">
+       <property name="text">
+        <string>0.5</string>
+       </property>
+      </item>
+      <item row="3" column="1">
+       <property name="text">
+        <string>0.1975</string>
+       </property>
+      </item>
+      <item row="3" column="2">
+       <property name="text">
+        <string>0.05</string>
+       </property>
+      </item>
+      <item row="3" column="3">
+       <property name="text">
+        <string>0.165</string>
+       </property>
+      </item>
+      <item row="4" column="0">
+       <property name="text">
+        <string>h5</string>
+       </property>
+      </item>
+      <item row="4" column="1">
+       <property name="text">
+        <string>b6</string>
+       </property>
+      </item>
+      <item row="4" column="2">
+       <property name="text">
+        <string>h6</string>
+       </property>
+      </item>
+      <item row="4" column="3">
+       <property name="text">
+        <string>p</string>
+       </property>
+      </item>
+      <item row="5" column="0">
+       <property name="text">
+        <string>0.05</string>
+       </property>
+      </item>
+      <item row="5" column="1">
+       <property name="text">
+        <string>0.05</string>
+       </property>
+      </item>
+      <item row="5" column="2">
+       <property name="text">
+        <string>0.05</string>
+       </property>
+      </item>
+      <item row="5" column="3">
+       <property name="text">
+        <string>4</string>
+       </property>
+      </item>
+      <item row="6" column="0">
+       <property name="text">
+        <string>h</string>
+       </property>
+      </item>
+      <item row="7" column="0">
+       <property name="text">
+        <string>1.6</string>
+       </property>
+      </item>
+     </widget>
+     <widget class="QLabel" name="label_226">
+      <property name="geometry">
+       <rect>
+        <x>150</x>
+        <y>460</y>
+        <width>81</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>现浇段长度:</string>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="lineEdit_43">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>240</x>
+        <y>460</y>
+        <width>81</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="inputMethodHints">
+       <set>Qt::ImhDigitsOnly</set>
+      </property>
+      <property name="readOnly">
+       <bool>false</bool>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_227">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>50</y>
+        <width>61</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:16pt; color:#ff0000;&quot;&gt;边梁&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_263">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>110</y>
+        <width>151</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>半箱梁尺寸一(悬臂端)</string>
+      </property>
+     </widget>
+     <widget class="QTableWidget" name="tableWidget_187">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>130</y>
+        <width>322</width>
+        <height>299</height>
+       </rect>
+      </property>
+      <property name="verticalScrollBarPolicy">
+       <enum>Qt::ScrollBarAlwaysOff</enum>
+      </property>
+      <property name="horizontalScrollBarPolicy">
+       <enum>Qt::ScrollBarAlwaysOff</enum>
+      </property>
+      <property name="sizeAdjustPolicy">
+       <enum>QAbstractScrollArea::AdjustIgnored</enum>
+      </property>
+      <property name="rowCount">
+       <number>8</number>
+      </property>
+      <property name="columnCount">
+       <number>4</number>
+      </property>
+      <attribute name="horizontalHeaderVisible">
+       <bool>false</bool>
+      </attribute>
+      <attribute name="horizontalHeaderDefaultSectionSize">
+       <number>80</number>
+      </attribute>
+      <attribute name="verticalHeaderVisible">
+       <bool>false</bool>
+      </attribute>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <column>
+       <property name="text">
+        <string>b4</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>h4</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>b5</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>h5</string>
+       </property>
+      </column>
+      <item row="0" column="0">
+       <property name="text">
+        <string>d1</string>
+       </property>
+      </item>
+      <item row="0" column="1">
+       <property name="text">
+        <string>d2</string>
+       </property>
+      </item>
+      <item row="0" column="2">
+       <property name="text">
+        <string>d3</string>
+       </property>
+      </item>
+      <item row="0" column="3">
+       <property name="text">
+        <string>b1</string>
+       </property>
+      </item>
+      <item row="1" column="0">
+       <property name="text">
+        <string>0.2</string>
+       </property>
+      </item>
+      <item row="1" column="1">
+       <property name="text">
+        <string>0.2</string>
+       </property>
+      </item>
+      <item row="1" column="2">
+       <property name="text">
+        <string>0.2</string>
+       </property>
+      </item>
+      <item row="1" column="3">
+       <property name="text">
+        <string>1.65</string>
+       </property>
+      </item>
+      <item row="2" column="0">
+       <property name="text">
+        <string>b2</string>
+       </property>
+      </item>
+      <item row="2" column="1">
+       <property name="text">
+        <string>b4</string>
+       </property>
+      </item>
+      <item row="2" column="2">
+       <property name="text">
+        <string>h4</string>
+       </property>
+      </item>
+      <item row="2" column="3">
+       <property name="text">
+        <string>b5</string>
+       </property>
+      </item>
+      <item row="3" column="0">
+       <property name="text">
+        <string>0.5</string>
+       </property>
+      </item>
+      <item row="3" column="1">
+       <property name="text">
+        <string>0.8125</string>
+       </property>
+      </item>
+      <item row="3" column="2">
+       <property name="text">
+        <string>0.05</string>
+       </property>
+      </item>
+      <item row="3" column="3">
+       <property name="text">
+        <string>0.165</string>
+       </property>
+      </item>
+      <item row="4" column="0">
+       <property name="text">
+        <string>h5</string>
+       </property>
+      </item>
+      <item row="4" column="1">
+       <property name="text">
+        <string>b6</string>
+       </property>
+      </item>
+      <item row="4" column="2">
+       <property name="text">
+        <string>h6</string>
+       </property>
+      </item>
+      <item row="4" column="3">
+       <property name="text">
+        <string>p</string>
+       </property>
+      </item>
+      <item row="5" column="0">
+       <property name="text">
+        <string>0.05</string>
+       </property>
+      </item>
+      <item row="5" column="1">
+       <property name="text">
+        <string>0.05</string>
+       </property>
+      </item>
+      <item row="5" column="2">
+       <property name="text">
+        <string>0.05</string>
+       </property>
+      </item>
+      <item row="5" column="3">
+       <property name="text">
+        <string>4</string>
+       </property>
+      </item>
+      <item row="6" column="0">
+       <property name="text">
+        <string>h</string>
+       </property>
+      </item>
+      <item row="7" column="0">
+       <property name="text">
+        <string>1.6</string>
+       </property>
+      </item>
+     </widget>
+     <widget class="QLabel" name="label_264">
+      <property name="geometry">
+       <rect>
+        <x>340</x>
+        <y>100</y>
+        <width>91</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>半箱梁尺寸二</string>
+      </property>
+     </widget>
+     <widget class="QTableWidget" name="tableWidget_188">
+      <property name="geometry">
+       <rect>
+        <x>340</x>
+        <y>130</y>
+        <width>322</width>
+        <height>299</height>
+       </rect>
+      </property>
+      <property name="verticalScrollBarPolicy">
+       <enum>Qt::ScrollBarAlwaysOff</enum>
+      </property>
+      <property name="horizontalScrollBarPolicy">
+       <enum>Qt::ScrollBarAlwaysOff</enum>
+      </property>
+      <property name="sizeAdjustPolicy">
+       <enum>QAbstractScrollArea::AdjustIgnored</enum>
+      </property>
+      <property name="rowCount">
+       <number>8</number>
+      </property>
+      <property name="columnCount">
+       <number>4</number>
+      </property>
+      <attribute name="horizontalHeaderVisible">
+       <bool>false</bool>
+      </attribute>
+      <attribute name="horizontalHeaderDefaultSectionSize">
+       <number>80</number>
+      </attribute>
+      <attribute name="verticalHeaderVisible">
+       <bool>false</bool>
+      </attribute>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <column>
+       <property name="text">
+        <string>b4</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>h4</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>b5</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>h5</string>
+       </property>
+      </column>
+      <item row="0" column="0">
+       <property name="text">
+        <string>d1</string>
+       </property>
+      </item>
+      <item row="0" column="1">
+       <property name="text">
+        <string>d2</string>
+       </property>
+      </item>
+      <item row="0" column="2">
+       <property name="text">
+        <string>d3</string>
+       </property>
+      </item>
+      <item row="0" column="3">
+       <property name="text">
+        <string>b1</string>
+       </property>
+      </item>
+      <item row="1" column="0">
+       <property name="text">
+        <string>0.2</string>
+       </property>
+      </item>
+      <item row="1" column="1">
+       <property name="text">
+        <string>0.2</string>
+       </property>
+      </item>
+      <item row="1" column="2">
+       <property name="text">
+        <string>0.2</string>
+       </property>
+      </item>
+      <item row="1" column="3">
+       <property name="text">
+        <string>1.2</string>
+       </property>
+      </item>
+      <item row="2" column="0">
+       <property name="text">
+        <string>b2</string>
+       </property>
+      </item>
+      <item row="2" column="1">
+       <property name="text">
+        <string>b4</string>
+       </property>
+      </item>
+      <item row="2" column="2">
+       <property name="text">
+        <string>h4</string>
+       </property>
+      </item>
+      <item row="2" column="3">
+       <property name="text">
+        <string>b5</string>
+       </property>
+      </item>
+      <item row="3" column="0">
+       <property name="text">
+        <string>0.5</string>
+       </property>
+      </item>
+      <item row="3" column="1">
+       <property name="text">
+        <string>0.1975</string>
+       </property>
+      </item>
+      <item row="3" column="2">
+       <property name="text">
+        <string>0.05</string>
+       </property>
+      </item>
+      <item row="3" column="3">
+       <property name="text">
+        <string>0.165</string>
+       </property>
+      </item>
+      <item row="4" column="0">
+       <property name="text">
+        <string>h5</string>
+       </property>
+      </item>
+      <item row="4" column="1">
+       <property name="text">
+        <string>b6</string>
+       </property>
+      </item>
+      <item row="4" column="2">
+       <property name="text">
+        <string>h6</string>
+       </property>
+      </item>
+      <item row="4" column="3">
+       <property name="text">
+        <string>p</string>
+       </property>
+      </item>
+      <item row="5" column="0">
+       <property name="text">
+        <string>0.05</string>
+       </property>
+      </item>
+      <item row="5" column="1">
+       <property name="text">
+        <string>0.05</string>
+       </property>
+      </item>
+      <item row="5" column="2">
+       <property name="text">
+        <string>0.05</string>
+       </property>
+      </item>
+      <item row="5" column="3">
+       <property name="text">
+        <string>4</string>
+       </property>
+      </item>
+      <item row="6" column="0">
+       <property name="text">
+        <string>h</string>
+       </property>
+      </item>
+      <item row="7" column="0">
+       <property name="text">
+        <string>1.6</string>
+       </property>
+      </item>
+     </widget>
+     <widget class="QLabel" name="label_265">
+      <property name="geometry">
+       <rect>
+        <x>680</x>
+        <y>70</y>
+        <width>401</width>
+        <height>361</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="pixmap">
+       <pixmap resource="resource.qrc">:/images/mypic.png</pixmap>
+      </property>
+      <property name="scaledContents">
+       <bool>true</bool>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_266">
+      <property name="geometry">
+       <rect>
+        <x>340</x>
+        <y>70</y>
+        <width>81</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>现浇段长度:</string>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="lineEdit_51">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>430</x>
+        <y>70</y>
+        <width>81</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="inputMethodHints">
+       <set>Qt::ImhDigitsOnly</set>
+      </property>
+      <property name="readOnly">
+       <bool>false</bool>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_267">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>10</y>
+        <width>131</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; font-weight:600; color:#55007f;&quot;&gt;主梁数据录入&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_268">
+      <property name="geometry">
+       <rect>
+        <x>370</x>
+        <y>500</y>
+        <width>91</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#55007f;&quot;&gt;数据预存储&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
+     </widget>
+     <widget class="QComboBox" name="comboBox_33">
+      <property name="geometry">
+       <rect>
+        <x>370</x>
+        <y>530</y>
+        <width>101</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: #55ff7d;
+border-radius:5px;</string>
+      </property>
+      <item>
+       <property name="text">
+        <string>支点截面</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>跨中截面</string>
+       </property>
+      </item>
+     </widget>
+     <widget class="QCommandLinkButton" name="commandLinkButton_49">
+      <property name="geometry">
+       <rect>
+        <x>370</x>
+        <y>580</y>
+        <width>71</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: #a3f5f5;
+border-radius:5px;</string>
+      </property>
+      <property name="text">
+       <string>存入</string>
+      </property>
+     </widget>
+     <widget class="QTableWidget" name="tableWidget_190">
+      <property name="geometry">
+       <rect>
+        <x>530</x>
+        <y>530</y>
+        <width>522</width>
+        <height>262</height>
+       </rect>
+      </property>
+      <property name="rowCount">
+       <number>7</number>
+      </property>
+      <property name="columnCount">
+       <number>4</number>
+      </property>
+      <attribute name="horizontalHeaderVisible">
+       <bool>false</bool>
+      </attribute>
+      <attribute name="horizontalHeaderDefaultSectionSize">
+       <number>130</number>
+      </attribute>
+      <attribute name="verticalHeaderVisible">
+       <bool>false</bool>
+      </attribute>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <column/>
+      <column/>
+      <column/>
+      <column/>
+      <item row="0" column="0">
+       <property name="text">
+        <string>计算跨径</string>
+       </property>
+      </item>
+      <item row="0" column="1">
+       <property name="text">
+        <string>35</string>
+       </property>
+      </item>
+      <item row="0" column="2">
+       <property name="text">
+        <string>栏杆集度</string>
+       </property>
+      </item>
+      <item row="0" column="3">
+       <property name="text">
+        <string>5</string>
+       </property>
+      </item>
+      <item row="1" column="0">
+       <property name="text">
+        <string>中梁横截面面积</string>
+       </property>
+      </item>
+      <item row="1" column="1">
+       <property name="text">
+        <string>1.20477</string>
+       </property>
+      </item>
+      <item row="1" column="2">
+       <property name="text">
+        <string>横隔梁数目</string>
+       </property>
+      </item>
+      <item row="1" column="3">
+       <property name="text">
+        <string>5</string>
+       </property>
+      </item>
+      <item row="2" column="0">
+       <property name="text">
+        <string>端梁横截面面积</string>
+       </property>
+      </item>
+      <item row="2" column="1">
+       <property name="text">
+        <string>1.31015</string>
+       </property>
+      </item>
+      <item row="2" column="2">
+       <property name="text">
+        <string>主梁片数</string>
+       </property>
+      </item>
+      <item row="2" column="3">
+       <property name="text">
+        <string>4</string>
+       </property>
+      </item>
+      <item row="3" column="0">
+       <property name="text">
+        <string>中横梁体积</string>
+       </property>
+      </item>
+      <item row="3" column="1">
+       <property name="text">
+        <string>0.2363</string>
+       </property>
+      </item>
+      <item row="3" column="2">
+       <property name="text">
+        <string>主梁现浇段面积</string>
+       </property>
+      </item>
+      <item row="3" column="3">
+       <property name="text">
+        <string>0.05</string>
+       </property>
+      </item>
+      <item row="4" column="0">
+       <property name="text">
+        <string>端横梁体积</string>
+       </property>
+      </item>
+      <item row="4" column="1">
+       <property name="text">
+        <string>0.215835</string>
+       </property>
+      </item>
+      <item row="4" column="2">
+       <property name="text">
+        <string>端横梁现浇段面积</string>
+       </property>
+      </item>
+      <item row="4" column="3">
+       <property name="text">
+        <string>0.3</string>
+       </property>
+      </item>
+      <item row="5" column="0">
+       <property name="text">
+        <string>中横梁现浇段面积</string>
+       </property>
+      </item>
+      <item row="5" column="1">
+       <property name="text">
+        <string>0.0625</string>
+       </property>
+      </item>
+      <item row="5" column="2">
+       <property name="text">
+        <string>横隔梁厚度</string>
+       </property>
+      </item>
+      <item row="5" column="3">
+       <property name="text">
+        <string>0.2</string>
+       </property>
+      </item>
+      <item row="6" column="0">
+       <property name="text">
+        <string>沥青厚度</string>
+       </property>
+      </item>
+      <item row="6" column="1">
+       <property name="text">
+        <string/>
+       </property>
+      </item>
+      <item row="6" column="2">
+       <property name="text">
+        <string>混泥土厚度</string>
+       </property>
+      </item>
+      <item row="6" column="3">
+       <property name="text">
+        <string/>
+       </property>
+      </item>
+     </widget>
+     <widget class="QCommandLinkButton" name="commandLinkButton_50">
+      <property name="geometry">
+       <rect>
+        <x>760</x>
+        <y>820</y>
+        <width>71</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: #a3f5f5;
+border-radius:5px;</string>
+      </property>
+      <property name="text">
+       <string>存入</string>
+      </property>
+     </widget>
+    </widget>
     <widget class="QWidget" name="widget">
      <attribute name="title">
       <string>几何截面特征</string>
@@ -2960,15 +3942,15 @@ border:0px</string>
         <x>50</x>
         <y>70</y>
         <width>1181</width>
-        <height>471</height>
+        <height>231</height>
        </rect>
       </property>
      </widget>
      <widget class="QTableWidget" name="tableWidget_23">
       <property name="geometry">
        <rect>
-        <x>220</x>
-        <y>600</y>
+        <x>200</x>
+        <y>430</y>
         <width>753</width>
         <height>76</height>
        </rect>
@@ -2995,32 +3977,32 @@ border:0px</string>
       <column/>
       <item row="0" column="0">
        <property name="text">
-        <string>起点坐标X1</string>
+        <string>锚固点坐标X1</string>
        </property>
       </item>
       <item row="0" column="1">
        <property name="text">
-        <string>起点坐标Y1</string>
+        <string>锚固点坐标Y1</string>
        </property>
       </item>
       <item row="0" column="2">
        <property name="text">
-        <string>转折点坐标X2</string>
+        <string>导线点坐标X2</string>
        </property>
       </item>
       <item row="0" column="3">
        <property name="text">
-        <string>转折点坐标Y2</string>
+        <string>导线点坐标Y2</string>
        </property>
       </item>
       <item row="0" column="4">
        <property name="text">
-        <string>转折弧度半径R</string>
+        <string>钢束弯曲半径R</string>
        </property>
       </item>
       <item row="0" column="5">
        <property name="text">
-        <string>半跨长</string>
+        <string>跨中位置坐标</string>
        </property>
       </item>
      </widget>
@@ -3028,7 +4010,7 @@ border:0px</string>
       <property name="geometry">
        <rect>
         <x>490</x>
-        <y>710</y>
+        <y>580</y>
         <width>187</width>
         <height>41</height>
        </rect>
