@@ -417,7 +417,6 @@ bool MainWindow::generalTableCheak(QString tb,int itemCount){
             cheakedCount++;
             if(cheakedCount<=itemCount){
                qs.toFloat(&isInvalid);
-              // double()<<cheakedCount<<"------"<<i<<"----"<<j<<"-----"<<isInvalid;
             }
             if(!isInvalid){
 
@@ -443,7 +442,6 @@ QVariant MainWindow::getGeneralTableData(QString tb,int itemCount){
             cheakedCount++;
             if(cheakedCount<=itemCount){
               inputData.push_back( qs.toFloat());
-              // double()<<cheakedCount<<"------"<<i<<"----"<<j<<"-----"<<isInvalid;
             }
 
 
@@ -686,8 +684,6 @@ void MainWindow::pagePrepare(){
 
 
 
- Steelplot( myPath(Point(5,0.7),Point(15,0.3),300,22.5));
- Steelplot( myPath(Point(8,0.7),Point(15,0.3),300,22.5));
 
     //测试代码
    /* QWidget  *wg=ui->label_32;
@@ -908,3 +904,43 @@ void MainWindow::Steelplot(myPath path){
 }
 
 
+
+void MainWindow::on_commandLinkButton_6_clicked()
+{
+    int itemCount=6;
+    QTableWidget  *qtw=ui->tableWidget_23;
+    bool isInvalid;
+    int cheakedCount=0;
+    vector<float> callDatas;
+
+        for(int i=1;i<qtw->rowCount();i+=2){
+            for(int j=0;j<qtw->columnCount();j++){
+                QString qs=qtw->item(i,j)==0? " ":qtw->item(i,j)->text();
+
+                if(cheakedCount<itemCount){
+                 callDatas.push_back(qs.toFloat(&isInvalid));
+                }
+                if(!isInvalid){
+
+                    QMessageBox::information(this,QString("错误"),QString("输入数据不完整或输入数据类型有误!\n请检查后提交!"));
+                    return;
+
+                }
+                  cheakedCount++;
+
+            }
+
+
+Point start(callDatas[0],callDatas[1]);
+Point turn(callDatas[2],callDatas[3]);
+myPath path(start,turn,callDatas[4],callDatas[5]);
+
+Steelplot(path);
+
+
+
+
+
+    }
+
+}

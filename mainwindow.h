@@ -112,6 +112,8 @@ private slots:
 
 
     
+    void on_commandLinkButton_6_clicked();
+
 private:
     bool box_1_cheaked=false;
     bool box_2_cheaked=false;

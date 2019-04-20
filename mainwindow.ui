@@ -2967,9 +2967,9 @@ border:0px</string>
      <widget class="QTableWidget" name="tableWidget_23">
       <property name="geometry">
        <rect>
-        <x>150</x>
-        <y>590</y>
-        <width>627</width>
+        <x>220</x>
+        <y>600</y>
+        <width>753</width>
         <height>76</height>
        </rect>
       </property>
@@ -2977,7 +2977,7 @@ border:0px</string>
        <number>2</number>
       </property>
       <property name="columnCount">
-       <number>5</number>
+       <number>6</number>
       </property>
       <attribute name="horizontalHeaderVisible">
        <bool>false</bool>
@@ -2987,6 +2987,7 @@ border:0px</string>
       </attribute>
       <row/>
       <row/>
+      <column/>
       <column/>
       <column/>
       <column/>
@@ -3017,12 +3018,17 @@ border:0px</string>
         <string>转折弧度半径R</string>
        </property>
       </item>
+      <item row="0" column="5">
+       <property name="text">
+        <string>半跨长</string>
+       </property>
+      </item>
      </widget>
      <widget class="QCommandLinkButton" name="commandLinkButton_6">
       <property name="geometry">
        <rect>
-        <x>890</x>
-        <y>620</y>
+        <x>490</x>
+        <y>710</y>
         <width>187</width>
         <height>41</height>
        </rect>
