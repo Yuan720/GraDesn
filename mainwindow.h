@@ -48,7 +48,7 @@ public:
     void onTabChoosed();
     void pagePrepare();
 
-    void Steelplot();
+    void Steelplot(myPath path);
 signals:
     void task_1_send(QVariant v,bool taskType);
     void task_2_send(QVariant v,QVariant w,bool taskType);
@@ -110,6 +110,8 @@ private slots:
 
     void on_comboBox_4_currentIndexChanged(int index);
 
+
+    
 private:
     bool box_1_cheaked=false;
     bool box_2_cheaked=false;

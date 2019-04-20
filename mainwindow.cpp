@@ -686,7 +686,8 @@ void MainWindow::pagePrepare(){
 
 
 
- Steelplot();
+ Steelplot( myPath(Point(5,0.7),Point(15,0.3),300,22.5));
+ Steelplot( myPath(Point(8,0.7),Point(15,0.3),300,22.5));
 
     //测试代码
    /* QWidget  *wg=ui->label_32;
@@ -848,8 +849,8 @@ void MainWindow::on_comboBox_4_currentIndexChanged(int index)
 
     emit eff_combin(ui->spinBox_2->value(),saftyLevel);
 }
-void MainWindow::Steelplot(){
-    m_customPlot=ui->widget_3;
+void MainWindow::Steelplot(myPath path){
+     m_customPlot=ui->widget_3;
        m_customPlot->showTracer(true);
        // add title layout element:
        m_customPlot->plotLayout()->insertRow(0);
@@ -873,14 +874,14 @@ void MainWindow::Steelplot(){
        // generate some data:
 
        int nCount = 100;
-       myPath mpt(Point(5,0.7),Point(15,0.3),300,22.5);
-       double ts=(mpt.midSpanPoint.x-mpt.pathStartPoint.x)/100;
+
+       double ts=(path.midSpanPoint.x-path.pathStartPoint.x)/100;
 
      QVector<double> x(nCount), y0(nCount);//, y1(nCount),y2(nCount); // initialize with entries 0..100
        for (int i = 0; i <nCount; ++i)
        {
-           x[i] =mpt.pathStartPoint.x+i*ts; // x goes from -1 to 1
-           y0[i] = mpt.getYvalue(x[i]);
+           x[i] =path.pathStartPoint.x+i*ts; // x goes from -1 to 1
+           y0[i] = path.getYvalue(x[i]);
                    //qSin(i * 10.0f / nCount); //sin
           // y1[i] = qCos(i * 10.0f / nCount); //cos
         //   y2[i]=i*i*1.0f/10000;
@@ -906,7 +907,4 @@ void MainWindow::Steelplot(){
 
 }
 
-void MainWindow::on_commandLinkButton_6_clicked()
-{
-    //绘制钢筋图
-}
+
