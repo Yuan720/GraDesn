@@ -847,10 +847,13 @@ void MainWindow::on_comboBox_4_currentIndexChanged(int index)
 }
 void MainWindow::Steelplot(myPath path){
      m_customPlot=ui->widget_3;
+     m_customPlot->clearGraphs ( );
        m_customPlot->showTracer(true);
        // add title layout element:
-       m_customPlot->plotLayout()->insertRow(0);
-       m_customPlot->plotLayout()->addElement(0, 0, new QCPTextElement(m_customPlot, "钢筋沿桥长变化图", QFont("黑体", 12, QFont::Bold)));
+       if(!m_customPlot->plotLayout()->hasElement(1,0)){
+           m_customPlot->plotLayout()->insertRow(0);
+           m_customPlot->plotLayout()->addElement(0, 0, new QCPTextElement(m_customPlot, "钢筋沿桥长变化图", QFont("黑体", 12, QFont::Bold)));
+           }
 
        m_customPlot->legend->setVisible(true);
        QFont legendFont = font();  // start out with MainWindow's font..
