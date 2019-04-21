@@ -27,32 +27,7 @@ MainWindow::~MainWindow()
     delete ui;
 
 }
-void MainWindow::on_checkBox_stateChanged(int arg1)
-{   QLineEdit *cheak=this->findChild<QLineEdit*>("lineEdit");
-    if(arg1==2){
-     cheak->setEnabled(true);
-     box_1_cheaked=true;
 
-    }else{
-
-        cheak->setEnabled(false);
-        box_1_cheaked=false;
-    }
-
-
-}
-void MainWindow::on_checkBox_2_stateChanged(int arg1)
-{
-    QLineEdit *cheak=this->findChild<QLineEdit*>("lineEdit_2");
-  if(arg1==2){
-         cheak->setEnabled(true);
-         box_2_cheaked=true;
-        }else{
-
-            cheak->setEnabled(false);
-            box_2_cheaked=false;
-        }
-}
 void MainWindow::on_checkBox_3_stateChanged(int arg1)
 {if(arg1==2)
     {
@@ -68,83 +43,11 @@ void MainWindow::on_listWidget_2_currentRowChanged(int currentRow)
         onTabChoosed();
     }
 }
-void MainWindow::on_comboBox_currentIndexChanged(int index)
-{
-  //  double
-}
 
 
 
-void MainWindow::on_pushButton_clicked(){
-   //对中主梁截面效率指标进行计算
-    QVariant data;
-if(box_1_cheaked){
-        if(inputCheak("tableWidget")&lineEditCheak("lineEdit")){
-            vector<float> taskdata=tableDataProcess("tableWidget");
-            taskdata.push_back(lineEditDataProcess("lineEdit"));
-            data.setValue(taskdata);
-            emit task_1_send(data,true);
-
-        }else{
-
-QMessageBox::information(this,QString("错误"),QString("输入数据不完整或输入数据类型有误!\n请检查后提交!"));
-        }
-
-    }
-else{
-        if(inputCheak("tableWidget")){
-           vector<float> taskdata=tableDataProcess("tableWidget");
-           data.setValue(taskdata);
-           emit task_1_send(data,false);
 
 
-
-        }else{
-
-QMessageBox::information(this,QString("错误"),QString("输入数据不完整或输入数据类型有误!\n请检查后提交!"));        }
-
-
-    }
-}
-void MainWindow::on_pushButton_2_clicked(){
-    //对边主梁截面效率指标进行计算
-    QVariant data1;
-    QVariant data2;
-    if(box_2_cheaked){
-
-        if(inputCheak("tableWidget_3")&inputCheak("tableWidget_4")&lineEditCheak("lineEdit_2")){
-            vector<float> taskdata_1=tableDataProcess("tableWidget_3");
-            taskdata_1.push_back(lineEditDataProcess("lineEdit_2"));
-            vector<float> taskdata_2=tableDataProcess("tableWidget_4");
-            taskdata_2.push_back(lineEditDataProcess("lineEdit_2"));
-            data1.setValue(taskdata_1);
-            data2.setValue(taskdata_2);
-           emit task_2_send(data1,data2,true);
-
-            }else
-        {
-            QMessageBox::information(this,QString("错误"),QString("输入数据不完整或输入数据类型有误!\n请检查后提交!"));
-
-        }
-    }
-    else
-            {
-        if(inputCheak("tableWidget_3")&inputCheak("tableWidget_4")) {
-             vector<float> taskdata_1=tableDataProcess("tableWidget_3");
-             vector<float> taskdata_2=tableDataProcess("tableWidget_4");
-             data1.setValue(taskdata_1);
-             data2.setValue(taskdata_2);
-            emit task_2_send(data1,data2,false);
-
-
-        } else{
-
-QMessageBox::information(this,QString("错误"),QString("输入数据不完整或输入数据类型有误!\n请检查后提交!"));
-        }
-
-    }
-
-}
 void MainWindow::on_pushButton_3_clicked()
 {   if((mycat->FulcrMidBeam==0)|(mycat->FulcrSideBeam==0)|(mycat->mid_SpanMidBeam==0)|(mycat->mid_SpanSideBeam==0)){
     QMessageBox::information(this,QString("数据缺失"),QString("请先预存储支点和跨中截面主梁尺寸!"));
@@ -212,82 +115,12 @@ void MainWindow::on_commandLinkButton_2_clicked()
 
     }
 }
-void MainWindow::on_commandLinkButton_3_clicked()
-{
-    if(inputCheak("tableWidget")&lineEditCheak("lineEdit")&inputCheak("tableWidget_3")&inputCheak("tableWidget_4")&lineEditCheak("lineEdit_2"))
-    {
-        vector<float> taskdata1=tableDataProcess("tableWidget");
-        taskdata1.push_back(lineEditDataProcess("lineEdit"));
-        vector<float> taskdata2=tableDataProcess("tableWidget_3");
-        taskdata2.push_back(lineEditDataProcess("lineEdit_2"));
-        vector<float> taskdata3=tableDataProcess("tableWidget_4");
-                taskdata3.push_back(lineEditDataProcess("lineEdit_2"));
-                //中梁
-                half_box_girder zl(taskdata1[12],taskdata1[0],taskdata1[1],taskdata1[2],taskdata1[3],taskdata1[4],taskdata1[5],taskdata1[6],taskdata1[7],taskdata1[8],taskdata1[9],taskdata1[10],taskdata1[11],false);
-                half_box_girder bl1(taskdata2[12],taskdata2[0],taskdata2[1],taskdata2[2],taskdata2[3],taskdata2[4],taskdata2[5],taskdata2[6],taskdata2[7],taskdata2[8],taskdata2[9],taskdata2[10],taskdata2[11],true);
-                half_box_girder bl2(taskdata3[12],taskdata3[0],taskdata3[1],taskdata3[2],taskdata3[3],taskdata3[4],taskdata3[5],taskdata3[6],taskdata3[7],taskdata3[8],taskdata3[9],taskdata3[10],taskdata3[11],false);
-                small_box_girder sbzl(zl,zl);
-                small_box_girder sbbl(bl1,bl2);
-                if(ui->comboBox->currentIndex()==0){
-                    if(mycat->FulcrMidBeam==0&mycat->FulcrSideBeam==0){
-
-                        mycat->FulcrMidBeam=new field_making_girder_beam(sbzl,taskdata1[13]);
-                        mycat->FulcrSideBeam=new field_making_girder_beam(sbbl,taskdata2[13]);
-                        QMessageBox::information(this,QString("存入成功"),QString("已存储!"));
-
-                    }else{
-
-                        QMessageBox message(QMessageBox::NoIcon,"数据已存在!",ui->comboBox->currentText()+"数据似乎已经\n存在,是否覆盖?",QMessageBox::No|QMessageBox::Yes);
-
-
-                        if(message.exec()==QMessageBox::Yes){
-
-                            mycat->FulcrMidBeam=new field_making_girder_beam(sbzl,taskdata1[13]);
-                            mycat->FulcrSideBeam=new field_making_girder_beam(sbbl,taskdata2[13]);
-                            QMessageBox::information(this,QString("存入成功"),QString("已存储!"));
-
-                        }
-                        else
-                        {
-
-                           return;
-                        }
-                    }
-
-                }else{
-
-                    if(mycat->mid_SpanSideBeam==0&mycat->mid_SpanMidBeam==0){
-
-                        mycat->mid_SpanMidBeam=new field_making_girder_beam(sbzl,taskdata1[13]);
-                        mycat->mid_SpanSideBeam=new field_making_girder_beam(sbbl,taskdata2[13]);
-                        QMessageBox::information(this,QString("存入成功"),QString("已存储!"));
-
-                    }else{
-
-                        QMessageBox message(QMessageBox::NoIcon,"数据已存在!",ui->comboBox->currentText()+"数据似乎已经\n存在,是否覆盖?",QMessageBox::No|QMessageBox::Yes);
-                        if(message.exec()==QMessageBox::Yes){
-                            mycat->mid_SpanMidBeam=new field_making_girder_beam(sbzl,taskdata1[13]);
-                            mycat->mid_SpanSideBeam=new field_making_girder_beam(sbbl,taskdata2[13]);
-                            QMessageBox::information(this,QString("存入成功"),QString("已存储!"));
-                        }else{
-
-                            return;
-                        }
-                    }
-
-
-                }
 
 
 
-    }else{
-QString qs1("必须输入");
-QString qs2(ui->comboBox->currentText());
-QString qs3("含现浇段主梁(边梁和中梁)\n的全部数据");
-QMessageBox::information(this,QString("错误"),qs1+qs2+qs3);
 
-    }
-}
+
+
 void MainWindow::on_commandLinkButton_4_clicked()
 {
     if(generalTableCheak("tableWidget_8",15))
@@ -645,14 +478,13 @@ float MainWindow::lineEditDataProcess(QString leID){
     QLineEdit  *qtw=this->findChild<QLineEdit*>( leID);
     return qtw->text().toFloat();}
 void MainWindow::pagePrepare(){
-    tableInit("tableWidget");
-    tableInit("tableWidget_3");
-    tableInit("tableWidget_4");
-    ResTableInit("tableWidget_2");
-    ResTableInit("tableWidget_5");
+
+
     generalTableInit("tableWidget_7");
     generalTableInit("tableWidget_6");
     generalTableInit("tableWidget_8");
+
+
 
     ui->label_28->hide();
     ui->spinBox->hide();
@@ -683,17 +515,6 @@ void MainWindow::pagePrepare(){
     connect(this,&MainWindow::eff_combin,mycat,&CacularThread::effCombin);
     connect(mycat,&CacularThread::eff_combinFinished,this,&MainWindow::eff_combinRender);
 
-
-
-
-
-
-    //测试代码
-   /* QWidget  *wg=ui->label_32;
-    QPainter mypainter(wg);
-mypainter.setPen(Qt::red);
-    mypainter.drawLine(0,0,100,100);
-    mypainter.drawRect(10,10,100,150);*/
 }
 void MainWindow::on_listWidget_currentRowChanged(int currentRow)
 {
