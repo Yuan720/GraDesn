@@ -87,8 +87,6 @@ public:
         float *re = new float[3];
         re[0] = bzl1 + bhl1+gh1;
         re[1] = zzl2 + zhl2+gh1;
-         qDebug()<<"erqi:"<<mbd.AspLayer<<"---"<<mbd.BrigeWidth<<"---"<<mbd.mianBeanNum<<"---"<<mbd.Main_Bean_field_making_Area;
-        qDebug()<<"erqi:"<<mbd.Side_Cross_Bean_field_making_Area<<"---"<<mbd.Midle_Cross_Bean_field_making_Area<<"---"<<mbd.crossBeamNum<<"---"<<mbd.Cross_Bean_t<<"--"<<mbd.CalculaSpan;
          //   re[2] = gh1;
         return re;
     }
@@ -97,7 +95,7 @@ public:
          float gh2 = (mbd.AspLayer * 23)*mbd.BrigeWidth / mbd.mianBeanNum;
          float langan=collectionDegreeSolve();
           float re = gh2+langan;
-      //     qDebug()<<"sanqi:"<<re;
+
           return re;
 
     }

@@ -6,7 +6,7 @@ CacularThread::CacularThread(QObject *parent) : QObject(parent)
 {
 
 }
-
+//信号处理函数--------------------------------
 void CacularThread::task_1_process(QVariant mv, bool taskType)
 {
 vector<float> v=mv.value<vector<float>>();
@@ -145,6 +145,213 @@ void CacularThread::task_6_process(QVariant v){
 
 }
 void CacularThread::task_7_process(QVariant v,bool field_count,bool beamType){
+
+    QVariant data;
+    data.setValue(task_7_Dataprocess( v,field_count,beamType));
+    emit result_1_render(data,"tableWidget_16");
+}
+void CacularThread::task_8_process(float x,float foce1,float foce2){
+    vector<float> res;
+
+    res.push_back(mymb->getMainBeanShearFoce(foce1,x));
+    res.push_back(mymb->getMainBeanBending(foce1,x));
+    res.push_back(mymb->getMainBeanShearFoce(foce2,x));
+    res.push_back(mymb->getMainBeanBending(foce2,x));
+    QVariant data;
+    data.setValue(res);
+    emit onTask_8_finished(data);
+
+}
+void CacularThread::task_9_process(QVariant v){
+   vector<float> input=v.value<vector<float>>();
+   vector<float> sf;
+   vector<float> bending;
+
+    //OrdinaryBrigeSection
+      myobs=new OrdinaryBrigeSection(*mid_SpanSideBeam,*mid_SpanMidBeam,FulcrSideBeam,FulcrMidBeam,input[0],input[1],input[2]);
+    myobs->InitFsm();
+
+
+     sf=myobs->getLivaLoadSF(input[3]);
+     bending=myobs->getLivaLoadBending(input[3]);
+
+
+    bending.push_back(sf[0]);
+    bending.push_back(sf[1]);
+    bending.push_back(sf[2]);
+    QVariant data;
+    data.setValue(bending);
+
+    emit onTask_9_finished(data);
+    vector<float> fculmcqs;
+    vector<float> midmcqs;
+    fculmcqs=myobs->getFulcrMcqsByBeamId(input[3]);
+    midmcqs=myobs->liveLoadmcqSolve(input[3]);
+    QVariant data2;
+    QVariant data3;
+    data2.setValue(fculmcqs);
+    data3.setValue(midmcqs);
+    emit mcqRender(data2,"tableWidget_19");
+     emit mcqRender(data3,"tableWidget_20");
+
+}
+void CacularThread::getThridLoad(float f,float x){
+    vector<float> a;
+    QVariant data;
+   a.push_back(CacularThread::mymb->getMainBeanShearFoce(f,x));
+    a.push_back(CacularThread::mymb->getMainBeanBending(f,x));
+    data.setValue(a);
+    emit thridLoadFinished(data);
+
+}
+void CacularThread::effCombin(int beanId,int saftyGrade){
+    vector<float> result=effCombinDataprocessor(beanId,saftyGrade);
+    QVariant data;
+    data.setValue(result);
+    emit eff_combinFinished(data);
+}
+
+
+//数据处理函数-----------------------------------------------
+vector<float> CacularThread::effCombinDataprocessor(int beanId, int saftyGrade)
+{
+    bool isSideBeam=(beanId==1|beanId==mymb->mbd.mianBeanNum)? true:false;
+
+    setSaftyGrade(saftyGrade);
+    //一期
+  float *p1=mymb->firstStageLoad();
+  //二期
+  float *p2=mymb->secondStageLoad();
+  //三期
+  float p3=mymb->ThirdStageLoad();
+  //三期求和
+  //指三期恒载集度之和
+  vector<float> loadSum;
+  //指恒载产生的各界面弯矩和剪力;
+  vector<float> dieLoad;
+  //计冲击系数
+  vector<float> impacCountedLiveload;
+  //不计冲击系数
+   vector<float> Liveload;
+  loadSum.push_back(p1[0]+p2[0]+p3);
+  loadSum.push_back(p1[1]+p2[1]+p3);
+  if(isSideBeam){
+      dieLoad.push_back(mymb->getMainBeanBending(loadSum[0],mymb->mbd.CalculaSpan/2));
+      dieLoad.push_back(mymb->getMainBeanBending(loadSum[0],mymb->mbd.CalculaSpan/4));
+      dieLoad.push_back(mymb->getMainBeanShearFoce(loadSum[0],mymb->mbd.CalculaSpan/2));
+      dieLoad.push_back(mymb->getMainBeanShearFoce(loadSum[0],mymb->mbd.CalculaSpan/4));
+      dieLoad.push_back(mymb->getMainBeanShearFoce(loadSum[0],0));
+
+
+
+
+  }else{
+      dieLoad.push_back(mymb->getMainBeanBending(loadSum[1],mymb->mbd.CalculaSpan/2));
+      dieLoad.push_back(mymb->getMainBeanBending(loadSum[1],mymb->mbd.CalculaSpan/4));
+      dieLoad.push_back(mymb->getMainBeanShearFoce(loadSum[1],mymb->mbd.CalculaSpan/2));
+      dieLoad.push_back(mymb->getMainBeanShearFoce(loadSum[1],mymb->mbd.CalculaSpan/4));
+      dieLoad.push_back(mymb->getMainBeanShearFoce(loadSum[1],0));
+
+  }
+  //指定梁号活载弯矩;
+  vector<float> temp1=myobs->getLivaLoadBending(beanId);
+
+  //指定梁号活载剪力
+  vector<float> temp2=myobs->getLivaLoadSF(beanId);
+
+  impacCountedLiveload.push_back(temp1[2]);
+  impacCountedLiveload.push_back(temp1[1]);
+  impacCountedLiveload.push_back(temp2[2]);
+  impacCountedLiveload.push_back(temp2[1]);
+  impacCountedLiveload.push_back(temp2[0]);
+  //冲击系数
+    float vecf=myobs->vmcffe();
+
+
+    for(int i=0;i<impacCountedLiveload.size();i++){
+        Liveload.push_back(impacCountedLiveload[i]/vecf);
+
+
+    }
+
+    //基本组合结果
+    vector<float> basicCombin;
+    //频遇组合
+    vector<float> frequeCombin;
+    //准永久组合
+    vector<float> quasiCombin;
+    for(int i=0;i<dieLoad.size();i++){
+       basicCombin.push_back(ultimateLimitSta(dieLoad[i],impacCountedLiveload[i]));
+       frequeCombin.push_back(sfd(dieLoad[i],impacCountedLiveload[i]));
+       quasiCombin.push_back(sqd(dieLoad[i],impacCountedLiveload[i]));
+    }
+    vector<float> result;
+    result.insert(result.end(),dieLoad.begin(),dieLoad.end());
+    result.insert(result.end(),impacCountedLiveload.begin(),impacCountedLiveload.end());
+    result.insert(result.end(),Liveload.begin(),Liveload.end());
+    result.insert(result.end(),basicCombin.begin(),basicCombin.end());
+    result.insert(result.end(),frequeCombin.begin(),frequeCombin.end());
+    result.insert(result.end(),quasiCombin.begin(),quasiCombin.end());
+    return result;
+}
+vector<float> CacularThread::getMaxSfd(){
+    vector<float> result;
+    result.push_back(1);
+    result.push_back(0);
+    vector<float> cheakFor;
+    for(int i=1;i<=myobs->bean_nums;i++){
+        cheakFor=effCombinDataprocessor(i,1);
+
+        result[1]=cheakFor[20]>result[1]? cheakFor[20]:result[1];
+        result[0]=cheakFor[20]>result[1]? result[0]:i;
+
+
+    }
+    return result;
+
+}
+float CacularThread::steelAreaSolve(vector<float> sfdparam,float fpk,float ap){
+    bool isSideBeam=false;
+    //梁面积
+    float beamArea;
+    //重心位置
+    float centerHeight;
+    //惯性矩
+    float smoa;
+    float ep;
+    float W;
+    small_box_girder mysmbg;
+
+    if((int)sfdparam[0]==1|(int)sfdparam[0]==myobs->bean_nums){
+       isSideBeam=true;
+    }
+    if(isSideBeam){
+      mysmbg=myobs->side_main_bean.sbg;
+
+
+
+    }else{
+
+       mysmbg= myobs->mid_main_bean.sbg;
+    }
+    beamArea=mysmbg.AreaSolve()*pow(10,6);
+    centerHeight=mysmbg.CentroidHeightSolve();
+    smoa=mysmbg.SmoaSlove(centerHeight)*pow(10,12);
+    centerHeight*=1000;
+    ep=centerHeight-ap;
+    W=smoa/centerHeight;
+    float npe=(sfdparam[1]*pow(10,6)/W-0.7*2.65)/(1/beamArea+ep/W);
+   float as=npe/((1-0.2)*0.75*fpk);
+    qDebug()<<"|"<<as<<"------"<<npe<<"|" <<W<<"|"<<smoa<<"|"<<centerHeight<<"|"<<ep<<"|";
+    return as;
+
+
+
+
+
+}
+vector<float> CacularThread::task_7_Dataprocess(QVariant v,bool field_count,bool beamType)
+{
     vector<float> input=v.value<vector<float>>();
     float halfLength=input[3]-input[2];
     float xe=input[1]>input[0]/2? input[0]-input[1]:input[1];
@@ -236,150 +443,7 @@ void CacularThread::task_7_process(QVariant v,bool field_count,bool beamType){
         result.push_back(mysbg.SolveKs());
         result.push_back(mysbg.getRho());
     }
-    QVariant data;
-    data.setValue(result);
 
-   emit result_1_render(data,"tableWidget_16");
-
-
+    return result;
 
 }
-void CacularThread::task_8_process(float x,float foce1,float foce2){
-    vector<float> res;
-
-    res.push_back(mymb->getMainBeanShearFoce(foce1,x));
-    res.push_back(mymb->getMainBeanBending(foce1,x));
-    res.push_back(mymb->getMainBeanShearFoce(foce2,x));
-    res.push_back(mymb->getMainBeanBending(foce2,x));
-    QVariant data;
-    data.setValue(res);
-    emit onTask_8_finished(data);
-
-}
-void CacularThread::task_9_process(QVariant v){
-   vector<float> input=v.value<vector<float>>();
-   vector<float> sf;
-   vector<float> bending;
-
-    //OrdinaryBrigeSection
-      myobs=new OrdinaryBrigeSection(*mid_SpanSideBeam,*mid_SpanMidBeam,FulcrSideBeam,FulcrMidBeam,input[0],input[1],input[2]);
-    myobs->InitFsm();
-
-
-     sf=myobs->getLivaLoadSF(input[3]);
-     bending=myobs->getLivaLoadBending(input[3]);
-
-
-    bending.push_back(sf[0]);
-    bending.push_back(sf[1]);
-    bending.push_back(sf[2]);
-    QVariant data;
-    data.setValue(bending);
-
-    emit onTask_9_finished(data);
-    vector<float> fculmcqs;
-    vector<float> midmcqs;
-    fculmcqs=myobs->getFulcrMcqsByBeamId(input[3]);
-    midmcqs=myobs->liveLoadmcqSolve(input[3]);
-    QVariant data2;
-    QVariant data3;
-    data2.setValue(fculmcqs);
-    data3.setValue(midmcqs);
-    emit mcqRender(data2,"tableWidget_19");
-     emit mcqRender(data3,"tableWidget_20");
-
-}
-void CacularThread::getThridLoad(float f,float x){
-    vector<float> a;
-    QVariant data;
-   a.push_back(CacularThread::mymb->getMainBeanShearFoce(f,x));
-    a.push_back(CacularThread::mymb->getMainBeanBending(f,x));
-    data.setValue(a);
-    emit thridLoadFinished(data);
-
-}
-void CacularThread::eff_combin(int beanId,int saftyGrade){
-    bool isSideBeam=(beanId==1|beanId==mymb->mbd.mianBeanNum)? true:false;
-
-    setSaftyGrade(saftyGrade);
-    //一期
-  float *p1=mymb->firstStageLoad();
-  //二期
-  float *p2=mymb->secondStageLoad();
-  //三期
-  float p3=mymb->ThirdStageLoad();
-  //三期求和
-  //指三期恒载集度之和
-  vector<float> loadSum;
-  //指恒载产生的各界面弯矩和剪力;
-  vector<float> dieLoad;
-  //计冲击系数
-  vector<float> impacCountedLiveload;
-  //不计冲击系数
-   vector<float> Liveload;
-  loadSum.push_back(p1[0]+p2[0]+p3);
-  loadSum.push_back(p1[1]+p2[1]+p3);
-  if(isSideBeam){
-      dieLoad.push_back(mymb->getMainBeanBending(loadSum[0],mymb->mbd.CalculaSpan/2));
-      dieLoad.push_back(mymb->getMainBeanBending(loadSum[0],mymb->mbd.CalculaSpan/4));
-      dieLoad.push_back(mymb->getMainBeanShearFoce(loadSum[0],mymb->mbd.CalculaSpan/2));
-      dieLoad.push_back(mymb->getMainBeanShearFoce(loadSum[0],mymb->mbd.CalculaSpan/4));
-      dieLoad.push_back(mymb->getMainBeanShearFoce(loadSum[0],0));
-
-
-
-
-  }else{
-      dieLoad.push_back(mymb->getMainBeanBending(loadSum[1],mymb->mbd.CalculaSpan/2));
-      dieLoad.push_back(mymb->getMainBeanBending(loadSum[1],mymb->mbd.CalculaSpan/4));
-      dieLoad.push_back(mymb->getMainBeanShearFoce(loadSum[1],mymb->mbd.CalculaSpan/2));
-      dieLoad.push_back(mymb->getMainBeanShearFoce(loadSum[1],mymb->mbd.CalculaSpan/4));
-      dieLoad.push_back(mymb->getMainBeanShearFoce(loadSum[1],0));
-
-  }
-  //指定梁号活载弯矩;
-  vector<float> temp1=myobs->getLivaLoadBending(beanId);
-
-  //指定梁号活载剪力
-  vector<float> temp2=myobs->getLivaLoadSF(beanId);
-
-  impacCountedLiveload.push_back(temp1[2]);
-  impacCountedLiveload.push_back(temp1[1]);
-  impacCountedLiveload.push_back(temp2[2]);
-  impacCountedLiveload.push_back(temp2[1]);
-  impacCountedLiveload.push_back(temp2[0]);
-  //冲击系数
-    float vecf=myobs->vmcffe();
-
-
-    for(int i=0;i<impacCountedLiveload.size();i++){
-        Liveload.push_back(impacCountedLiveload[i]/vecf);
-
-
-    }
-
-    //基本组合结果
-    vector<float> basicCombin;
-    //频遇组合
-    vector<float> frequeCombin;
-    //准永久组合
-    vector<float> quasiCombin;
-    for(int i=0;i<dieLoad.size();i++){
-       basicCombin.push_back(ultimateLimitSta(dieLoad[i],impacCountedLiveload[i]));
-       frequeCombin.push_back(sfd(dieLoad[i],impacCountedLiveload[i]));
-       quasiCombin.push_back(sqd(dieLoad[i],impacCountedLiveload[i]));
-    }
-    vector<float> result;
-    result.insert(result.end(),dieLoad.begin(),dieLoad.end());
-    result.insert(result.end(),impacCountedLiveload.begin(),impacCountedLiveload.end());
-    result.insert(result.end(),Liveload.begin(),Liveload.end());
-    result.insert(result.end(),basicCombin.begin(),basicCombin.end());
-    result.insert(result.end(),frequeCombin.begin(),frequeCombin.end());
-    result.insert(result.end(),quasiCombin.begin(),quasiCombin.end());
-    QVariant data;
-    data.setValue(result);
-    emit eff_combinFinished(data);
-
-
-}
-

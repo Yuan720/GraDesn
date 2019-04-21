@@ -11,6 +11,8 @@
 #include<QThread>
 #include<MBIF.h>
 #include<Casoa.h>
+#include<math.h>
+#include<mytoolkit.h>
 using namespace std;
 class CacularThread : public QObject
 {
@@ -22,16 +24,23 @@ public:
     //支点边梁
     field_making_girder_beam *FulcrSideBeam=NULL;
     //支点中梁
-     field_making_girder_beam *FulcrMidBeam=NULL;
-
-     //跨中边梁
-     field_making_girder_beam *mid_SpanSideBeam=NULL;
+    field_making_girder_beam *FulcrMidBeam=NULL;
+        //跨中边梁
+    field_making_girder_beam *mid_SpanSideBeam=NULL;
      //跨中中梁
-      field_making_girder_beam *mid_SpanMidBeam=NULL;
-      //
-        void getThridLoad(float f,float x);
-        void eff_combin(int beanId,int saftyGrade);
+    field_making_girder_beam *mid_SpanMidBeam=NULL;
+    vector<myPath> paths;
+    //总跨径
+    float bridgeSpan;
 
+
+        void getThridLoad(float f,float x);
+        void effCombin(int beanId,int saftyGrade);
+        vector<float> effCombinDataprocessor(int beanId,int saftyGrade);
+        vector<float> task_7_Dataprocess(QVariant v,bool field_count,bool beamType);
+
+        vector<float> getMaxSfd();
+        float steelAreaSolve(vector<float> sfdparam, float fpk, float ap);
 signals:
     void onTask_1_finished(QVariant v);
     void onTask_2_finished(QVariant v);

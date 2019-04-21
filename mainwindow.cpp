@@ -680,7 +680,7 @@ void MainWindow::pagePrepare(){
     connect(mycat,&CacularThread::mcqRender,this,&MainWindow::mcqRender);
     connect(this,&MainWindow::thridStageLoad,mycat,&CacularThread::getThridLoad);
     connect(mycat,&CacularThread::thridLoadFinished,this,&MainWindow::renderThridLoad);
-    connect(this,&MainWindow::eff_combin,mycat,&CacularThread::eff_combin);
+    connect(this,&MainWindow::eff_combin,mycat,&CacularThread::effCombin);
     connect(mycat,&CacularThread::eff_combinFinished,this,&MainWindow::eff_combinRender);
 
 
@@ -1030,15 +1030,18 @@ void MainWindow::on_commandLinkButton_50_clicked()
 
  QMessageBox::information(this,QString("提示"),"请先存入主梁数据!");
     }else{
-        if(generalTableCheak("tableWidget_190",15)){
+        if(generalTableCheak("tableWidget_190",16)){
 
-            QVariant data=getGeneralTableData("tableWidget_190",15);
+            QVariant data=getGeneralTableData("tableWidget_190",16);
             vector<float> input=data.value<vector<float>>();
             if(mycat->myobs==0){
               mycat->myobs=new OrdinaryBrigeSection(*(mycat->mid_SpanSideBeam),*(mycat->mid_SpanMidBeam),mycat->FulcrSideBeam,mycat->FulcrMidBeam,(int)input[10],input[0],input[7]);
               mycat->myobs->InitFsm();
               MainBeamData mymbd{mycat->myobs->total_span,input[6],input[14],input[1],input[2],input[3],input[4],input[0],input[8],(int)input[9],(int)input[10],input[11],input[12],input[5],input[13]};
               mycat->mymb=new MainBeam(mymbd);
+              mycat->bridgeSpan=input[15];
+              QMessageBox::information(this,QString("存入成功"),QString("已存储!"));
+
 
 
             }else{
@@ -1048,6 +1051,10 @@ void MainWindow::on_commandLinkButton_50_clicked()
                     mycat->myobs->InitFsm();
                     MainBeamData mymbd{mycat->myobs->total_span,input[6],input[14],input[1],input[2],input[3],input[4],input[0],input[8],(int)input[9],(int)input[10],input[11],input[12],input[5],input[13]};
                     mycat->mymb=new MainBeam(mymbd);
+                    mycat->bridgeSpan=input[15];
+                    QMessageBox::information(this,QString("存入成功"),QString("已存储!"));
+
+
                 }else{
 
                     return;
@@ -1062,3 +1069,5 @@ void MainWindow::on_commandLinkButton_50_clicked()
 
     }
 }
+
+

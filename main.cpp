@@ -3,6 +3,7 @@
 #include <QApplication>
 #include<vector>
 #include<math.h>
+#include<mytoolkit.h>
 
 //using namespace std;
 
