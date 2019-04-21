@@ -96,7 +96,7 @@ private slots:
 
     void on_pushButton_4_clicked();
 
-    void on_pushButton_5_clicked();
+
 
     void on_tableWidget_17_itemChanged(QTableWidgetItem *item);
 
@@ -113,6 +113,10 @@ private slots:
 
     
     void on_commandLinkButton_6_clicked();
+
+    void on_commandLinkButton_49_clicked();
+
+    void on_commandLinkButton_50_clicked();
 
 private:
     bool box_1_cheaked=false;

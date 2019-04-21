@@ -6,7 +6,6 @@ float ultimateLimitSta(float dl, float cl){
 	float param1 = 1.2 - 0.1*saftyGrade;
 
 	param1 = param1 < 0.9 ? 0.9 : param1;
-    qDebug()<<param1<<"------param1"<<dl<<"---"<<cl<<"---"<<param1 * (1.2*dl + 1.4 * 1 * cl)<<endl;
 	return param1 * (1.2*dl + 1.4 * 1 * cl);
 }
 float sfd(float dl, float cl) {

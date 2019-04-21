@@ -52,7 +52,7 @@
        </rect>
       </property>
       <property name="text">
-       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:16pt; color:#ff0000;&quot;&gt;中梁&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:12pt; color:#ff0000;&quot;&gt;中梁&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
       </property>
      </widget>
      <widget class="QTableWidget" name="tableWidget_162">
@@ -268,7 +268,7 @@
      </widget>
      <widget class="QLineEdit" name="lineEdit_43">
       <property name="enabled">
-       <bool>false</bool>
+       <bool>true</bool>
       </property>
       <property name="geometry">
        <rect>
@@ -295,7 +295,7 @@
        </rect>
       </property>
       <property name="text">
-       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:16pt; color:#ff0000;&quot;&gt;边梁&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:12pt; color:#ff0000;&quot;&gt;边梁&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
       </property>
      </widget>
      <widget class="QLabel" name="label_263">
@@ -742,7 +742,7 @@
      </widget>
      <widget class="QLineEdit" name="lineEdit_51">
       <property name="enabled">
-       <bool>false</bool>
+       <bool>true</bool>
       </property>
       <property name="geometry">
        <rect>
@@ -764,12 +764,12 @@
        <rect>
         <x>10</x>
         <y>10</y>
-        <width>131</width>
+        <width>151</width>
         <height>21</height>
        </rect>
       </property>
       <property name="text">
-       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; font-weight:600; color:#55007f;&quot;&gt;主梁数据录入&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:14pt; font-weight:600; color:#55007f;&quot;&gt;主梁数据录入&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
       </property>
      </widget>
      <widget class="QLabel" name="label_268">
@@ -831,12 +831,12 @@ border-radius:5px;</string>
        <rect>
         <x>530</x>
         <y>530</y>
-        <width>522</width>
-        <height>262</height>
+        <width>531</width>
+        <height>301</height>
        </rect>
       </property>
       <property name="rowCount">
-       <number>7</number>
+       <number>8</number>
       </property>
       <property name="columnCount">
        <number>4</number>
@@ -850,6 +850,7 @@ border-radius:5px;</string>
       <attribute name="verticalHeaderVisible">
        <bool>false</bool>
       </attribute>
+      <row/>
       <row/>
       <row/>
       <row/>
@@ -903,7 +904,7 @@ border-radius:5px;</string>
       </item>
       <item row="2" column="0">
        <property name="text">
-        <string>端梁横截面面积</string>
+        <string>边梁横截面面积</string>
        </property>
       </item>
       <item row="2" column="1">
@@ -1001,12 +1002,17 @@ border-radius:5px;</string>
         <string/>
        </property>
       </item>
+      <item row="7" column="0">
+       <property name="text">
+        <string>路缘石宽度</string>
+       </property>
+      </item>
      </widget>
      <widget class="QCommandLinkButton" name="commandLinkButton_50">
       <property name="geometry">
        <rect>
         <x>760</x>
-        <y>820</y>
+        <y>850</y>
         <width>71</width>
         <height>41</height>
        </rect>

@@ -17,8 +17,8 @@ class CacularThread : public QObject
     Q_OBJECT
 public:
     explicit CacularThread(QObject *parent = nullptr);
-    MainBeam *mymb;
-    OrdinaryBrigeSection *myobs;
+    MainBeam *mymb=NULL;
+    OrdinaryBrigeSection *myobs=NULL;
     //支点边梁
     field_making_girder_beam *FulcrSideBeam=NULL;
     //支点中梁
@@ -28,8 +28,10 @@ public:
      field_making_girder_beam *mid_SpanSideBeam=NULL;
      //跨中中梁
       field_making_girder_beam *mid_SpanMidBeam=NULL;
+      //
         void getThridLoad(float f,float x);
         void eff_combin(int beanId,int saftyGrade);
+
 signals:
     void onTask_1_finished(QVariant v);
     void onTask_2_finished(QVariant v);

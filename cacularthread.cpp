@@ -172,7 +172,7 @@ void CacularThread::task_7_process(QVariant v,bool field_count,bool beamType){
     half_box_girder myhbg1;
     half_box_girder myhbg2;
     if(!beamType){
-     //è¾¹æ¢
+     //±ßÁº
       fulc_left=FulcrSideBeam->sbg.left.getInfo();
 
       fulc_right=FulcrSideBeam->sbg.right.getInfo();
@@ -183,7 +183,7 @@ void CacularThread::task_7_process(QVariant v,bool field_count,bool beamType){
 
 
     }else{
-        //ä¸­æ¢
+        //ÖĞÁº
 
         fulc_left=FulcrMidBeam->sbg.left.getInfo();
         fulc_right=FulcrMidBeam->sbg.right.getInfo();
@@ -302,20 +302,20 @@ void CacularThread::eff_combin(int beanId,int saftyGrade){
     bool isSideBeam=(beanId==1|beanId==mymb->mbd.mianBeanNum)? true:false;
 
     setSaftyGrade(saftyGrade);
-    //ä¸€æœŸ
+    //Ò»ÆÚ
   float *p1=mymb->firstStageLoad();
-  //äºŒæœŸ
+  //¶şÆÚ
   float *p2=mymb->secondStageLoad();
-  //ä¸‰æœŸ
+  //ÈıÆÚ
   float p3=mymb->ThirdStageLoad();
-  //ä¸‰æœŸæ±‚å’Œ
-  //æŒ‡ä¸‰æœŸæ’è½½é›†åº¦ä¹‹å’Œ
+  //ÈıÆÚÇóºÍ
+  //Ö¸ÈıÆÚºãÔØ¼¯¶ÈÖ®ºÍ
   vector<float> loadSum;
-  //æŒ‡æ’è½½äº§ç”Ÿçš„å„ç•Œé¢å¼¯çŸ©å’Œå‰ªåŠ›;
+  //Ö¸ºãÔØ²úÉúµÄ¸÷½çÃæÍä¾ØºÍ¼ôÁ¦;
   vector<float> dieLoad;
-  //è®¡å†²å‡»ç³»æ•°
+  //¼Æ³å»÷ÏµÊı
   vector<float> impacCountedLiveload;
-  //ä¸è®¡å†²å‡»ç³»æ•°
+  //²»¼Æ³å»÷ÏµÊı
    vector<float> Liveload;
   loadSum.push_back(p1[0]+p2[0]+p3);
   loadSum.push_back(p1[1]+p2[1]+p3);
@@ -337,10 +337,10 @@ void CacularThread::eff_combin(int beanId,int saftyGrade){
       dieLoad.push_back(mymb->getMainBeanShearFoce(loadSum[1],0));
 
   }
-  //æŒ‡å®šæ¢å·æ´»è½½å¼¯çŸ©;
+  //Ö¸¶¨ÁººÅ»îÔØÍä¾Ø;
   vector<float> temp1=myobs->getLivaLoadBending(beanId);
 
-  //æŒ‡å®šæ¢å·æ´»è½½å‰ªåŠ›
+  //Ö¸¶¨ÁººÅ»îÔØ¼ôÁ¦
   vector<float> temp2=myobs->getLivaLoadSF(beanId);
 
   impacCountedLiveload.push_back(temp1[2]);
@@ -348,7 +348,7 @@ void CacularThread::eff_combin(int beanId,int saftyGrade){
   impacCountedLiveload.push_back(temp2[2]);
   impacCountedLiveload.push_back(temp2[1]);
   impacCountedLiveload.push_back(temp2[0]);
-  //å†²å‡»ç³»æ•°
+  //³å»÷ÏµÊı
     float vecf=myobs->vmcffe();
 
 
@@ -358,11 +358,11 @@ void CacularThread::eff_combin(int beanId,int saftyGrade){
 
     }
 
-    //åŸºæœ¬ç»„åˆç»“æœ
+    //»ù±¾×éºÏ½á¹û
     vector<float> basicCombin;
-    //é¢‘é‡ç»„åˆ
+    //ÆµÓö×éºÏ
     vector<float> frequeCombin;
-    //å‡†æ°¸ä¹…ç»„åˆ
+    //×¼ÓÀ¾Ã×éºÏ
     vector<float> quasiCombin;
     for(int i=0;i<dieLoad.size();i++){
        basicCombin.push_back(ultimateLimitSta(dieLoad[i],impacCountedLiveload[i]));
@@ -380,4 +380,6 @@ void CacularThread::eff_combin(int beanId,int saftyGrade){
     data.setValue(result);
     emit eff_combinFinished(data);
 
+
 }
+

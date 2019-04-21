@@ -192,7 +192,8 @@ public:
 	float cal_span;
 	//路缘石宽度
 	float stoneWidth;
-	float f_c_lca = cal_span / (5 - 2);
+    //横隔梁
+    float f_c_lca;
 	float qk = 10.5;
 	float pk = cal_span <= 5 ? 270 : cal_span > 50 ? 360 : 2 * (130 + cal_span);
 	vector<float> area_es;
@@ -229,7 +230,9 @@ public:
         mid_Fulcr_bean=fmmb;
 		bean_nums = bnu;
 		total_span = 2 * (smb.sbg.right.b1 + smb.sbg.left.b1 + smb.fmgb_length) + (bnu - 2)*(mmb.sbg.left.b1 + mmb.sbg.right.b1 + 2 * mmb.fmgb_length);
-		cal_span = calspan;
+
+        cal_span = calspan;
+        f_c_lca = cal_span / (5 - 2);
 		stoneWidth = stw;
 		half_box_girder temp = side_main_bean.sbg.left.isSideBeam ? side_main_bean.sbg.left : side_main_bean.sbg.right;
 		half_box_girder temp_mid = side_main_bean.sbg.left.isSideBeam ? side_main_bean.sbg.right : side_main_bean.sbg.left;
@@ -503,7 +506,7 @@ public:
 		temp1 *= vmcffe();
 
 		temp2 = (1.2*pk*0.75 + qk * cal_span * 9 / 32)*vmcffe()*test.Interpolat(cal_span / 4);
-		temp3 = (1.2*pk*0.5 + qk * cal_span / 8)*test.Interpolat(cal_span / 2)*vmcffe();
+        temp3 = (1.2*pk*0.5 + qk * cal_span / 8)*test.Interpolat(cal_span / 2)*vmcffe();
 		result.push_back(temp1);
 		result.push_back(temp2);
 		result.push_back(temp3);

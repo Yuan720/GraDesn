@@ -13,6 +13,12 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    mycat=new CacularThread;
+    mqt=new QThread(this);
+    mycat->moveToThread(mqt);
+    mqt->start();
+
+
 
 }
 
@@ -647,10 +653,7 @@ void MainWindow::pagePrepare(){
     generalTableInit("tableWidget_7");
     generalTableInit("tableWidget_6");
     generalTableInit("tableWidget_8");
-    mycat=new CacularThread;
-    mqt=new QThread(this);
-    mycat->moveToThread(mqt);
-    mqt->start();
+
     ui->label_28->hide();
     ui->spinBox->hide();
     ui->spinBox_2->hide();
@@ -772,15 +775,7 @@ void MainWindow::on_pushButton_4_clicked()
 
     }
 }
-void MainWindow::on_pushButton_5_clicked()
-{if(ui->spinBox->isVisible()){
-        ui->spinBox->hide();
-    }else{
-         ui->spinBox->show();
 
-    }
-
-}
 void MainWindow::on_tableWidget_17_itemChanged(QTableWidgetItem *item)
 {
     if(item->row()==0&item->column()==1){
@@ -808,7 +803,9 @@ void MainWindow::on_tabWidget_tabBarClicked(int index)
 
 }
 void MainWindow::onTabChoosed(){
+
     if(mycat->myobs==0|mycat->mymb==0){
+
         QMessageBox::information(this,QString("请先完善数据!"),QString("要计算作用效应组合,需要先在恒载和活载\n内力计算界面预输入必要数据!"));
 
 
@@ -946,4 +943,122 @@ Steelplot(path);
 
     }
 
+}
+
+void MainWindow::on_commandLinkButton_49_clicked()
+{
+    if(inputCheak("tableWidget_162")&lineEditCheak("lineEdit_43")&inputCheak("tableWidget_187")&inputCheak("tableWidget_188")&lineEditCheak("lineEdit_51"))
+    {
+        vector<float> taskdata1=tableDataProcess("tableWidget_162");
+        taskdata1.push_back(lineEditDataProcess("lineEdit_43"));
+        vector<float> taskdata2=tableDataProcess("tableWidget_187");
+        taskdata2.push_back(lineEditDataProcess("lineEdit_51"));
+        vector<float> taskdata3=tableDataProcess("tableWidget_188");
+                taskdata3.push_back(lineEditDataProcess("lineEdit_51"));
+                //中梁
+                half_box_girder zl(taskdata1[12],taskdata1[0],taskdata1[1],taskdata1[2],taskdata1[3],taskdata1[4],taskdata1[5],taskdata1[6],taskdata1[7],taskdata1[8],taskdata1[9],taskdata1[10],taskdata1[11],false);
+                half_box_girder bl1(taskdata2[12],taskdata2[0],taskdata2[1],taskdata2[2],taskdata2[3],taskdata2[4],taskdata2[5],taskdata2[6],taskdata2[7],taskdata2[8],taskdata2[9],taskdata2[10],taskdata2[11],true);
+                half_box_girder bl2(taskdata3[12],taskdata3[0],taskdata3[1],taskdata3[2],taskdata3[3],taskdata3[4],taskdata3[5],taskdata3[6],taskdata3[7],taskdata3[8],taskdata3[9],taskdata3[10],taskdata3[11],false);
+                small_box_girder sbzl(zl,zl);
+                small_box_girder sbbl(bl1,bl2);
+
+
+
+                if(ui->comboBox_33->currentIndex()==0){
+                    if(mycat->FulcrMidBeam==0&mycat->FulcrSideBeam==0){
+
+                        mycat->FulcrMidBeam=new field_making_girder_beam(sbzl,taskdata1[13]);
+                        mycat->FulcrSideBeam=new field_making_girder_beam(sbbl,taskdata2[13]);
+                        QMessageBox::information(this,QString("存入成功"),QString("已存储!"));
+
+                    }else{
+
+                        QMessageBox message(QMessageBox::NoIcon,"数据已存在!",ui->comboBox_33->currentText()+"数据似乎已经\n存在,是否覆盖?",QMessageBox::No|QMessageBox::Yes);
+
+
+                        if(message.exec()==QMessageBox::Yes){
+
+                            mycat->FulcrMidBeam=new field_making_girder_beam(sbzl,taskdata1[13]);
+                            mycat->FulcrSideBeam=new field_making_girder_beam(sbbl,taskdata2[13]);
+                            QMessageBox::information(this,QString("存入成功"),QString("已存储!"));
+
+                        }
+                        else
+                        {
+
+                           return;
+                        }
+                    }
+
+                }else{
+                    if(mycat->mid_SpanSideBeam==0&mycat->mid_SpanMidBeam==0){
+
+                            mycat->mid_SpanMidBeam=new field_making_girder_beam(sbzl,taskdata1[13]);
+                            mycat->mid_SpanSideBeam=new field_making_girder_beam(sbbl,taskdata2[13]);
+                                   QMessageBox::information(this,QString("存入成功"),QString("已存储!"));
+
+                        }else{
+
+                            QMessageBox message(QMessageBox::NoIcon,"数据已存在!",ui->comboBox_33->currentText()+"数据似乎已经\n存在,是否覆盖?",QMessageBox::No|QMessageBox::Yes);
+                            if(message.exec()==QMessageBox::Yes){
+                                mycat->mid_SpanMidBeam=new field_making_girder_beam(sbzl,taskdata1[13]);
+                                mycat->mid_SpanSideBeam=new field_making_girder_beam(sbbl,taskdata2[13]);
+                                QMessageBox::information(this,QString("存入成功"),QString("已存储!"));
+                            }else{
+
+                                return;
+                            }
+                        }
+
+
+
+                }
+
+
+          }else{
+QString qs1("必须输入");
+QString qs2(ui->comboBox_33->currentText());
+QString qs3("含现浇段主梁(边梁和中梁)\n的全部数据");
+QMessageBox::information(this,QString("错误"),qs1+qs2+qs3);
+
+    }
+}
+
+void MainWindow::on_commandLinkButton_50_clicked()
+{
+    if(mycat->mid_SpanSideBeam==0|mycat->mid_SpanMidBeam==0|mycat->FulcrMidBeam==0|mycat->FulcrSideBeam==0){
+
+ QMessageBox::information(this,QString("提示"),"请先存入主梁数据!");
+    }else{
+        if(generalTableCheak("tableWidget_190",15)){
+
+            QVariant data=getGeneralTableData("tableWidget_190",15);
+            vector<float> input=data.value<vector<float>>();
+            if(mycat->myobs==0){
+              mycat->myobs=new OrdinaryBrigeSection(*(mycat->mid_SpanSideBeam),*(mycat->mid_SpanMidBeam),mycat->FulcrSideBeam,mycat->FulcrMidBeam,(int)input[10],input[0],input[7]);
+              mycat->myobs->InitFsm();
+              MainBeamData mymbd{mycat->myobs->total_span,input[6],input[14],input[1],input[2],input[3],input[4],input[0],input[8],(int)input[9],(int)input[10],input[11],input[12],input[5],input[13]};
+              mycat->mymb=new MainBeam(mymbd);
+
+
+            }else{
+                QMessageBox message(QMessageBox::NoIcon,"数据已存在!","数据似乎已经存在,是否覆盖?",QMessageBox::No|QMessageBox::Yes);
+                if(message.exec()==QMessageBox::Yes){
+                    mycat->myobs=new OrdinaryBrigeSection(*(mycat->mid_SpanSideBeam),*(mycat->mid_SpanMidBeam),mycat->FulcrSideBeam,mycat->FulcrMidBeam,(int)input[10],input[0],input[7]);
+                    mycat->myobs->InitFsm();
+                    MainBeamData mymbd{mycat->myobs->total_span,input[6],input[14],input[1],input[2],input[3],input[4],input[0],input[8],(int)input[9],(int)input[10],input[11],input[12],input[5],input[13]};
+                    mycat->mymb=new MainBeam(mymbd);
+                }else{
+
+                    return;
+                }
+
+            }
+        }else{
+
+            QMessageBox::information(this,QString("错误"),"输入有误或数据不完整!");
+
+        }
+
+    }
 }
