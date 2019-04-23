@@ -1018,7 +1018,6 @@ void MainWindow::on_commandLinkButton_52_clicked()
   }
   qDebug()<<root;
   float as;
-  qDebug()<<bf<<"--"<<root<<"--"<<Fpd<<"--"<<ap<<"---"<<fsd;
   as=(22.4*bf*root-Fpd*ap)/fsd;
   qDebug()<<as;
 

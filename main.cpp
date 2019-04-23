@@ -15,8 +15,8 @@ int main(int argc, char *argv[])
      w.setWindowTitle("箱型梁桥设计计算");
     w.show();
     w.pagePrepare();
-
     return a.exec();
+
 
 
 }

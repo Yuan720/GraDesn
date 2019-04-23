@@ -12,6 +12,7 @@
 #include<QVariant>
 #include<XxwCustomPlot.h>
 #include<mytoolkit.h>
+
 using namespace std;
 namespace Ui {
 class MainWindow;
@@ -47,8 +48,8 @@ public:
     void renderCantilever(QVariant v);
     void onTabChoosed();
     void pagePrepare();
-
     void Steelplot(myPath path);
+    bool tableItemCheak(QTableWidgetItem *t);
 signals:
     void task_1_send(QVariant v,bool taskType);
     void task_2_send(QVariant v,QVariant w,bool taskType);
@@ -61,45 +62,35 @@ signals:
     void task_9_send(QVariant v);
     void thridStageLoad(float f,float x);
     void eff_combin(int beanId,int saftyGrade);
+    void nonPreStreSolve(float a,float fpd,float Ap);
 private slots:
 
     void task_4_finished(QVariant v);
     void CarrigeresultRender(QVariant v);
     void mcqRender(QVariant v,QString tbName);
-
-
-
-
     void on_listWidget_currentRowChanged(int currentRow);
-
     void on_commandLinkButton_clicked();
-
     void on_commandLinkButton_4_clicked();
-
     void on_listWidget_2_currentRowChanged(int currentRow);
-
     void on_commandLinkButton_2_clicked();
     void on_pushButton_3_clicked();
-
     void on_checkBox_3_stateChanged(int arg1);
     void on_commandLinkButton_5_clicked();
     void on_pushButton_4_clicked();
     void on_tableWidget_17_itemChanged(QTableWidgetItem *item);
     void on_tabWidget_tabBarClicked(int index);
     void on_spinBox_2_valueChanged(int arg1);
-
-
-
     void on_comboBox_4_currentIndexChanged(int index);
-
-
-    
     void on_commandLinkButton_6_clicked();
-
     void on_commandLinkButton_49_clicked();
-
     void on_commandLinkButton_50_clicked();
+    void on_commandLinkButton_51_clicked();
 
+    void on_pushButton_2_clicked();
+
+    void on_commandLinkButton_3_clicked();
+
+    void on_commandLinkButton_52_clicked();
 
 private:
     bool box_1_cheaked=false;

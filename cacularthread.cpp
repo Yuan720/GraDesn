@@ -294,7 +294,7 @@ vector<float> CacularThread::effCombinDataprocessor(int beanId, int saftyGrade)
     result.insert(result.end(),quasiCombin.begin(),quasiCombin.end());
     return result;
 }
-vector<float> CacularThread::getMaxSfd(){
+vector<float> CacularThread::getMaxSfd(int index){
     vector<float> result;
     result.push_back(1);
     result.push_back(0);
@@ -302,8 +302,8 @@ vector<float> CacularThread::getMaxSfd(){
     for(int i=1;i<=myobs->bean_nums;i++){
         cheakFor=effCombinDataprocessor(i,1);
 
-        result[1]=cheakFor[20]>result[1]? cheakFor[20]:result[1];
-        result[0]=cheakFor[20]>result[1]? result[0]:i;
+        result[1]=cheakFor[index]>result[1]? cheakFor[index]:result[1];
+        result[0]=cheakFor[index]>result[1]? result[index]:i;
 
 
     }
@@ -311,6 +311,7 @@ vector<float> CacularThread::getMaxSfd(){
 
 }
 float CacularThread::steelAreaSolve(vector<float> sfdparam,float fpk,float ap){
+
     bool isSideBeam=false;
     //ÁºÃæ»ý
     float beamArea;
@@ -342,12 +343,30 @@ float CacularThread::steelAreaSolve(vector<float> sfdparam,float fpk,float ap){
     W=smoa/centerHeight;
     float npe=(sfdparam[1]*pow(10,6)/W-0.7*2.65)/(1/beamArea+ep/W);
    float as=npe/((1-0.2)*0.75*fpk);
-    qDebug()<<"|"<<as<<"------"<<npe<<"|" <<W<<"|"<<smoa<<"|"<<centerHeight<<"|"<<ep<<"|";
     return as;
 
 
 
 
+
+}
+float CacularThread::getAverageSteelHeight(double x)
+{   float heightSum;
+    for(int i=0;i<paths.size();i++){
+        heightSum+=paths[i].getYvalue(x);
+    }
+    return heightSum/paths.size();
+
+}
+vector<float> CacularThread::getNewBeamSize(float I, float S, float b, float h)
+{
+    //todo
+    vector<float> a;
+    return a;
+}
+float CacularThread::ApSolve(float fpk, float ap)
+{
+   return steelAreaSolve(getMaxSfd(20), fpk, ap);
 
 }
 vector<float> CacularThread::task_7_Dataprocess(QVariant v,bool field_count,bool beamType)

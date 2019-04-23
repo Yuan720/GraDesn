@@ -13,6 +13,7 @@
 #include<Casoa.h>
 #include<math.h>
 #include<mytoolkit.h>
+Q_DECLARE_METATYPE(vector<myPath>)
 using namespace std;
 class CacularThread : public QObject
 {
@@ -30,6 +31,8 @@ public:
      //跨中中梁
     field_making_girder_beam *mid_SpanMidBeam=NULL;
     vector<myPath> paths;
+
+
     //总跨径
     float bridgeSpan;
 
@@ -38,9 +41,13 @@ public:
         void effCombin(int beanId,int saftyGrade);
         vector<float> effCombinDataprocessor(int beanId,int saftyGrade);
         vector<float> task_7_Dataprocess(QVariant v,bool field_count,bool beamType);
+        vector<float> getMaxSfd(int index);
 
-        vector<float> getMaxSfd();
+
         float steelAreaSolve(vector<float> sfdparam, float fpk, float ap);
+        float getAverageSteelHeight(double x);
+        vector<float> getNewBeamSize(float I,float S,float b,float h);
+        float ApSolve(float fpk, float ap);
 signals:
     void onTask_1_finished(QVariant v);
     void onTask_2_finished(QVariant v);
