@@ -35,8 +35,12 @@ public:
 
     //总跨径
     float bridgeSpan;
-
-
+    //半桥长过渡段起点和终点;
+    float Transtionhalf_start;
+    float Transtionhalf_end;
+        float getPipSmoaSum(float x,float newCenterHeight );
+        float getPipStaticMomentSum(float x);
+        float getPipAreaSum();
         void getThridLoad(float f,float x);
         void effCombin(int beanId,int saftyGrade);
         vector<float> effCombinDataprocessor(int beanId,int saftyGrade);
@@ -46,7 +50,7 @@ public:
 
         float steelAreaSolve(vector<float> sfdparam, float fpk, float ap);
         float getAverageSteelHeight(double x);
-        vector<float> getNewBeamSize(float I,float S,float b,float h);
+        vector<float> getSectionInfo(bool fieldCount,bool beamType,float x);
         float ApSolve(float fpk, float ap);
 signals:
     void onTask_1_finished(QVariant v);
@@ -60,6 +64,7 @@ signals:
     void mcqRender(QVariant v,QString tbName);
     void thridLoadFinished(QVariant v);
     void eff_combinFinished(QVariant v);
+    void Sectionfinished(QVariant v);
 
 public slots:
     void task_1_process(QVariant v,bool taskType);
@@ -71,6 +76,7 @@ public slots:
     void task_7_process(QVariant v,bool field_count,bool beamType);
     void task_8_process(float x,float foce1,float foce2);
     void task_9_process(QVariant v);
+    void task_10_process(bool fieldCount,bool beamType,float x);
 };
 
 #endif // CACULARTHREAD_H

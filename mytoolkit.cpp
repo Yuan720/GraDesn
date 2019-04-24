@@ -1,4 +1,5 @@
 #include<mytoolkit.h>
+#include<QDebug>
 
 Point::Point(double vx,double vy){
     x=vx;y=vy;
@@ -26,7 +27,7 @@ MyArc::MyArc(double vradius,Point vstartPoint,Point vendPoint,double vangleLengt
 
 myPath::myPath(Point pathStart,Point pathTurn,double radius,double half_span){
 double tangent1=fabs(pathStart.y-pathTurn.y)/fabs(pathStart.x-pathTurn.x);
-//åœ†å¿ƒè§’
+//Ô²ÐÄ½Ç
 double circleCor=atan( tangent1);
 double l1=radius*tan(circleCor/2);
 pathStartPoint=pathStart;
@@ -37,6 +38,22 @@ tangentPoint2=Point(center.x-radius*sin(circleCor),center.y-radius*cos(circleCor
 midSpanPoint=Point(half_span,tangentPoint1.y);
 midArc=MyArc(radius,tangentPoint1,tangentPoint2,circleCor);
 
+}
+
+myPath::myPath(Point vpathStart, Point vpathTurn, double vradius, double vhalf_span, double vd)
+{
+    double tangent1=fabs(vpathStart.y-vpathTurn.y)/fabs(vpathStart.x-vpathTurn.x);
+    //Ô²ÐÄ½Ç
+    double circleCor=atan( tangent1);
+    double l1=vradius*tan(circleCor/2);
+    pathStartPoint=vpathStart;
+    trunPoint=vpathTurn;
+    tangentPoint1=Point(vpathTurn.x+l1,vpathTurn.y);
+    center=Point(tangentPoint1.x,tangentPoint1.y+vradius);
+    tangentPoint2=Point(center.x-vradius*sin(circleCor),center.y-vradius*cos(circleCor));
+    midSpanPoint=Point(vhalf_span,tangentPoint1.y);
+    midArc=MyArc(vradius,tangentPoint1,tangentPoint2,circleCor);
+    d=vd;
 }
 double myPath::getYvalue(double x){
     x=x<midSpanPoint.x? x:2*midSpanPoint.x-x;

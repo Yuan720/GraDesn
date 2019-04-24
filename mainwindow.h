@@ -46,10 +46,12 @@ public:
     vector<float> tableDataProcess(QString tableName);
     float lineEditDataProcess(QString leID);
     void renderCantilever(QVariant v);
+    void render4(QVariant v);
     void onTabChoosed();
     void pagePrepare();
     void Steelplot(myPath path);
     bool tableItemCheak(QTableWidgetItem *t);
+    void Init_table_189();
 signals:
     void task_1_send(QVariant v,bool taskType);
     void task_2_send(QVariant v,QVariant w,bool taskType);
@@ -63,6 +65,8 @@ signals:
     void thridStageLoad(float f,float x);
     void eff_combin(int beanId,int saftyGrade);
     void nonPreStreSolve(float a,float fpd,float Ap);
+    void SectionCompute(bool fieldCount,bool beamType,float x);
+
 private slots:
 
     void task_4_finished(QVariant v);
@@ -89,8 +93,14 @@ private slots:
     void on_pushButton_2_clicked();
 
     void on_commandLinkButton_3_clicked();
-
     void on_commandLinkButton_52_clicked();
+    void on_tableWidget_189_cellClicked(int row, int column);
+    void on_lineEdit_editingFinished();
+
+
+    void on_radioButton_clicked();
+
+    void on_comboBox_34_currentIndexChanged(int index);
 
 private:
     bool box_1_cheaked=false;
@@ -100,6 +110,9 @@ private:
     CacularThread *mycat;
     QThread *mqt;
     XxwCustomPlot  *m_customPlot;
+
 };
+
+
 
 #endif // MAINWINDOW_H

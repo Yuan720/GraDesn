@@ -6,6 +6,40 @@ CacularThread::CacularThread(QObject *parent) : QObject(parent)
 {
 
 }
+
+float CacularThread::getPipSmoaSum(float x,float newCenterHeight)
+{   float smoa;
+    //返回截面x处预留管的等效惯性矩和
+    for(int i=0;i<paths.size();i++){
+     smoa+=Pi*pow(paths[i].d,4)/64+pow(paths[i].getYvalue(x)-newCenterHeight,2)*Pi*pow(paths[i].d/2,2);
+
+    }
+    return smoa;
+
+}
+
+float CacularThread::getPipStaticMomentSum(float x)
+{   //返回截面x处的预留管的等效
+
+    float staticMomt;
+    for(int i=0;i<paths.size();i++){
+        staticMomt+=Pi*(pow(paths[i].d,2)*0.25)*paths[i].getYvalue(x);
+
+    }
+
+    //todo
+    return  staticMomt;
+
+}
+
+float CacularThread::getPipAreaSum()
+{   float res;
+    for(int i=0;i<paths.size();i++){
+        res+=Pi*pow(paths[i].d,2)*0.25;
+    }
+    return res;
+
+}
 //信号处理函数--------------------------------
 void CacularThread::task_1_process(QVariant mv, bool taskType)
 {
@@ -195,6 +229,15 @@ void CacularThread::task_9_process(QVariant v){
      emit mcqRender(data3,"tableWidget_20");
 
 }
+
+void CacularThread::task_10_process(bool fieldCount, bool beamType, float x)
+{
+    vector<float> res=getSectionInfo(fieldCount,beamType,x);
+    QVariant data;
+    data.setValue(res);
+    emit Sectionfinished(data);
+
+}
 void CacularThread::getThridLoad(float f,float x){
     vector<float> a;
     QVariant data;
@@ -358,11 +401,47 @@ float CacularThread::getAverageSteelHeight(double x)
     return heightSum/paths.size();
 
 }
-vector<float> CacularThread::getNewBeamSize(float I, float S, float b, float h)
-{
-    //todo
-    vector<float> a;
-    return a;
+vector<float> CacularThread::getSectionInfo(bool fieldCount,bool beamType,float x)
+{   //布尔值1表示是否计入现浇段
+    //布尔值2true表示中梁,false表示边梁
+    /*
+面积
+惯性矩
+静弯
+重心
+kx
+ks
+效率指标
+*/
+    vector<float> request;
+    request.push_back(bridgeSpan*1000);
+    request.push_back(x);
+    request.push_back(1000*Transtionhalf_start);
+    request.push_back(1000*Transtionhalf_end);
+
+   QVariant data;
+   data.setValue(request);
+   float AreaSum;
+   float smoaSuam;
+   float staticMoment;
+   float centerHeight;
+
+ vector<float> respon=task_7_Dataprocess(data,fieldCount,beamType);
+ vector<float> result;
+ AreaSum=pow(10,6)*respon[0]-getPipAreaSum();
+ staticMoment=pow(10,9)*respon[2]-getPipStaticMomentSum(x);
+ centerHeight=staticMoment/AreaSum;
+ smoaSuam=pow(10,12)*respon[1]+pow(10,6)*respon[0]*pow(respon[3]*pow(10,3)-centerHeight,2)-getPipSmoaSum(x,centerHeight);
+ result.push_back(AreaSum);
+ result.push_back(smoaSuam);
+ result.push_back(staticMoment);
+ result.push_back(centerHeight);
+ return result;
+
+
+
+
+
 }
 float CacularThread::ApSolve(float fpk, float ap)
 {
@@ -371,6 +450,7 @@ float CacularThread::ApSolve(float fpk, float ap)
 }
 vector<float> CacularThread::task_7_Dataprocess(QVariant v,bool field_count,bool beamType)
 {
+    //第一个参数 总跨长 第二个  请求截面位置      第三个参数 过渡起点坐标 第四个 过渡终点坐标
     vector<float> input=v.value<vector<float>>();
     float halfLength=input[3]-input[2];
     float xe=input[1]>input[0]/2? input[0]-input[1]:input[1];
@@ -463,6 +543,14 @@ vector<float> CacularThread::task_7_Dataprocess(QVariant v,bool field_count,bool
         result.push_back(mysbg.getRho());
     }
 
+
     return result;
 
 }
+
+
+
+
+
+
+

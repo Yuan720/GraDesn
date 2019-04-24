@@ -306,6 +306,20 @@ void MainWindow::renderCantilever(QVariant v){
 
 
 }
+
+void MainWindow::render4(QVariant v)
+{   vector<float> input=v.value<vector<float>>();
+    QTableWidget  *qtw=ui->tableWidget_191;
+    for(int i=0;i<qtw->columnCount();i++){
+
+      QTableWidgetItem *it=new QTableWidgetItem();
+      it->setText(QString::number(input[i],'f',3));
+qtw->setItem(1,i,it);
+
+    }
+
+
+}
 void MainWindow::resultDisplay(vector<float> v, QString tbname){
       QTableWidget  *qtw=this->findChild< QTableWidget*>(tbname);
 
@@ -514,6 +528,8 @@ void MainWindow::pagePrepare(){
     connect(mycat,&CacularThread::thridLoadFinished,this,&MainWindow::renderThridLoad);
     connect(this,&MainWindow::eff_combin,mycat,&CacularThread::effCombin);
     connect(mycat,&CacularThread::eff_combinFinished,this,&MainWindow::eff_combinRender);
+    connect(this,&MainWindow::SectionCompute,mycat,&CacularThread::task_10_process);
+    connect(mycat,&CacularThread::Sectionfinished,this,&MainWindow::render4);
 
 }
 void MainWindow::on_listWidget_currentRowChanged(int currentRow)
@@ -696,6 +712,7 @@ void MainWindow::Steelplot(myPath path){
        for (int i = 0; i <nCount; ++i)
        {
            x[i] =path.pathStartPoint.x+i*ts; // x goes from -1 to 1
+
            y0[i] = path.getYvalue(x[i]);
                    //qSin(i * 10.0f / nCount); //sin
           // y1[i] = qCos(i * 10.0f / nCount); //cos
@@ -847,13 +864,14 @@ QMessageBox::information(this,QString("错误"),qs1+qs2+qs3);
     }
 }
 void MainWindow::on_commandLinkButton_50_clicked()
-{
+{   bool table_192_cheak=tableItemCheak(ui->tableWidget_192->item(1,0))&tableItemCheak(ui->tableWidget_192->item(1,1));
     if(mycat->mid_SpanSideBeam==0|mycat->mid_SpanMidBeam==0|mycat->FulcrMidBeam==0|mycat->FulcrSideBeam==0){
 
  QMessageBox::information(this,QString("提示"),"请先存入主梁数据!");
     }else{
-        if(generalTableCheak("tableWidget_190",16)){
-
+        if(generalTableCheak("tableWidget_190",16)&table_192_cheak){
+            mycat->Transtionhalf_start=ui->tableWidget_192->item(1,0)->text().toFloat();
+            mycat->Transtionhalf_end=ui->tableWidget_192->item(1,1)->text().toFloat();
             QVariant data=getGeneralTableData("tableWidget_190",16);
             vector<float> input=data.value<vector<float>>();
             if(mycat->myobs==0){
@@ -913,8 +931,9 @@ void MainWindow::on_commandLinkButton_51_clicked()
         }
 
     }
-    for(int i=1;i<=8;i++){
-        myPath temp(Point(res[(i-1)*5],res[(i-1)*5+1]),Point(res[(i-1)*5+2],res[(i-1)*5+3]),res[(i-1)*5+4],mycat->bridgeSpan);
+    for(int i=1;i<=4;i++){
+        myPath temp(Point(res[(i-1)*6],res[(i-1)*6+1]),Point(res[(i-1)*6+2],res[(i-1)*6+3]),res[(i-1)*6+4],1000*mycat->bridgeSpan/2,res[(i-1)*6+5]);
+        qDebug()<<res[(i-1)*6]<<"--"<<res[(i-1)*6+1]<<"--"<<res[(i-1)*6+2]<<"--"<<res[(i-1)*6+3]<<res[(i-1)*6+4]<<"--"<<1000*mycat->bridgeSpan/2<<"--"<<res[(i-1)*6+5];
         datas.push_back(temp);
     }
 
@@ -922,8 +941,9 @@ void MainWindow::on_commandLinkButton_51_clicked()
     {
             QMessageBox message(QMessageBox::NoIcon,"数据已存在!","数据似乎已经存在,是否覆盖?",QMessageBox::No|QMessageBox::Yes);
             if(message.exec()==QMessageBox::Yes){
-
+                datas.insert(datas.end(),datas.begin(),datas.end());
                 mycat->paths=datas;
+
                 QMessageBox::information(this,QString("保存成功"),"已存入!");
 
             }else{
@@ -931,23 +951,25 @@ void MainWindow::on_commandLinkButton_51_clicked()
                 return;
             }
     }else
-    {
+    {         datas.insert(datas.end(),datas.begin(),datas.end());
+              mycat->paths=datas;
 
-        mycat->paths=datas;
         QMessageBox::information(this,QString("保存成功"),"已存入!");
     }
 
 
 
 }
-
 void MainWindow::on_pushButton_2_clicked()
-{  vector<float> a=mycat->getMaxSfd(15);
-    qDebug()<<a[0]<<"  "<<a[1];
-    //todo计算各阶段几何特征
+{   qDebug()<<"标记sectin info ";
+    vector<float> test=mycat->getSectionInfo(false, true,9000);
+    for(int i=0;i<test.size();i++)
+    { QString str=QString::number(test[i],'f',0);
+     qDebug()<<str<<endl;
+    }
+
 
 }
-
 void MainWindow::on_commandLinkButton_3_clicked()
 {
     //计算Ap
@@ -968,7 +990,6 @@ void MainWindow::on_commandLinkButton_3_clicked()
 
 
 }
-
 void MainWindow::on_commandLinkButton_52_clicked()
 { QTableWidget *tb=ui->tableWidget_2;
     float fsd;
@@ -1018,9 +1039,86 @@ void MainWindow::on_commandLinkButton_52_clicked()
   }
   qDebug()<<root;
   float as;
-  qDebug()<<bf<<"--"<<root<<"--"<<Fpd<<"--"<<ap<<"---"<<fsd;
   as=(22.4*bf*root-Fpd*ap)/fsd;
   qDebug()<<as;
 
 
+}
+void MainWindow::on_tableWidget_189_cellClicked(int row, int column)
+{
+
+        if(column==0&row>0){
+            QTableWidget *qtw=ui->tableWidget_189;
+                QTableWidgetItem *it=new  QTableWidgetItem();
+                QString qs=qtw->item(row,column)==0? " ":qtw->item(row,column)->text();
+                it->setText(qs);
+                it->setFlags(Qt::ItemIsEditable);
+                qtw->setItem(row,column,it);
+                Steelplot(mycat->paths[row-1]);
+
+
+
+        }
+
+
+}
+void MainWindow::on_lineEdit_editingFinished()
+{
+    QString input=ui->lineEdit->text();
+    QRadioButton *radio=ui->radioButton;
+  bool fieldCount=radio->isChecked();
+  bool Type=ui->comboBox_34->currentIndex()==0? false:true;
+
+
+    bool isInvalid;
+  float x=input.toFloat(&isInvalid);
+
+  if(isInvalid& x<mycat->bridgeSpan*1000){
+
+      emit SectionCompute(fieldCount,Type,x);
+  }else{
+     qDebug()<<"输入非法!!";
+
+  }
+
+}
+
+void MainWindow::on_radioButton_clicked()
+{
+    QString input=ui->lineEdit->text();
+    QRadioButton *radio=ui->radioButton;
+  bool fieldCount=radio->isChecked();
+  bool Type=ui->comboBox_34->currentIndex()==0? false:true;
+
+
+    bool isInvalid;
+  float x=input.toFloat(&isInvalid);
+
+  if(isInvalid& x<mycat->bridgeSpan*1000){
+
+      emit SectionCompute(fieldCount,Type,x);
+  }else{
+     qDebug()<<"输入非法!!";
+
+  }
+}
+
+void MainWindow::on_comboBox_34_currentIndexChanged(int index)
+{
+    QString input=ui->lineEdit->text();
+    QRadioButton *radio=ui->radioButton;
+  bool fieldCount=radio->isChecked();
+  bool Type=ui->comboBox_34->currentIndex()==0? false:true;
+
+
+    bool isInvalid;
+  float x=input.toFloat(&isInvalid);
+
+  if(isInvalid& x<mycat->bridgeSpan*1000){
+
+      emit SectionCompute(fieldCount,Type,x);
+  }else{
+     qDebug()<<"输入非法!!";
+
+  }
 }

@@ -48,7 +48,9 @@ class myPath{
 public:
    myPath(){};
     myPath(Point pathStart, Point pathTurn, double radius,double half_span);
+    myPath(Point pathStart, Point pathTurn, double radius,double half_span,double area);
     //弧圆心
+    double d;
     Point center;
     Point pathStartPoint;
     Point trunPoint;
