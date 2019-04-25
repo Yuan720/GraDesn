@@ -37,7 +37,8 @@ SOURCES += \
     XxwTracer.cpp \
     XxwTracer.cpp \
     XxwCustomPlot.cpp \
-    qcustomplot.cpp
+    qcustomplot.cpp \
+    variables.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -50,7 +51,8 @@ HEADERS += \
     mywidget.h \
     XxwCustomPlot.h \
     XxwTracer.h \
-    qcustomplot.h
+    qcustomplot.h \
+    variables.h
 
 FORMS += \
         mainwindow.ui

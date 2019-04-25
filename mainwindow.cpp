@@ -4,9 +4,6 @@
 #include "ui_mainwindow.h"
 #include<QWidget>
 #include<QPainter>
-#include<mytoolkit.h>
-
-
 using namespace std;
 Q_DECLARE_METATYPE(std::vector<float>)
 MainWindow::MainWindow(QWidget *parent) :
@@ -494,7 +491,6 @@ float MainWindow::lineEditDataProcess(QString leID){
     return qtw->text().toFloat();}
 void MainWindow::pagePrepare(){
 
-
     generalTableInit("tableWidget_7");
     generalTableInit("tableWidget_6");
     generalTableInit("tableWidget_8");
@@ -876,10 +872,13 @@ void MainWindow::on_commandLinkButton_50_clicked()
             vector<float> input=data.value<vector<float>>();
             if(mycat->myobs==0){
               mycat->myobs=new OrdinaryBrigeSection(*(mycat->mid_SpanSideBeam),*(mycat->mid_SpanMidBeam),mycat->FulcrSideBeam,mycat->FulcrMidBeam,(int)input[10],input[0],input[7]);
+
               mycat->myobs->InitFsm();
+              bridge_calspan=input[0];
               MainBeamData mymbd{mycat->myobs->total_span,input[6],input[14],input[1],input[2],input[3],input[4],input[0],input[8],(int)input[9],(int)input[10],input[11],input[12],input[5],input[13]};
               mycat->mymb=new MainBeam(mymbd);
               mycat->bridgeSpan=input[15];
+              bridge_total_Span=input[15];
               QMessageBox::information(this,QString("存入成功"),QString("已存储!"));
 
 
@@ -888,10 +887,12 @@ void MainWindow::on_commandLinkButton_50_clicked()
                 QMessageBox message(QMessageBox::NoIcon,"数据已存在!","数据似乎已经存在,是否覆盖?",QMessageBox::No|QMessageBox::Yes);
                 if(message.exec()==QMessageBox::Yes){
                     mycat->myobs=new OrdinaryBrigeSection(*(mycat->mid_SpanSideBeam),*(mycat->mid_SpanMidBeam),mycat->FulcrSideBeam,mycat->FulcrMidBeam,(int)input[10],input[0],input[7]);
+                    bridge_calspan=input[0];
                     mycat->myobs->InitFsm();
                     MainBeamData mymbd{mycat->myobs->total_span,input[6],input[14],input[1],input[2],input[3],input[4],input[0],input[8],(int)input[9],(int)input[10],input[11],input[12],input[5],input[13]};
                     mycat->mymb=new MainBeam(mymbd);
                     mycat->bridgeSpan=input[15];
+                    bridge_total_Span=input[15];
                     QMessageBox::information(this,QString("存入成功"),QString("已存储!"));
 
 
@@ -961,12 +962,13 @@ void MainWindow::on_commandLinkButton_51_clicked()
 
 }
 void MainWindow::on_pushButton_2_clicked()
-{   qDebug()<<"标记sectin info ";
-    vector<float> test=mycat->getSectionInfo(false, true,9000);
-    for(int i=0;i<test.size();i++)
-    { QString str=QString::number(test[i],'f',0);
-     qDebug()<<str<<endl;
-    }
+{   qDebug()<<"调试..... "<<endl;
+    qDebug()<<"("<<mycat->paths[0].center.x<<","<<mycat->paths[0].center.y<<")";
+    qDebug()<<"("<<mycat->paths[0].tangentPoint2.x<<","<<mycat->paths[0].tangentPoint2.y<<")";
+     qDebug()<<"("<<mycat->paths[0].tangentPoint1.x<<","<<mycat->paths[0].tangentPoint1.y<<")";
+     qDebug()<<mycat->paths[0].getSigma_l1(17500)<<"-----";
+
+
 
 
 }
@@ -1046,7 +1048,9 @@ void MainWindow::on_commandLinkButton_52_clicked()
 }
 void MainWindow::on_tableWidget_189_cellClicked(int row, int column)
 {
-
+    if(mycat->paths.size()==0){
+    return;
+    }
         if(column==0&row>0){
             QTableWidget *qtw=ui->tableWidget_189;
                 QTableWidgetItem *it=new  QTableWidgetItem();
@@ -1118,7 +1122,7 @@ void MainWindow::on_comboBox_34_currentIndexChanged(int index)
 
       emit SectionCompute(fieldCount,Type,x);
   }else{
-     qDebug()<<"输入非法!!";
+
 
   }
 }

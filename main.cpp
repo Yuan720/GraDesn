@@ -3,9 +3,11 @@
 #include <QApplication>
 #include<vector>
 #include<math.h>
-#include<mytoolkit.h>
 
-//using namespace std;
+
+
+
+
 
 int main(int argc, char *argv[])
 {
@@ -16,6 +18,9 @@ int main(int argc, char *argv[])
     w.show();
     w.pagePrepare();
     return a.exec();
+
+
+
 
 
 

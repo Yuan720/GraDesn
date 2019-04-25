@@ -18,6 +18,7 @@ void setSaftyGrade(int sg) {
 	if (sg>0&sg<4)
 	{
         saftyGrade =sg;
+
 	}
 
 }

@@ -38,6 +38,9 @@ public:
     //半桥长过渡段起点和终点;
     float Transtionhalf_start;
     float Transtionhalf_end;
+
+
+
         float getPipSmoaSum(float x,float newCenterHeight );
         float getPipStaticMomentSum(float x);
         float getPipAreaSum();

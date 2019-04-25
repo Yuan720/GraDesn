@@ -1,14 +1,16 @@
+#pragma once
 #pragma execution_character_set("utf-8")
 #ifndef MYTOOLKIT_H
 #define MYTOOLKIT_H
 #include<math.h>
-const double Pi=3.1415926;
+#include<qmath.h>
+#include<variables.h>
 class Point{
 
 
 
 public:
-    Point(){};
+    Point(){}
    double distanceFrom(Point p);
    Point(double vx, double vy);
    double x;
@@ -60,7 +62,11 @@ public:
     //跨中点
     Point midSpanPoint;
     MyArc midArc;
-
+    double getPivotDistance();
     double getYvalue(double x);
+    double getAngleByX(double x);
+    double getSigma_l1(float x);
+    double getSigma_l2(float x);
+
 };
 #endif // MYTOOLKIT_H
