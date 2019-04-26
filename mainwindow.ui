@@ -3174,7 +3174,7 @@ border-radius:5px;</string>
        <rect>
         <x>210</x>
         <y>510</y>
-        <width>878</width>
+        <width>1028</width>
         <height>188</height>
        </rect>
       </property>
@@ -3185,10 +3185,13 @@ border-radius:5px;</string>
        <number>5</number>
       </property>
       <property name="columnCount">
-       <number>7</number>
+       <number>8</number>
       </property>
       <attribute name="horizontalHeaderVisible">
        <bool>false</bool>
+      </attribute>
+      <attribute name="horizontalHeaderDefaultSectionSize">
+       <number>128</number>
       </attribute>
       <attribute name="verticalHeaderVisible">
        <bool>false</bool>
@@ -3201,6 +3204,7 @@ border-radius:5px;</string>
       <row/>
       <row/>
       <row/>
+      <column/>
       <column/>
       <column/>
       <column/>
@@ -3243,6 +3247,11 @@ border-radius:5px;</string>
         <string>预留管直径mm</string>
        </property>
       </item>
+      <item row="0" column="7">
+       <property name="text">
+        <string>预应力筋换算面积</string>
+       </property>
+      </item>
       <item row="1" column="0">
        <property name="text">
         <string>1</string>
@@ -3276,6 +3285,11 @@ border-radius:5px;</string>
       <item row="1" column="6">
        <property name="text">
         <string>70</string>
+       </property>
+      </item>
+      <item row="1" column="7">
+       <property name="text">
+        <string>8058.96</string>
        </property>
       </item>
       <item row="2" column="0">
@@ -3313,6 +3327,11 @@ border-radius:5px;</string>
         <string>70</string>
        </property>
       </item>
+      <item row="2" column="7">
+       <property name="text">
+        <string>8058.96</string>
+       </property>
+      </item>
       <item row="3" column="0">
        <property name="text">
         <string>3</string>
@@ -3348,6 +3367,11 @@ border-radius:5px;</string>
         <string>70</string>
        </property>
       </item>
+      <item row="3" column="7">
+       <property name="text">
+        <string>7521.696</string>
+       </property>
+      </item>
       <item row="4" column="0">
        <property name="text">
         <string>4</string>
@@ -3381,6 +3405,11 @@ border-radius:5px;</string>
       <item row="4" column="6">
        <property name="text">
         <string>70</string>
+       </property>
+      </item>
+      <item row="4" column="7">
+       <property name="text">
+        <string>7521.696</string>
        </property>
       </item>
      </widget>
@@ -3428,7 +3457,7 @@ border-radius:5px;</string>
        <property name="geometry">
         <rect>
          <x>0</x>
-         <y>-431</y>
+         <y>-34</y>
          <width>1328</width>
          <height>3000</height>
         </rect>
@@ -3712,7 +3741,7 @@ border-radius:5px;</string>
          <rect>
           <x>20</x>
           <y>690</y>
-          <width>1052</width>
+          <width>845</width>
           <height>76</height>
          </rect>
         </property>
@@ -3720,7 +3749,7 @@ border-radius:5px;</string>
          <number>2</number>
         </property>
         <property name="columnCount">
-         <number>5</number>
+         <number>4</number>
         </property>
         <attribute name="horizontalHeaderVisible">
          <bool>false</bool>
@@ -3737,7 +3766,6 @@ border-radius:5px;</string>
         <column/>
         <column/>
         <column/>
-        <column/>
         <item row="0" column="0">
          <property name="text">
           <string>非预应力钢筋换算面积</string>
@@ -3745,7 +3773,7 @@ border-radius:5px;</string>
         </item>
         <item row="0" column="1">
          <property name="text">
-          <string>非预应力钢筋重心至梁顶距离</string>
+          <string>非预应力钢筋重心位置</string>
          </property>
         </item>
         <item row="0" column="2">
@@ -3756,34 +3784,6 @@ border-radius:5px;</string>
         <item row="0" column="3">
          <property name="text">
           <string>预应力钢筋换算面积</string>
-         </property>
-        </item>
-        <item row="0" column="4">
-         <property name="text">
-          <string>截面位置</string>
-         </property>
-        </item>
-       </widget>
-       <widget class="QComboBox" name="comboBox">
-        <property name="geometry">
-         <rect>
-          <x>190</x>
-          <y>641</y>
-          <width>71</width>
-          <height>31</height>
-         </rect>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">border-radius:5px;</string>
-        </property>
-        <item>
-         <property name="text">
-          <string>边梁</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>中梁</string>
          </property>
         </item>
        </widget>
@@ -3801,15 +3801,15 @@ border-radius:5px;</string>
 border-radius:5px;</string>
         </property>
         <property name="text">
-         <string>计算</string>
+         <string>存储</string>
         </property>
        </widget>
        <widget class="QComboBox" name="comboBox_34">
         <property name="geometry">
          <rect>
           <x>50</x>
-          <y>950</y>
-          <width>111</width>
+          <y>960</y>
+          <width>91</width>
           <height>31</height>
          </rect>
         </property>
@@ -3829,7 +3829,7 @@ border-radius:5px;</string>
          <rect>
           <x>50</x>
           <y>1020</y>
-          <width>563</width>
+          <width>803</width>
           <height>76</height>
          </rect>
         </property>
@@ -3837,19 +3837,20 @@ border-radius:5px;</string>
          <number>2</number>
         </property>
         <property name="columnCount">
-         <number>4</number>
+         <number>5</number>
         </property>
         <attribute name="horizontalHeaderVisible">
          <bool>false</bool>
         </attribute>
         <attribute name="horizontalHeaderDefaultSectionSize">
-         <number>140</number>
+         <number>160</number>
         </attribute>
         <attribute name="verticalHeaderVisible">
          <bool>false</bool>
         </attribute>
         <row/>
         <row/>
+        <column/>
         <column/>
         <column/>
         <column/>
@@ -3874,41 +3875,81 @@ border-radius:5px;</string>
           <string>形心高度</string>
          </property>
         </item>
-       </widget>
-       <widget class="QRadioButton" name="radioButton">
-        <property name="geometry">
-         <rect>
-          <x>50</x>
-          <y>990</y>
-          <width>111</width>
-          <height>19</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>计入 现浇段</string>
-        </property>
+        <item row="0" column="4">
+         <property name="text">
+          <string>ep</string>
+         </property>
+        </item>
        </widget>
        <widget class="QLineEdit" name="lineEdit">
         <property name="geometry">
          <rect>
-          <x>320</x>
+          <x>280</x>
           <y>960</y>
-          <width>71</width>
-          <height>21</height>
+          <width>91</width>
+          <height>31</height>
          </rect>
         </property>
        </widget>
        <widget class="QLabel" name="label_5">
         <property name="geometry">
          <rect>
-          <x>210</x>
-          <y>960</y>
+          <x>280</x>
+          <y>940</y>
           <width>101</width>
           <height>16</height>
          </rect>
         </property>
         <property name="text">
          <string>截面位置x(mm):</string>
+        </property>
+       </widget>
+       <widget class="QComboBox" name="comboBox_5">
+        <property name="geometry">
+         <rect>
+          <x>160</x>
+          <y>960</y>
+          <width>91</width>
+          <height>31</height>
+         </rect>
+        </property>
+        <item>
+         <property name="text">
+          <string>阶段一</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>阶段二</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>阶段三</string>
+         </property>
+        </item>
+       </widget>
+       <widget class="QTextBrowser" name="textBrowser_2">
+        <property name="geometry">
+         <rect>
+          <x>910</x>
+          <y>910</y>
+          <width>201</width>
+          <height>191</height>
+         </rect>
+        </property>
+        <property name="html">
+         <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'SimSun'; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600; color:#0000ff;&quot;&gt;阶段一&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600; font-style:italic;&quot;&gt;计入非预应力钢筋影响,但不计现浇段&lt;/span&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600; color:#0000ff;&quot;&gt;阶段二&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600; font-style:italic;&quot;&gt;计入非预应力钢筋和预应力钢筋,仍不计现浇段.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600; color:#0000ff;&quot;&gt;阶段三&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600; font-style:italic;&quot;&gt;计入非预应力钢筋和预应力钢筋,且计现浇段.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
         </property>
        </widget>
       </widget>

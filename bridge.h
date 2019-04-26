@@ -1,5 +1,4 @@
-﻿#pragma execution_character_set("utf-8")
-#pragma once
+﻿#pragma once
 #include<math.h>
 #include<vector>
 using namespace std;

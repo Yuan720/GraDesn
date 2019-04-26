@@ -50,8 +50,10 @@ class myPath{
 public:
    myPath(){};
     myPath(Point pathStart, Point pathTurn, double radius,double half_span);
-    myPath(Point pathStart, Point pathTurn, double radius,double half_span,double area);
+    myPath(Point pathStart, Point pathTurn, double radius,double half_span,double d);
+    myPath(Point pathStart, Point pathTurn, double radius,double half_span,double d,float stlarea);
     //弧圆心
+    float steelArea;
     double d;
     Point center;
     Point pathStartPoint;
@@ -67,6 +69,8 @@ public:
     double getAngleByX(double x);
     double getSigma_l1(float x);
     double getSigma_l2(float x);
+     double getSigma_l4(float x,float Ap);
+
 
 };
 #endif // MYTOOLKIT_H

@@ -1,4 +1,3 @@
-#pragma execution_character_set("utf-8")
 #pragma once
 #ifndef CACULARTHREAD_H
 #define CACULARTHREAD_H
@@ -22,28 +21,28 @@ public:
     explicit CacularThread(QObject *parent = nullptr);
     MainBeam *mymb=NULL;
     OrdinaryBrigeSection *myobs=NULL;
-    //æ”¯ç‚¹è¾¹æ¢
+    //Ö§µã±ßÁº
     field_making_girder_beam *FulcrSideBeam=NULL;
-    //æ”¯ç‚¹ä¸­æ¢
+    //Ö§µãÖĞÁº
     field_making_girder_beam *FulcrMidBeam=NULL;
-        //è·¨ä¸­è¾¹æ¢
+        //¿çÖĞ±ßÁº
     field_making_girder_beam *mid_SpanSideBeam=NULL;
-     //è·¨ä¸­ä¸­æ¢
+     //¿çÖĞÖĞÁº
     field_making_girder_beam *mid_SpanMidBeam=NULL;
     vector<myPath> paths;
 
 
-    //æ€»è·¨å¾„
+    //×Ü¿ç¾¶
     float bridgeSpan;
-    //åŠæ¡¥é•¿è¿‡æ¸¡æ®µèµ·ç‚¹å’Œç»ˆç‚¹;
+    //°ëÇÅ³¤¹ı¶É¶ÎÆğµãºÍÖÕµã;
     float Transtionhalf_start;
     float Transtionhalf_end;
 
 
 
-        float getPipSmoaSum(float x,float newCenterHeight );
-        float getPipStaticMomentSum(float x);
-        float getPipAreaSum();
+        float getPipSmoaSum(float x,float newCenterHeight ,bool precounted);
+        float getPipStaticMomentSum(float x,bool precounted);
+        float getPipAreaSum(bool precounted);
         void getThridLoad(float f,float x);
         void effCombin(int beanId,int saftyGrade);
         vector<float> effCombinDataprocessor(int beanId,int saftyGrade);
@@ -53,7 +52,7 @@ public:
 
         float steelAreaSolve(vector<float> sfdparam, float fpk, float ap);
         float getAverageSteelHeight(double x);
-        vector<float> getSectionInfo(bool fieldCount,bool beamType,float x);
+        vector<float> getSectionInfo(bool fieldCount,bool beamType,float x,bool precounted);
         float ApSolve(float fpk, float ap);
 signals:
     void onTask_1_finished(QVariant v);
@@ -79,7 +78,7 @@ public slots:
     void task_7_process(QVariant v,bool field_count,bool beamType);
     void task_8_process(float x,float foce1,float foce2);
     void task_9_process(QVariant v);
-    void task_10_process(bool fieldCount,bool beamType,float x);
+    void task_10_process(bool fieldCount,bool beamType,float x,bool precounted);
 };
 
 #endif // CACULARTHREAD_H

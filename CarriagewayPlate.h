@@ -1,5 +1,4 @@
-﻿#pragma execution_character_set("utf-8")
-#pragma once
+﻿#pragma once
 #include<math.h>
 float min(float a, float b);
 float max(float a, float b);
@@ -14,7 +13,7 @@ struct CarrigeWayPlate
 	//板的厚度
 	float t;
 	//a2,b2轮胎与桥面接触的矩形面的尺寸,b梁肋宽度;P标准轴载;h肋高
-	float a2, b2, b, d, P, h, mu = 0.3;
+    float a2, b2, b, d, P, h, mu ;
 
 };
 //悬壁板
@@ -26,7 +25,7 @@ struct CantileverPlate {
 	//t翼缘板厚
 	float t;
 	//g沥青混泥土铺装,水泥混泥土铺装,翼缘板集度之和.
-	float   lb, gb = 5, g = 23 * AspLayer + 24 * MixedSoilLayer + 25 * t;
+    float   lb, gb , g ;
 
 
 

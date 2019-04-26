@@ -41,22 +41,13 @@ midArc=MyArc(radius,tangentPoint1,tangentPoint2,circleCor);
 
 }
 
-myPath::myPath(Point vpathStart, Point vpathTurn, double vradius, double vhalf_span, double vd)
+myPath::myPath(Point vpathStart, Point vpathTurn, double vradius, double vhalf_span, double vd):myPath(vpathStart,vpathTurn,vradius,vhalf_span)
 {
-    double tangent1=fabs(vpathStart.y-vpathTurn.y)/fabs(vpathStart.x-vpathTurn.x);
-    //圆心角
-    double circleCor=atan( tangent1);
-    double l1=vradius*tan(circleCor/2);
-    pathStartPoint=vpathStart;
-    trunPoint=vpathTurn;
-    tangentPoint1=Point(vpathTurn.x+l1,vpathTurn.y);
-    center=Point(tangentPoint1.x,tangentPoint1.y+vradius);
-    tangentPoint2=Point(center.x-vradius*sin(circleCor),center.y-vradius*cos(circleCor));
-    midSpanPoint=Point(vhalf_span,tangentPoint1.y);
-    midArc=MyArc(vradius,tangentPoint1,tangentPoint2,circleCor);
     d=vd;
 }
-
+myPath::myPath(Point pathStart, Point pathTurn, double radius,double half_span,double d,float stlarea):myPath(pathStart,pathTurn,radius,half_span,d){
+    steelArea=stlarea;
+}
 double myPath::getPivotDistance()
 {
     return pivot_X-pathStartPoint.x;
@@ -121,5 +112,18 @@ double myPath::getSigma_l2(float x)
 
    }
 
+
+}
+
+double myPath::getSigma_l4(float m,float Ap)
+{
+    //输入张拉批数
+    //和预应力筋面积
+    float np=0.75*fpk-getSigma_l1(bridge_total_Span/4)-getSigma_l2(bridge_total_Span/4);
+   // float sigma_pc=np/
+    float apha_ep=Ep/Ec;
+  //  float apha_pc=
+   //todo
+    return 0;
 
 }

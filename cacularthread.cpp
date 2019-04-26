@@ -1,43 +1,10 @@
+
 #pragma execution_character_set("utf-8")
 #include "cacularthread.h"
 #include<typeinfo>
 using namespace std;
 CacularThread::CacularThread(QObject *parent) : QObject(parent)
 {
-
-}
-
-float CacularThread::getPipSmoaSum(float x,float newCenterHeight)
-{   float smoa;
-    //返回截面x处预留管的等效惯性矩和
-    for(int i=0;i<paths.size();i++){
-     smoa+=Pi*pow(paths[i].d,4)/64+pow(paths[i].getYvalue(x)-newCenterHeight,2)*Pi*pow(paths[i].d/2,2);
-
-    }
-    return smoa;
-
-}
-
-float CacularThread::getPipStaticMomentSum(float x)
-{   //返回截面x处的预留管的等效
-
-    float staticMomt;
-    for(int i=0;i<paths.size();i++){
-        staticMomt+=Pi*(pow(paths[i].d,2)*0.25)*paths[i].getYvalue(x);
-
-    }
-
-    //todo
-    return  staticMomt;
-
-}
-
-float CacularThread::getPipAreaSum()
-{   float res;
-    for(int i=0;i<paths.size();i++){
-        res+=Pi*pow(paths[i].d,2)*0.25;
-    }
-    return res;
 
 }
 //信号处理函数--------------------------------
@@ -114,7 +81,7 @@ void CacularThread::task_4_process(QVariant v){
     vector<float> input=v.value<vector<float>>();
     vector<float> ve;
 
-    CarrigeWayPlate mycwp{input[0],input[1],input[2],input[3],0.2,0.6,input[4],input[5],input[6],input[7]};
+ CarrigeWayPlate mycwp{input[0],input[1],input[2],input[3],0.2,0.6,input[4],input[5],input[6],input[7],0.3};
     CarrigeWayPlateSolver mycwpsl(mycwp);
       float *temp1=mycwpsl.basicValueSolve();
     ve.push_back(temp1[4]);
@@ -147,7 +114,7 @@ void CacularThread::task_4_process(QVariant v){
 void CacularThread::task_5_process(QVariant v){
     vector<float> input=v.value<vector<float>>();
     vector<float> res;
-     CantileverPlate myclp{input[0],input[1],input[3],input[2],input[4]};
+     CantileverPlate myclp{input[0],input[1],input[3],input[2],input[4], 23 *input[0]+24 * input[1] + 25 *input[3]};
     CantileverPlateSolver mycps(myclp);
     res.push_back(mycps.BendingSolver());
     res.push_back(mycps.ShearFoceSolver());
@@ -229,10 +196,9 @@ void CacularThread::task_9_process(QVariant v){
      emit mcqRender(data3,"tableWidget_20");
 
 }
-
-void CacularThread::task_10_process(bool fieldCount, bool beamType, float x)
+void CacularThread::task_10_process(bool fieldCount, bool beamType, float x,bool precounted)
 {
-    vector<float> res=getSectionInfo(fieldCount,beamType,x);
+    vector<float> res=getSectionInfo(fieldCount,beamType,x,precounted);
     QVariant data;
     data.setValue(res);
     emit Sectionfinished(data);
@@ -401,11 +367,11 @@ float CacularThread::getAverageSteelHeight(double x)
     return heightSum/paths.size();
 
 }
-vector<float> CacularThread::getSectionInfo(bool fieldCount,bool beamType,float x)
+vector<float> CacularThread::getSectionInfo(bool fieldCount,bool beamType,float x,bool precounted)
 {   //布尔值1表示是否计入现浇段
     //布尔值2true表示中梁,false表示边梁
-    /*
-面积
+    //布尔值三表示是否计入预应力筋;
+/*面积
 惯性矩
 静弯
 重心
@@ -413,6 +379,7 @@ kx
 ks
 效率指标
 */
+ //返回的是计入非预应力钢筋和预留管道的几何特性;
     vector<float> request;
     request.push_back(bridgeSpan*1000);
     request.push_back(x);
@@ -425,23 +392,18 @@ ks
    float smoaSuam;
    float staticMoment;
    float centerHeight;
-
- vector<float> respon=task_7_Dataprocess(data,fieldCount,beamType);
- vector<float> result;
- AreaSum=pow(10,6)*respon[0]-getPipAreaSum();
- staticMoment=pow(10,9)*respon[2]-getPipStaticMomentSum(x);
+    vector<float> respon=task_7_Dataprocess(data,fieldCount,beamType);
+    vector<float> result;
+ AreaSum=pow(10,6)*respon[0]-getPipAreaSum(precounted)+non_prestreSteel_s;
+ staticMoment=pow(10,9)*respon[2]-getPipStaticMomentSum(x,precounted)+non_prestreSteel_s*non_prestrepip_center;
  centerHeight=staticMoment/AreaSum;
- smoaSuam=pow(10,12)*respon[1]+pow(10,6)*respon[0]*pow(respon[3]*pow(10,3)-centerHeight,2)-getPipSmoaSum(x,centerHeight);
+ smoaSuam=pow(10,12)*respon[1]+pow(10,6)*respon[0]*pow(respon[3]*pow(10,3)-centerHeight,2)-getPipSmoaSum(x,centerHeight,precounted)+non_prestreSteel_s*pow(non_prestrepip_center-centerHeight,2);
  result.push_back(AreaSum);
  result.push_back(smoaSuam);
  result.push_back(staticMoment);
  result.push_back(centerHeight);
+ result.push_back(centerHeight-getAverageSteelHeight(x));
  return result;
-
-
-
-
-
 }
 float CacularThread::ApSolve(float fpk, float ap)
 {
@@ -547,6 +509,48 @@ vector<float> CacularThread::task_7_Dataprocess(QVariant v,bool field_count,bool
     return result;
 
 }
+float CacularThread::getPipSmoaSum(float x,float newCenterHeight,bool precounted)
+{   float smoa;
+    //返回截面x处预留管的等效惯性矩和
+    for(int i=0;i<paths.size();i++){
+     smoa+=Pi*pow(paths[i].d,4)/64+pow(paths[i].getYvalue(x)-newCenterHeight,2)*Pi*pow(paths[i].d/2,2);
+     if(precounted){
+       smoa+=pow(paths[i].getYvalue(x)-newCenterHeight,2)*paths[i].steelArea;
+
+     }
+
+    }
+    return smoa;
+
+}
+float CacularThread::getPipStaticMomentSum(float x,bool precounted)
+{   //返回截面x处的预留管的等效
+
+    float staticMomt;
+    for(int i=0;i<paths.size();i++){
+        staticMomt+=Pi*(pow(paths[i].d,2)*0.25)*paths[i].getYvalue(x);
+        if(precounted){
+           staticMomt+=paths[i].getYvalue(x)*paths[i].steelArea;
+        }
+
+    }
+
+    //todo
+    return  staticMomt;
+
+}
+float CacularThread::getPipAreaSum(bool precounted)
+{   float res;
+    for(int i=0;i<paths.size();i++){
+        res+=Pi*pow(paths[i].d,2)*0.25;
+        if(precounted){
+            res+=paths[i].steelArea;
+        }
+    }
+    return res;
+
+}
+
 
 
 

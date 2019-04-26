@@ -28,13 +28,11 @@ SOURCES += \
         mainwindow.cpp \
     cacularthread.cpp \
     bridge.cpp \
-    cacularthread.cpp \
     MBIF.cpp \
     CarriagewayPlate.cpp \
     Casoa.cpp \
     mytoolkit.cpp \
     mywidget.cpp \
-    XxwTracer.cpp \
     XxwTracer.cpp \
     XxwCustomPlot.cpp \
     qcustomplot.cpp \

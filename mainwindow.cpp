@@ -42,10 +42,6 @@ void MainWindow::on_listWidget_2_currentRowChanged(int currentRow)
     }
 }
 
-
-
-
-
 void MainWindow::on_pushButton_3_clicked()
 {   if((mycat->FulcrMidBeam==0)|(mycat->FulcrSideBeam==0)|(mycat->mid_SpanMidBeam==0)|(mycat->mid_SpanSideBeam==0)){
     QMessageBox::information(this,QString("数据缺失"),QString("请先预存储支点和跨中截面主梁尺寸!"));
@@ -933,7 +929,7 @@ void MainWindow::on_commandLinkButton_51_clicked()
 
     }
     for(int i=1;i<=4;i++){
-        myPath temp(Point(res[(i-1)*6],res[(i-1)*6+1]),Point(res[(i-1)*6+2],res[(i-1)*6+3]),res[(i-1)*6+4],1000*mycat->bridgeSpan/2,res[(i-1)*6+5]);
+        myPath temp(Point(res[(i-1)*7],res[(i-1)*7+1]),Point(res[(i-1)*7+2],res[(i-1)*7+3]),res[(i-1)*7+4],1000*mycat->bridgeSpan/2,res[(i-1)*7+5],res[(i-1)*7+6]);
         qDebug()<<res[(i-1)*6]<<"--"<<res[(i-1)*6+1]<<"--"<<res[(i-1)*6+2]<<"--"<<res[(i-1)*6+3]<<res[(i-1)*6+4]<<"--"<<1000*mycat->bridgeSpan/2<<"--"<<res[(i-1)*6+5];
         datas.push_back(temp);
     }
@@ -963,10 +959,7 @@ void MainWindow::on_commandLinkButton_51_clicked()
 }
 void MainWindow::on_pushButton_2_clicked()
 {   qDebug()<<"调试..... "<<endl;
-    qDebug()<<"("<<mycat->paths[0].center.x<<","<<mycat->paths[0].center.y<<")";
-    qDebug()<<"("<<mycat->paths[0].tangentPoint2.x<<","<<mycat->paths[0].tangentPoint2.y<<")";
-     qDebug()<<"("<<mycat->paths[0].tangentPoint1.x<<","<<mycat->paths[0].tangentPoint1.y<<")";
-     qDebug()<<mycat->paths[0].getSigma_l1(17500)<<"-----";
+
 
 
 
@@ -984,11 +977,12 @@ void MainWindow::on_commandLinkButton_3_clicked()
     QTableWidgetItem *it3=new QTableWidgetItem();
     if(tableItemCheak(it1)&tableItemCheak(it2)){
         float temp=mycat->ApSolve(it2->text().toFloat(),it1->text().toFloat());
-        qDebug()<<temp;
+
         it3->setText(QString("%1").arg(temp));
         ui->tableWidget_3->setItem(1,0,it3);
 
     }
+
 
 
 }
@@ -1030,7 +1024,7 @@ void MainWindow::on_commandLinkButton_52_clicked()
   if(pow(param2,2)>=4*param1*param3){
       float temp1=(-param2+sqrt(pow(param2,2)-4*param1*param3))/(2*param1);
       float temp2=(-param2-sqrt(pow(param2,2)-4*param1*param3))/(2*param1);
-    qDebug()<<temp1<<endl<<temp2;
+
       if(0<temp1&temp1<mycat->mid_SpanMidBeam->sbg.left.d1*1000){
           root=temp1;
       }
@@ -1039,10 +1033,10 @@ void MainWindow::on_commandLinkButton_52_clicked()
       }
 
   }
-  qDebug()<<root;
+
   float as;
   as=(22.4*bf*root-Fpd*ap)/fsd;
-  qDebug()<<as;
+
 
 
 }
@@ -1067,62 +1061,51 @@ void MainWindow::on_tableWidget_189_cellClicked(int row, int column)
 
 }
 void MainWindow::on_lineEdit_editingFinished()
-{
-    QString input=ui->lineEdit->text();
-    QRadioButton *radio=ui->radioButton;
-  bool fieldCount=radio->isChecked();
-  bool Type=ui->comboBox_34->currentIndex()==0? false:true;
-
-
-    bool isInvalid;
-  float x=input.toFloat(&isInvalid);
-
-  if(isInvalid& x<mycat->bridgeSpan*1000){
-
-      emit SectionCompute(fieldCount,Type,x);
-  }else{
+{       bool precounted;
+        precounted=ui->comboBox_5->currentIndex()>0? true:false;
+         bool fieldCount=ui->comboBox_5->currentIndex()>1? true:false;
+        QString input=ui->lineEdit->text();
+         bool Type=ui->comboBox_34->currentIndex()==0? false:true;
+         bool isInvalid;
+        float x=input.toFloat(&isInvalid);
+        if(isInvalid& x<mycat->bridgeSpan*1000){
+        emit SectionCompute(fieldCount,Type,x,precounted);
+        }else{
      qDebug()<<"输入非法!!";
-
-  }
-
+        }
 }
 
-void MainWindow::on_radioButton_clicked()
-{
-    QString input=ui->lineEdit->text();
-    QRadioButton *radio=ui->radioButton;
-  bool fieldCount=radio->isChecked();
-  bool Type=ui->comboBox_34->currentIndex()==0? false:true;
-
-
-    bool isInvalid;
-  float x=input.toFloat(&isInvalid);
-
-  if(isInvalid& x<mycat->bridgeSpan*1000){
-
-      emit SectionCompute(fieldCount,Type,x);
-  }else{
-     qDebug()<<"输入非法!!";
-
-  }
-}
 
 void MainWindow::on_comboBox_34_currentIndexChanged(int index)
+{      bool precounted;
+       precounted=ui->comboBox_5->currentIndex()>0? true:false;
+        bool fieldCount=ui->comboBox_5->currentIndex()>1? true:false;
+       QString input=ui->lineEdit->text();
+        bool Type=ui->comboBox_34->currentIndex()==0? false:true;
+        bool isInvalid;
+        float x=input.toFloat(&isInvalid);
+        if(isInvalid& x<mycat->bridgeSpan*1000){
+         emit SectionCompute(fieldCount,Type,x,precounted);
+        }else{
+    qDebug()<<"输入非法!!";
+        }
+}
+
+
+
+void MainWindow::on_comboBox_5_currentIndexChanged(int index)
 {
-    QString input=ui->lineEdit->text();
-    QRadioButton *radio=ui->radioButton;
-  bool fieldCount=radio->isChecked();
-  bool Type=ui->comboBox_34->currentIndex()==0? false:true;
+    bool precounted;
+          precounted=ui->comboBox_5->currentIndex()>0? true:false;
+           bool fieldCount=ui->comboBox_5->currentIndex()>1? true:false;
+          QString input=ui->lineEdit->text();
+           bool Type=ui->comboBox_34->currentIndex()==0? false:true;
+         bool isInvalid;
+         float x=input.toFloat(&isInvalid);
+         if(isInvalid& x<mycat->bridgeSpan*1000){
+        emit SectionCompute(fieldCount,Type,x,precounted);
+    }else{
+       qDebug()<<"输入非法!!";
 
-
-    bool isInvalid;
-  float x=input.toFloat(&isInvalid);
-
-  if(isInvalid& x<mycat->bridgeSpan*1000){
-
-      emit SectionCompute(fieldCount,Type,x);
-  }else{
-
-
-  }
+    }
 }

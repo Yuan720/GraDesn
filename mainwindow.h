@@ -1,4 +1,4 @@
-#pragma execution_character_set("utf-8")
+#pragma once
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 #include <QMainWindow>
@@ -66,7 +66,7 @@ signals:
     void thridStageLoad(float f,float x);
     void eff_combin(int beanId,int saftyGrade);
     void nonPreStreSolve(float a,float fpd,float Ap);
-    void SectionCompute(bool fieldCount,bool beamType,float x);
+    void SectionCompute(bool fieldCount,bool beamType,float x,bool precounted);
 
 private slots:
 
@@ -97,11 +97,11 @@ private slots:
     void on_commandLinkButton_52_clicked();
     void on_tableWidget_189_cellClicked(int row, int column);
     void on_lineEdit_editingFinished();
+     void on_comboBox_34_currentIndexChanged(int index);
 
 
-    void on_radioButton_clicked();
 
-    void on_comboBox_34_currentIndexChanged(int index);
+    void on_comboBox_5_currentIndexChanged(int index);
 
 private:
     bool box_1_cheaked=false;
