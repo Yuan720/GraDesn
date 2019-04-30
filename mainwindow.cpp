@@ -98,12 +98,17 @@ void MainWindow::on_commandLinkButton_clicked()
 }
 void MainWindow::on_commandLinkButton_2_clicked()
 {
-    if(generalTableCheak("tableWidget_7",5)){
+    if(mycat->mymb==0){
+        qDebug()<<"悬壁板求解参数不全!line--102";
+        return;
+    }
+    if(generalTableCheak("tableWidget_7",3)){
       QVariant  data=generalTableInput("tableWidget_7");
-      emit task_5_send(data);
+        vector<float> temp=data.value<vector<float>>();
+        temp.insert(temp.begin(),mycat->mymb->mbd.MixedSoilLayer);
+        temp.insert(temp.begin(),mycat->mymb->mbd.AspLayer);
 
-
-    }else{
+   }else{
 
         QMessageBox::information(this,QString("错误"),QString("输入数据不完整或输入数据类型有误!\n请检查后提交!"));
 
@@ -930,7 +935,6 @@ void MainWindow::on_commandLinkButton_51_clicked()
     }
     for(int i=1;i<=4;i++){
         myPath temp(Point(res[(i-1)*7],res[(i-1)*7+1]),Point(res[(i-1)*7+2],res[(i-1)*7+3]),res[(i-1)*7+4],1000*mycat->bridgeSpan/2,res[(i-1)*7+5],res[(i-1)*7+6]);
-        qDebug()<<res[(i-1)*6]<<"--"<<res[(i-1)*6+1]<<"--"<<res[(i-1)*6+2]<<"--"<<res[(i-1)*6+3]<<res[(i-1)*6+4]<<"--"<<1000*mycat->bridgeSpan/2<<"--"<<res[(i-1)*6+5];
         datas.push_back(temp);
     }
 
@@ -1036,6 +1040,10 @@ void MainWindow::on_commandLinkButton_52_clicked()
 
   float as;
   as=(22.4*bf*root-Fpd*ap)/fsd;
+  QTableWidget *t=ui->tableWidget_4;
+  QTableWidgetItem *it=new QTableWidgetItem();
+  it->setText(QString::number(as,'f',2));
+  t->setItem(1,0,it);
 
 
 
@@ -1108,4 +1116,16 @@ void MainWindow::on_comboBox_5_currentIndexChanged(int index)
        qDebug()<<"输入非法!!";
 
     }
+}
+
+void MainWindow::on_pushButton_clicked()
+{
+   /* float kk=mycat->paths[0].getSigma_l1(1000*bridge_calspan/2);
+    float xk=mycat->paths[0].getSigma_l2(1000*bridge_calspan/4);
+    float ykk=mycat->getSigma_l4(6200,true);*/
+   // float hkj=mycat->getSigma_l5(6200,true);
+
+  float hhhjh=mycat->getSigma_l6(6200,true);
+
+
 }

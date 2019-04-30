@@ -12,6 +12,7 @@
 #include<QVariant>
 #include<XxwCustomPlot.h>
 #include<mytoolkit.h>
+#include<variables.h>
 
 
 using namespace std;
@@ -102,6 +103,8 @@ private slots:
 
 
     void on_comboBox_5_currentIndexChanged(int index);
+
+    void on_pushButton_clicked();
 
 private:
     bool box_1_cheaked=false;

@@ -16,11 +16,18 @@ extern float mu;
 extern float k;
 //支点中心线坐标;
 extern float pivot_X;
+//非预应力钢筋面积
+extern float non_preSteel_area;
 
 //非预应力钢筋换算面积
 extern float non_prestreSteel_s;
 //非预应力钢筋合力重心
 extern float non_prestrepip_center;
-
+//m张拉批数
+extern int m;
+//徐变系数  收缩应变终极值
+extern float phi_1;
+extern float phi_2;
+extern float xi_cs;
 
 #endif // VARIABLES_H

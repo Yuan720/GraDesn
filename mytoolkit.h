@@ -17,12 +17,12 @@ public:
    double y;
 
 };
-//è‡ªå®šä¹‰åœ†å¼§
+//×Ô¶¨ÒåÔ²»¡
 class Square{
 public:
     Square(){}
     Point leftTop;
-    //è¾¹é•¿
+    //±ß³¤
     double el;
     Square(Point vtopleft, double vel);
 };
@@ -52,16 +52,16 @@ public:
     myPath(Point pathStart, Point pathTurn, double radius,double half_span);
     myPath(Point pathStart, Point pathTurn, double radius,double half_span,double d);
     myPath(Point pathStart, Point pathTurn, double radius,double half_span,double d,float stlarea);
-    //å¼§åœ†å¿ƒ
+    //»¡Ô²ĞÄ
     float steelArea;
     double d;
     Point center;
     Point pathStartPoint;
     Point trunPoint;
-    //åˆ‡ç‚¹1,å’Œåˆ‡ç‚¹2;è§„å®šåˆ‡ç‚¹ä¸€ä¸ºå³è¾¹åˆ‡ç‚¹
+    //ÇĞµã1,ºÍÇĞµã2;¹æ¶¨ÇĞµãÒ»ÎªÓÒ±ßÇĞµã
     Point tangentPoint1;
     Point tangentPoint2;
-    //è·¨ä¸­ç‚¹
+    //¿çÖĞµã
     Point midSpanPoint;
     MyArc midArc;
     double getPivotDistance();
@@ -69,7 +69,6 @@ public:
     double getAngleByX(double x);
     double getSigma_l1(float x);
     double getSigma_l2(float x);
-     double getSigma_l4(float x,float Ap);
 
 
 };

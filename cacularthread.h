@@ -54,6 +54,11 @@ public:
         float getAverageSteelHeight(double x);
         vector<float> getSectionInfo(bool fieldCount,bool beamType,float x,bool precounted);
         float ApSolve(float fpk, float ap);
+        float getPreSteelAreaSum();
+        float getSigma_l4(float Ap,bool isMidBeam);
+        float getSigma_l5(float Ap,bool isMidBeam);
+        float getSigma_l6(float Ap,bool isMidBeam);
+        vector<float> getAveSigma(float x);
 signals:
     void onTask_1_finished(QVariant v);
     void onTask_2_finished(QVariant v);

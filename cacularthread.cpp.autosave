@@ -412,7 +412,6 @@ float CacularThread::ApSolve(float fpk, float ap)
    return steelAreaSolve(getMaxSfd(20), fpk, ap);
 
 }
-
 float CacularThread::getPreSteelAreaSum()
 {   float sum=0;
     for(int i=0;i<paths.size();i++){
@@ -422,7 +421,6 @@ float CacularThread::getPreSteelAreaSum()
     return sum;
 
 }
-
 float CacularThread::getSigma_l4(float Ap,bool isMidBeam)
 {
    float  x=1000*0.25*bridgeSpan;
@@ -437,7 +435,6 @@ float CacularThread::getSigma_l4(float Ap,bool isMidBeam)
 
 
 }
-
 float CacularThread::getSigma_l5(float Ap,bool isMidBeam)
 {   vector<float> temp=getAveSigma(1000*bridgeSpan/4);
    float sigma_l1=temp[0];
@@ -452,7 +449,6 @@ float   param2=0.3;
 
 
 }
-
 float CacularThread::getSigma_l6(float Ap,bool isMidBeam)
 {
     vector<float> MG1;
@@ -525,7 +521,6 @@ float result=0.9*(1.95*pow(10,4)*xi_cs+apha_ep*sigma_pc[2]*phi_1)/(1+15*rho*rho_
 
 return result;
 }
-
 vector<float> CacularThread::getAveSigma(float x)
 {
     float sigma_al1=0;
@@ -684,8 +679,6 @@ float CacularThread::getPipAreaSum(bool precounted)
     return res;
 
 }
-
-
 
 
 

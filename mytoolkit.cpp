@@ -53,6 +53,7 @@ double myPath::getPivotDistance()
     return pivot_X-pathStartPoint.x;
 }
 double myPath::getYvalue(double x){
+
     x=x<midSpanPoint.x? x:2*midSpanPoint.x-x;
 
     if (x<pathStartPoint.x)
@@ -64,7 +65,8 @@ double myPath::getYvalue(double x){
     if(x<tangentPoint1.x)
         return center.y-sqrt(pow(midArc.radius,2)-pow(tangentPoint1.x-x,2));
     else
-        return tangentPoint1.y;
+      {
+        return tangentPoint1.y;}
 }
 
 double myPath::getAngleByX(double x)
@@ -110,20 +112,10 @@ double myPath::getSigma_l2(float x)
     float delta_sigma=2*delta_sigma_d*lf;
     return delta_sigma*(lf-(x-pathStartPoint.x))/lf;
 
+
    }
 
 
 }
 
-double myPath::getSigma_l4(float m,float Ap)
-{
-    //输入张拉批数
-    //和预应力筋面积
-    float np=0.75*fpk-getSigma_l1(bridge_total_Span/4)-getSigma_l2(bridge_total_Span/4);
-   // float sigma_pc=np/
-    float apha_ep=Ep/Ec;
-  //  float apha_pc=
-   //todo
-    return 0;
 
-}
