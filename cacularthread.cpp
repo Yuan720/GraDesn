@@ -360,14 +360,16 @@ float CacularThread::steelAreaSolve(vector<float> sfdparam,float fpk,float ap){
 
 }
 float CacularThread::getAverageSteelHeight(double x)
-{   float heightSum;
+{  float AreaMoment=0;//面积矩
+    float Area=0;//面积
     for(int i=0;i<paths.size();i++){
 
-        heightSum+=paths[i].getYvalue(x);
-    }
-    return heightSum/paths.size();
+            AreaMoment+=paths[i].getYvalue(x)*paths[i].steelArea;
+            Area+=paths[i].steelArea;
+        }
+        return AreaMoment/Area;
 
-}
+  }
 vector<float> CacularThread::getSectionInfo(bool fieldCount,bool beamType,float x,bool precounted)
 {   //布尔值1表示是否计入现浇段
     //布尔值2true表示中梁,false表示边梁
@@ -405,6 +407,7 @@ ks
  result.push_back(centerHeight);
 
  result.push_back(fabs(centerHeight-getAverageSteelHeight(x)));
+
  return result;
 }
 float CacularThread::ApSolve(float fpk, float ap)
@@ -412,7 +415,6 @@ float CacularThread::ApSolve(float fpk, float ap)
    return steelAreaSolve(getMaxSfd(20), fpk, ap);
 
 }
-
 float CacularThread::getPreSteelAreaSum()
 {   float sum=0;
     for(int i=0;i<paths.size();i++){
@@ -422,24 +424,25 @@ float CacularThread::getPreSteelAreaSum()
     return sum;
 
 }
-
 float CacularThread::getSigma_l4(float Ap,bool isMidBeam)
 {
-   float  x=1000*0.25*bridgeSpan;
+   float  x=1000*0.25*myobs->cal_span;
  float sigma_al1=getAveSigma(x)[0];
  float  sigma_al2=getAveSigma(x)[1];
-  float Np=(fpk*0.75-sigma_al1-sigma_al2)*Ap;
-  vector<float> mydata=getSectionInfo(false,isMidBeam,x,false);
+ float Np=(fpk*0.75-sigma_al1-sigma_al2)*Ap;
+ vector<float> mydata=getSectionInfo(false,isMidBeam,x,false);
  float A=mydata[0];float I=mydata[1];float ep=mydata[4];
  float apha_ep=1.95*pow(10,5)/(3.35*pow(10,4));
  float sigma_pc=Np/A+(Np*pow(ep,2))/I;
+
+ float mm=(float)(m-1)/(2*m)*apha_ep*sigma_pc;
  return (float)(m-1)/(2*m)*apha_ep*sigma_pc;
 
 
-}
 
+}
 float CacularThread::getSigma_l5(float Ap,bool isMidBeam)
-{   vector<float> temp=getAveSigma(1000*bridgeSpan/4);
+{   vector<float> temp=getAveSigma(1000*myobs->cal_span/4);
    float sigma_l1=temp[0];
    float sigma_l2=temp[1];
   float  sigma_l4=getSigma_l4(Ap,isMidBeam);
@@ -452,7 +455,6 @@ float   param2=0.3;
 
 
 }
-
 float CacularThread::getSigma_l6(float Ap,bool isMidBeam)
 {
     vector<float> MG1;
@@ -463,31 +465,31 @@ float CacularThread::getSigma_l6(float Ap,bool isMidBeam)
    vector<float> An;
    vector<float> In;
    vector<float> ep;
-   vector<float> sectionInfo_1=getSectionInfo(false,isMidBeam,1000*bridgeSpan/2,false);
-   vector<float> sectionInfo_2=getSectionInfo(true,isMidBeam,1000*bridgeSpan/2,true);
-   vector<float> sectionInfo_3=getSectionInfo(false,isMidBeam,1000*bridgeSpan/4,false);
-   vector<float> sectionInfo_4=getSectionInfo(true,isMidBeam,1000*bridgeSpan/4,true);
+   vector<float> sectionInfo_1=getSectionInfo(false,isMidBeam,1000*myobs->cal_span/2,false);
+   vector<float> sectionInfo_2=getSectionInfo(true,isMidBeam,1000*myobs->cal_span/2,true);
+   vector<float> sectionInfo_3=getSectionInfo(false,isMidBeam,1000*myobs->cal_span/4,false);
+   vector<float> sectionInfo_4=getSectionInfo(true,isMidBeam,1000*myobs->cal_span/4,true);
    vector<float> sigma_pc;
    vector<float> e_ps;
    float apha_ep=5.65;
    float *firstLoad=mymb->firstStageLoad();
    float *secondLoad=mymb->secondStageLoad();
     if(isMidBeam){
-      MG1.push_back(mymb->getMainBeanBending(firstLoad[1],bridgeSpan/2));
-      MG1.push_back(mymb->getMainBeanBending(firstLoad[1],bridgeSpan/4));
-      MG2.push_back(mymb->getMainBeanBending(secondLoad[1],bridgeSpan/2));
-      MG2.push_back(mymb->getMainBeanBending(secondLoad[1],bridgeSpan/4));
+      MG1.push_back(1e6*mymb->getMainBeanBending(firstLoad[1],myobs->cal_span/2));
+      MG1.push_back(1e6*mymb->getMainBeanBending(firstLoad[1],myobs->cal_span/4));
+      MG2.push_back(1e6*mymb->getMainBeanBending(secondLoad[1],myobs->cal_span/2));
+      MG2.push_back(1e6*mymb->getMainBeanBending(secondLoad[1],myobs->cal_span/4));
 
 
     }else{
-        MG1.push_back(mymb->getMainBeanBending(firstLoad[0],bridgeSpan/2));
-        MG1.push_back(mymb->getMainBeanBending(firstLoad[0],bridgeSpan/4));
-        MG2.push_back(mymb->getMainBeanBending(secondLoad[0],bridgeSpan/2));
-        MG2.push_back(mymb->getMainBeanBending(secondLoad[0],bridgeSpan/4));
+        MG1.push_back(1e6*mymb->getMainBeanBending(firstLoad[0],myobs->cal_span/2));
+        MG1.push_back(1e6*mymb->getMainBeanBending(firstLoad[0],myobs->cal_span/4));
+        MG2.push_back(1e6*mymb->getMainBeanBending(secondLoad[0],myobs->cal_span/2));
+        MG2.push_back(1e6*mymb->getMainBeanBending(secondLoad[0],myobs->cal_span/4));
 
     }
-    vector<float> avrege1=getAveSigma(1000*bridgeSpan/2);
-    vector<float> avrege2=getAveSigma(1000*bridgeSpan/4);
+    vector<float> avrege1=getAveSigma(1000*myobs->cal_span/2);
+    vector<float> avrege2=getAveSigma(1000*myobs->cal_span/4);
 
     NpI_1.push_back((0.75*fpk-avrege1[0]-avrege1[1]-getSigma_l4(Ap,isMidBeam))*Ap);
 
@@ -525,7 +527,6 @@ float result=0.9*(1.95*pow(10,4)*xi_cs+apha_ep*sigma_pc[2]*phi_1)/(1+15*rho*rho_
 
 return result;
 }
-
 vector<float> CacularThread::getAveSigma(float x)
 {
     float sigma_al1=0;
@@ -684,8 +685,6 @@ float CacularThread::getPipAreaSum(bool precounted)
     return res;
 
 }
-
-
 
 
 

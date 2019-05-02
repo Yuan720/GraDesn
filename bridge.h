@@ -54,7 +54,7 @@ public:
 					if (var == *(ivar + i)) {
 						return *(idvar + i);
 					}
-					if (ivar[i + 1] > var&var > ivar[i]) {
+                    if ((ivar[i + 1] > var)&(var > ivar[i])) {
 
 						return	*(idvar + i) + (var - *(ivar + i))*(*(idvar + i + 1) - *(idvar + i)) / (*(ivar + i + 1) - *(ivar + i));
 
@@ -160,7 +160,7 @@ public:
 	float StaticMoment;
 	float CentroidHeight;
 	//fmgb 现浇段长度 浮点值
-	field_making_girder_beam() {};
+    field_making_girder_beam() {}
 	field_making_girder_beam(small_box_girder mysbg, float fmgb);
 	float * getSpanLength();
 	float SmoaSlove();
@@ -271,25 +271,25 @@ public:
 		moi_field_included[0] = Imt_field_in; moi_field_included[bean_nums - 1] = Imt_field_in;
 		area_es[0] = side_main_bean.Area; area_es[bean_nums - 1] = side_main_bean.Area;
 		if (bean_nums >= 3) { ais[2] = L2; ais[bean_nums - 2] = L2; };
-		for (size_t i = 0; i < bean_nums; i++)
+        for (int i = 0; i < bean_nums; i++)
 		{
 			aix.push_back(0);
 			moi.push_back(0);
 			tmi.push_back(0);
 
 		}
-		for (size_t i = 1; i <= bean_nums; i++)
+        for (int i = 1; i <= bean_nums; i++)
 		{
 			aix[i - 1] = getVectorSum(ais, 1, i);
 		}
-		for (size_t i = 0; i < aix.size(); i++)
+        for (int i = 0; i < aix.size(); i++)
 		{
 			aid.push_back(aix[i] - total_span / 2);
 		}
 	}
 	vector<float> get_aid_moif() {
 		vector<float> temp;
-		for (size_t i = 0; i < aid.size(); i++)
+        for (int i = 0; i < aid.size(); i++)
 		{
 			temp.push_back(pow(aid[i], 2)*moi_field_included[i]);
 		}
@@ -358,7 +358,7 @@ public:
 		{
 			float result = 0;
 			vector<float> myese = getEccentricDistances(VehicleNum);
-			for (size_t i = 0; i < VehicleNum * 2; i++)
+            for (int i = 0; i < VehicleNum * 2; i++)
 			{
 				result += getPerTireLoad(beamId, myese[i]);
 
@@ -371,7 +371,7 @@ public:
 	float getMcqByBeamId(int beamId) {
 		float maxVehicleNum = getMaximumVehicle();
 		float result = 0;
-		for (size_t i = 1; i <= maxVehicleNum; i++)
+        for (int i = 1; i <= maxVehicleNum; i++)
 		{
 			if (result < loadArrangement(beamId, i))
 			{
@@ -517,7 +517,7 @@ public:
             float maxVehicleNum = getMaximumVehicle();
             float max=0;
             vector<float> res;
-            for (size_t i = 1; i <= maxVehicleNum; i++)
+            for (int i = 1; i <= maxVehicleNum; i++)
             {
                        max=max>loadArrangement(beamId, i)? max:loadArrangement(beamId, i);
 
@@ -535,7 +535,7 @@ public:
             }
 
             float result;
-            if (beamId == 1 | beamId == bean_nums)
+            if ((beamId == 1)|(beamId == bean_nums))
             {
                 float a[3] = { 0,fsm.s1 + fsm.s2,fsm.s1 + fsm.s2 + fsm.s3 };
                 float b[3] = { 1,1,0 };
@@ -546,7 +546,7 @@ public:
             }
             else
             {
-                if (beamId == 2 | beamId == bean_nums - 1)
+                if ((beamId ==2)|(beamId ==(bean_nums-1)))
                 {	//二号梁单列
                     float c[6] = { 0,fsm.s1 + fsm.s2,fsm.s1 + fsm.s2 + fsm.s3 ,fsm.s1 + fsm.s2 + fsm.s3 + fsm.s4,fsm.s1 + fsm.s2 + fsm.s3 + fsm.s4 + fsm.s5,fsm.s1 + fsm.s2 + fsm.s3 + fsm.s4 + fsm.s5 + 1.8 };
                     float d[6] = { 0,0,1,1,0,0 };
@@ -574,7 +574,7 @@ public:
                         float val3 = val2 + 1.8;
                         float temp = mqcal.Interpolat(val1) + mqcal.Interpolat(begain) + mqcal.Interpolat(val2) + mqcal.Interpolat(val3);
                         tempVal = tempVal > temp ? tempVal : temp;
-                        begain += 0.1;
+                        begain += 0.1f;
                         if (begain >= fsm.s1 + fsm.s2 + fsm.s3 + fsm.s4)
                         {
                             isEnded = true;
@@ -607,7 +607,7 @@ public:
                         float temp = mqcal.Interpolat(val1) + mqcal.Interpolat(begain) + mqcal.Interpolat(val2) + mqcal.Interpolat(val3);
 
                         tempVal = tempVal > temp ? tempVal : temp;
-                        begain += 0.1;
+                        begain += 0.1f;
                         if (begain >= fsm.s1 + fsm.s2 + fsm.s3 + fsm.s4 * 2 + fsm.s5)
                         {
                             isEnded = true;

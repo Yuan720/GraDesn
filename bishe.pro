@@ -36,7 +36,8 @@ SOURCES += \
     XxwTracer.cpp \
     XxwCustomPlot.cpp \
     qcustomplot.cpp \
-    variables.cpp
+    variables.cpp \
+    beam.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -50,7 +51,8 @@ HEADERS += \
     XxwCustomPlot.h \
     XxwTracer.h \
     qcustomplot.h \
-    variables.h
+    variables.h \
+    beam.h
 
 FORMS += \
         mainwindow.ui

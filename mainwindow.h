@@ -13,6 +13,7 @@
 #include<XxwCustomPlot.h>
 #include<mytoolkit.h>
 #include<variables.h>
+#include<beam.h>
 
 
 using namespace std;

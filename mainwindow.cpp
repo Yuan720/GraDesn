@@ -495,8 +495,6 @@ void MainWindow::pagePrepare(){
     generalTableInit("tableWidget_7");
     generalTableInit("tableWidget_6");
     generalTableInit("tableWidget_8");
-
-   QTableWidgetItem *w=ui->tableWidget_189->item(1,1);
     ui->label_28->hide();
     ui->spinBox->hide();
     ui->spinBox_2->hide();
@@ -1120,12 +1118,22 @@ void MainWindow::on_comboBox_5_currentIndexChanged(int index)
 
 void MainWindow::on_pushButton_clicked()
 {
-   /* float kk=mycat->paths[0].getSigma_l1(1000*bridge_calspan/2);
-    float xk=mycat->paths[0].getSigma_l2(1000*bridge_calspan/4);
-    float ykk=mycat->getSigma_l4(6200,true);*/
-   // float hkj=mycat->getSigma_l5(6200,true);
+   vector<float> temp;
+   temp.push_back(mycat->mymb->mbd.CalculaSpan*1000);
+   temp.push_back(mycat->mymb->mbd.AspLayer);
+   temp.push_back(mycat->mymb->mbd.MixedSoilLayer);
+   temp.push_back(mycat->mymb->mbd.CenterCrossBeamV);
+   temp.push_back(mycat->mymb->mbd.SideCorssBeamV);
+   temp.push_back(mycat->Transtionhalf_start);
+   temp.push_back(mycat->Transtionhalf_end);
+   temp.push_back(mycat->mymb->mbd.Side_Cross_Bean_field_making_Area);
+   temp.push_back(mycat->mymb->mbd.Midle_Cross_Bean_field_making_Area);
+   temp.push_back(mycat->mymb->mbd.Cross_Bean_t);
+   beam  mybeam(*mycat->FulcrMidBeam,*mycat->mid_SpanMidBeam,temp,5);
+   mybeam.setSteel(mycat->paths);
+   qDebug()<<mybeam.getSigma_l6(6200)<<endl<<"beam分割!!!!";
 
-  float hhhjh=mycat->getSigma_l6(6200,true);
+   qDebug()<<mycat->getSigma_l6(6200,true);
 
 
 }

@@ -78,7 +78,7 @@ public:
     //求解二期荷载
     float * secondStageLoad() {
         //桥面铺装层计算
-        float gh1= (mbd.AspLayer * 23)*mbd.BrigeWidth / mbd.mianBeanNum;
+        float gh1= (mbd.MixedSoilLayer * 24)*mbd.BrigeWidth / mbd.mianBeanNum;
         float bzl1 = mbd.Main_Bean_field_making_Area * 25;
         float bhl1 = (mbd.Side_Cross_Bean_field_making_Area * 2 + mbd.Midle_Cross_Bean_field_making_Area*(mbd.crossBeamNum - 2))*mbd.Cross_Bean_t * 25 / mbd.CalculaSpan;
 

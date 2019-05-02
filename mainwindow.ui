@@ -36,7 +36,7 @@
      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
     </property>
     <property name="currentIndex">
-     <number>6</number>
+     <number>0</number>
     </property>
     <widget class="QWidget" name="tab_4">
      <attribute name="title">
@@ -3445,7 +3445,7 @@ border-radius:5px;</string>
        <property name="geometry">
         <rect>
          <x>0</x>
-         <y>-586</y>
+         <y>-459</y>
          <width>1328</width>
          <height>3000</height>
         </rect>
