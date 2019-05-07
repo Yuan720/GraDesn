@@ -150,7 +150,29 @@ float field_making_girder_beam::getRho() {
 	return (SolveKs() + SolveKx()) / sbg.left.h;
 }
 bool field_making_girder_beam::isValid() {
-	return getRho() > 0.5;
+    return getRho() > 0.5;
+}
+
+vector<float> field_making_girder_beam::getSnByh(float mh, bool fieldCount)
+{ vector<float> leftdata=sbg.left.getSnByh(mh);
+  vector<float> rightdata=sbg.right.getSnByh(mh);
+  vector<float> res;
+ float field_moment=0;
+  bool isSideBeam=(sbg.left.isSideBeam|sbg.right.isSideBeam);
+  field_moment=fmgb_length*sbg.left.d1*(sbg.left.h-sbg.left.d1/2-mh);
+  if(fieldCount){
+      if(!isSideBeam){
+
+          field_moment*=2;
+      }
+      }
+  for(int i=0;i<leftdata.size();i++){
+
+      res.push_back(leftdata[i]+rightdata[i]+field_moment);
+  }
+  return res;
+
+
 }
 float small_box_girder::torsionalMomentInertiaSolve() {
 	float tmith = left.h - left.d1 / 2 - left.d3 / 2;
@@ -234,6 +256,29 @@ vector<float> half_box_girder::getInfo(){
    myres.push_back(p);
     myres.push_back(h);
     return myres;
+
+}
+
+vector<float> half_box_girder::getSnByh(float mh)
+{  //结果以米为单位;
+   //指定重心高度后的特征点的上半部分面积矩求解;
+    //返回----1.截面上肋梗上部面积矩2.重心以上面积矩 3.截面下肋梗上部面积矩
+     mh/=1e3;
+    vector<float> res;
+    float sn1=rec1.Area*(rec1.RSHD-mh)+rec2.Area*(rec2.RSHD-mh)+trangle1.Area*(trangle1.TSHD-mh)+trangle2.Area*(trangle2.TSHD-mh);
+   float test1= rec1.Area*(rec1.RSHD-mh);float test2=rec1.Area ;float test3=rec1.RSHD ;float test4=rec1.RSHD-mh;
+    res.push_back(1e9*sn1);
+    float ed2=d2*sqrt(1+pow(1/p,2));
+    float sh1=h-d1-h4-mh;
+    float sn2=sn1+(ed2*sh1)*sh1/2;
+    res.push_back(1e9*sn2);
+    float sh2=h-d1-h4-d3-h6;
+    float sn3=sn1+(ed2*sh2)*(d3+h6+sh2/2-mh);
+    res.push_back(1e9*sn3);
+     return res;
+
+
+
 
 }
 vector<float> half_box_girder::getDivided()

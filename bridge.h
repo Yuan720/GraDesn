@@ -74,7 +74,7 @@ public:
 //SHD形心距离底边高度
 class Triangle {
 public:
-	Triangle() {};
+    Triangle() {}
 	Triangle(float bottomLong, float Height, float TSHD);
 	float bottomLong, Height, TSHD;
 	double Area;
@@ -127,6 +127,7 @@ public:
 	float getCentroidHeight();
 	float * getMidleLineS();
     vector<float> getInfo();
+    vector<float> getSnByh(float mh);
 	//private:
 	Rectangular rec1, rec2, rec3;
 	Triangle trangle1, trangle2, trangle3, trangle4, trangle5, trangle6, trangle7;
@@ -168,6 +169,7 @@ public:
 	float SolveKx();
 	float getRho();
 	bool isValid();
+    vector<float> getSnByh(float mh,bool fieldCount);
 
 
 };

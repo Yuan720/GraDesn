@@ -15,8 +15,16 @@ float phi_1=2.37;
 float phi_2=1.768;
 float xi_cs=0.000357;
 //非预应力钢筋面积
-float non_preSteel_area;
+float non_preSteel_area=4826;
 //非预应力钢筋换算面积
-float non_prestreSteel_s=4000;
+float non_prestreSteel_s=23150;
 //非预应力钢筋合力重心
- float non_prestrepip_center=100;
+ float non_prestrepip_center=45;
+ float fcd=22.4;
+ float fpd=1260;
+ float fsd=330;
+ float Ap=6272;
+ float As=4826;
+ float as=45;
+ float ap=125;
+ //ap=125mm

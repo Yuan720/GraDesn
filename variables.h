@@ -29,5 +29,11 @@ extern int m;
 extern float phi_1;
 extern float phi_2;
 extern float xi_cs;
-
+extern float fcd;//轴心抗压强度
+extern float fpd;//预应力钢筋抗拉强度设计值
+extern float fsd;//非预应力钢筋抗拉强度设计值
+extern float Ap;//预应力筋面积;
+extern float As;//非预应力钢筋面积
+extern float as;
+extern float ap;
 #endif // VARIABLES_H

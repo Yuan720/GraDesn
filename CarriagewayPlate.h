@@ -416,9 +416,11 @@ public:
 
 	}
 	float BendingSolver() {
+        //有错误
 		return  -0.5*clp.g*pow(clp.lb, 2) - clp.gb*clp.lb;
 	}
 	float ShearFoceSolver() {
+        //有错误
 		return clp.g*clp.lb + clp.gb;
 	}
 

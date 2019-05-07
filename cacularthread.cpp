@@ -474,6 +474,8 @@ float CacularThread::getSigma_l6(float Ap,bool isMidBeam)
    float apha_ep=5.65;
    float *firstLoad=mymb->firstStageLoad();
    float *secondLoad=mymb->secondStageLoad();
+   secondLoad[0]=secondLoad[0]+mymb->ThirdStageLoad();
+   secondLoad[1]=secondLoad[1]+mymb->ThirdStageLoad();
     if(isMidBeam){
       MG1.push_back(1e6*mymb->getMainBeanBending(firstLoad[1],myobs->cal_span/2));
       MG1.push_back(1e6*mymb->getMainBeanBending(firstLoad[1],myobs->cal_span/4));

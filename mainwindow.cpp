@@ -989,7 +989,8 @@ void MainWindow::on_commandLinkButton_3_clicked()
 
 }
 void MainWindow::on_commandLinkButton_52_clicked()
-{ QTableWidget *tb=ui->tableWidget_2;
+{
+    QTableWidget *tb=ui->tableWidget_2;
     float fsd;
     float a;
     float Fpd;
@@ -1130,10 +1131,29 @@ void MainWindow::on_pushButton_clicked()
    temp.push_back(mycat->mymb->mbd.Midle_Cross_Bean_field_making_Area);
    temp.push_back(mycat->mymb->mbd.Cross_Bean_t);
    beam  mybeam(*mycat->FulcrMidBeam,*mycat->mid_SpanMidBeam,temp,5);
+   beam sidebeam(*mycat->FulcrSideBeam,*mycat->mid_SpanSideBeam,temp,5);
    mybeam.setSteel(mycat->paths);
-   qDebug()<<mybeam.getSigma_l6(6200)<<endl<<"beam分割!!!!";
+   sidebeam.setSteel(mycat->paths);
+ //  qDebug()<<mybeam.getSigma_l6(6200)<<endl<<"beam分割!!!!";
 
-   qDebug()<<mycat->getSigma_l6(6200,true);
+ //  qDebug()<<mycat->getSigma_l6(6200,true);
+ /*  qDebug()<<mybeam.steelAreaSolve(8855.09  ,1860,125)<<"test!!!"<<endl;
+  qDebug()<<sidebeam.steelAreaSolve(8970.43,1860,125)<<"side!"<<endl;
+  qDebug()<<mybeam.unPreSteelAreaSlove(13228,110, 1260, 6272, 330)<<"中梁非预应力筋!";
+  qDebug()<<sidebeam.unPreSteelAreaSlove(13428.4,110, 1260, 6272, 330)<<"边梁非预应力筋!"<<endl;
+  qDebug()<<sidebeam.getDepthOfCompression()<<endl<<mybeam.getDepthOfCompression();
+   qDebug()<<sidebeam.getSteel_a()<<endl<<sidebeam.get_Mu()<<"!!";*/
+  // sidebeam.obliqueSectionCheaking(1e3*mycat->myobs->cal_span/4,55);
 
+  // sidebeam.getSpecifiedAreaMoment(mycat->myobs->cal_span/4,false, true);
+ // sidebeam.crackChecking(1699.19,1030.81);
+  /*sidebeam. sectionFeatures(false,false,16900);
+   sidebeam. sectionFeatures(false,true,16900);
+    sidebeam. sectionFeatures(true,true,16900);*/
+ //sidebeam.get_Apb(mycat->myobs->cal_span/4*1e3);
+// qDebug()<<"L/2--------";
+// sidebeam.get_Apb(mycat->myobs->cal_span/2*1e3);
+// sidebeam.MainStress(1e3*mycat->myobs->cal_span/4,1602.37,193.713,1);
+ sidebeam.getSigma_cu(1e3*mycat->myobs->cal_span/2,Ap,2577);
 
 }

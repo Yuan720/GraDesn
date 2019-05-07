@@ -78,15 +78,16 @@ double myPath::getAngleByX(double x)
 
 
     if(x<=tangentPoint2.x){
-        angle=0;
+       angle=total_angle;
     }
     if(tangentPoint2.x<x<tangentPoint1.x){
       Point temp(x,getYvalue(x));
-    angle=total_angle-atan((tangentPoint1.x-temp.x)/(center.y-temp.y));
+    angle=atan((tangentPoint1.x-temp.x)/(center.y-temp.y));
 
     }
     if(x>tangentPoint1.x){
-        angle=total_angle;
+
+               angle=0;
     }
 
     return angle;
