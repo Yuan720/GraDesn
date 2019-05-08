@@ -5,6 +5,8 @@
 #include<math.h>
 #include<qmath.h>
 #include<variables.h>
+#include<vector>
+using namespace std;
 class Point{
 
 
@@ -69,6 +71,7 @@ public:
     double getAngleByX(double x);
     double getSigma_l1(float x);
     double getSigma_l2(float x);
+  vector<float> localPressure(float Al,float Ab,float Dcor );//¾Ö²¿³ÐÑ¹
 
 
 };

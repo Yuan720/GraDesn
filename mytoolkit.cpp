@@ -1,6 +1,7 @@
 #include<mytoolkit.h>
 #include<QDebug>
 
+
 Point::Point(double vx,double vy){
     x=vx;y=vy;
 }
@@ -92,13 +93,11 @@ double myPath::getAngleByX(double x)
 
     return angle;
 }
-
 double myPath::getSigma_l1(float x)
 {    //截面摩擦应力损失
     //x在式子里面被转为米为单位
     return 0.75*fpk*(1-pow(M_E,-(mu*getAngleByX(x)+k*( x-pathStartPoint.x)/1000)));
 }
-
 double myPath::getSigma_l2(float x)
 {
    float sigma_0=0.75*fpk;
@@ -115,6 +114,39 @@ double myPath::getSigma_l2(float x)
 
 
    }
+
+
+}
+vector<float> myPath::localPressure(float Al, float Ab,float Dcor)
+{
+    float gamma0=1.0;
+    float Eta_s=1.0;
+    float beta=sqrt(Ab/Al);
+    float Fld=1.2*fpk*0.75*steelArea/4.6521739f;
+    float Aln=Al-M_PI*pow(d,2)/4;
+    float  value1=gamma0*Fld;
+    float  value2=1.3*Eta_s*beta*fcd*Aln;
+    float Acor=M_PI*pow(Dcor,2)/4;
+   //局部抗压承载力
+     float k=2.0;
+     float beta_cor=sqrt(Acor/Al);
+     float s=40;
+     float Assl=78.54;//间接钢筋hrb335 截面面积78.54;
+     float  rho_v=4*Assl/(Dcor*s);
+     float value3=0.9*(Eta_s*beta*fcd*0.9+k*rho_v*beta_cor*fsd)*Aln;
+ vector<float> res;
+ res.push_back(value1);
+ res.push_back(value2);
+ res.push_back(value3);
+ return res;
+
+
+
+
+
+
+
+
 
 
 }

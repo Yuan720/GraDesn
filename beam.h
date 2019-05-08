@@ -59,7 +59,7 @@ public:
     float get_ep0(float x);
     float get_epn(float x);
     vector<float> deflecationSolve(float Ms);//挠度计算;
-    vector<float> localPressure();//局部承压
+
     vector<float>  obliqueSectionCheaking(float x,float vd);//斜截面抗剪检验
     vector <float> crackChecking(float MQs,float Mql);//正截面抗裂验算;
     vector <float> obliqueCrackChecking(float x); //斜截面抗裂

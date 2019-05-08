@@ -1154,6 +1154,6 @@ void MainWindow::on_pushButton_clicked()
 // qDebug()<<"L/2--------";
 // sidebeam.get_Apb(mycat->myobs->cal_span/2*1e3);
 // sidebeam.MainStress(1e3*mycat->myobs->cal_span/4,1602.37,193.713,1);
- sidebeam.getSigma_cu(1e3*mycat->myobs->cal_span/2,Ap,2577);
+ sidebeam.steelPaths[1].localPressure(40000,160000,190);
 
 }

@@ -247,7 +247,7 @@ float beam::getSigma_P_I(float x, float Ap)
     return 0.75*fpk-getSigma_L_I(x,Ap);
 }
 float beam::getSigma_P_II(float x,float Ap)
-{   float test1=getSigma_L_II(Ap); float test2=getSigma_L_I(x, Ap); float test3=0.75*fpk;
+{
     return 0.75*fpk-getSigma_L_II(Ap)-getSigma_L_I(x,Ap);
 }
 float beam::getSigma_cu(float x,float Ap,float Mq)
@@ -339,25 +339,31 @@ vector<float> beam::deflecationSolve(float Ms)
  vector<float> sectionInfo_3=sectionFeatures(true, true, L/4);
  vector<float> sectionInfo_1=sectionFeatures(false, false, L/4);
  float I0=sectionInfo_3[1];
- float In=sectionInfo_3[1];
-
- float ynb=sectionInfo_3[3];
+ float In=sectionInfo_1[1];
+float ynb=sectionInfo_3[3];
  float Wqs;
  Wqs=apha*pow(L,2)/(0.95*Ec)*Ms/I0;
  float Wql;
  Wql=Wqs*1.43;
  float WG1,MG1,MG2;
+ MG1=1e6*bendingSolve(getFirstStageLoad(),spanLength/(2*1e3));
+ MG2=1e6*bendingSolve(getSecondStageLoad()+getThirdStageLoad(4),spanLength/(2*1e3));
+
  WG1=1.43*apha*pow(L,2)/(0.95*Ec)*(MG1+MG2)/I0;
 float NpII=getSigma_P_II(L/4,Ap)*get_Apb(L/4)*sqrt(1-pow(getSinThetaByX(L/4),2))+getSigma_P_II(L/4,Ap)*(Ap-get_Apb(L/4))-getSigma_l6(Ap)*As;
-float ep0=((getSigma_P_II(L/4,Ap)*get_Apb(x)*sqrt(1-pow(getSinThetaByX(L/4),2))+getSigma_P_II(L/4,Ap)*(Ap-get_Apb(L/4)))*(ynb-getAverageSteelHeight(L/4))-getSigma_l6(Ap)*As*(ynb-as))/NpII;
+float ep0=((getSigma_P_II(L/4,Ap)*get_Apb(L/4)*sqrt(1-pow(getSinThetaByX(L/4),2))+getSigma_P_II(L/4,Ap)*(Ap-get_Apb(L/4)))*(ynb-getAverageSteelHeight(L/4))-getSigma_l6(Ap)*As*(ynb-as))/NpII;
 float Mpe=NpII*ep0;
-float delta_pe=Mp*pow(L,2)/(8*0.95*Ec*In);
+float delta_pe=-(Mpe*pow(L,2)/(8*0.95*Ec*In));
 float delta_pel=2*delta_pe;
-float Wl=Wql+WG1-delta_pel;
-
-
-
+float Wl=Wql+WG1-fabs(delta_pel);
 vector<float> res;
+res.push_back(Wqs);
+res.push_back(Wql);
+res.push_back(Wqs);
+res.push_back(WG1);
+res.push_back(delta_pe);
+res.push_back(delta_pel);
+res.push_back(Wl);
 return res;
 
 }
