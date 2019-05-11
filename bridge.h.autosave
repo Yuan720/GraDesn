@@ -177,7 +177,7 @@ public:
 class OrdinaryBrigeSection
 {
 public:
-    float cross_beam_foce[5][6];
+    
     //跨中边梁
 	field_making_girder_beam side_main_bean;
     //跨中中梁

@@ -50,7 +50,7 @@ void MainWindow::on_pushButton_3_clicked()
 
     bool toCountField;
     bool isMidBeaan;
-    if(lineEditCheak("lineEdit_4")&lineEditCheak("lineEdit_3")&lineEditCheak("lineEdit_5")&lineEditCheak("lineEdit_6")){
+    if(lineEditCheak("lineEdit_3")){
 
         if(box_3_cheaked){
             toCountField=true;
@@ -67,10 +67,10 @@ void MainWindow::on_pushButton_3_clicked()
         isMidBeaan=true;
         }
         vector<float> temp;
-        temp.push_back(lineEditDataProcess("lineEdit_4"));
+        temp.push_back(mycat->myobs->total_span);
         temp.push_back(lineEditDataProcess("lineEdit_3"));
-        temp.push_back(lineEditDataProcess("lineEdit_5"));
-        temp.push_back(lineEditDataProcess("lineEdit_6"));
+        temp.push_back(mycat->Transtionhalf_start);
+        temp.push_back(mycat->Transtionhalf_start);
         QVariant data;
         data.setValue(temp);
         emit task_7_send(data,toCountField,isMidBeaan);
@@ -861,9 +861,9 @@ QMessageBox::information(this,QString("错误"),qs1+qs2+qs3);
 void MainWindow::on_commandLinkButton_50_clicked()
 {   bool table_192_cheak=tableItemCheak(ui->tableWidget_192->item(1,0))&tableItemCheak(ui->tableWidget_192->item(1,1));
     if(mycat->mid_SpanSideBeam==0|mycat->mid_SpanMidBeam==0|mycat->FulcrMidBeam==0|mycat->FulcrSideBeam==0){
-
- QMessageBox::information(this,QString("提示"),"请先存入主梁数据!");
-    }else{
+     QMessageBox::information(this,QString("提示"),"请先存入主梁数据!");
+    }else
+    {
         if(generalTableCheak("tableWidget_190",16)&table_192_cheak){
             mycat->Transtionhalf_start=ui->tableWidget_192->item(1,0)->text().toFloat();
             mycat->Transtionhalf_end=ui->tableWidget_192->item(1,1)->text().toFloat();
@@ -1154,6 +1154,52 @@ void MainWindow::on_pushButton_clicked()
 // qDebug()<<"L/2--------";
 // sidebeam.get_Apb(mycat->myobs->cal_span/2*1e3);
 // sidebeam.MainStress(1e3*mycat->myobs->cal_span/4,1602.37,193.713,1);
- sidebeam.steelPaths[1].localPressure(40000,160000,190);
+ //sidebeam.steelPaths[1].localPressure(40000,160000,190);
+/*mycat->myobs->get_R(1,-1.45f);
+float a,b,c,d,e,f,g;
+a=mycat->myobs->get_R(1,1);
+b=mycat->myobs->get_R(1,2);
+c=mycat->myobs->get_R(1,3);
+e=mycat->myobs->get_R(2,1);
+f=mycat->myobs->get_R(2,2);
+g=mycat->myobs->get_R(2,3);
+qDebug()<<a<<endl<<b<<endl<<c<<endl<<d<<endl<<e<<endl<<f<<endl<<g<<endl;*/
+//mycat->myobs->getVr_At(2.0);
+//mycat->myobs->get_Vr(1.689, 1.66);
+/*    myplot=ui->widget_4;
+    int nCount = 100;
+double ts=(mycat->myobs->total_span)/100;
+
+ QVector<double> x(nCount), y0(nCount),z(nCount);
+   for (int i = 0; i <nCount; ++i)
+   {
+       x[i] =0+i*ts;
+
+       y0[i] =mycat->myobs->get_Vr(x[i], 4.56);
+       z[i]=mycat->myobs->get_Vr(x[i], 1.66);
+
+   }
+
+  myplot->addGraph();
+  myplot->graph(0)->setPen(QPen(Qt::blue));
+  myplot->graph(0)->setData(x, y0);
+  myplot->addGraph();
+   myplot->graph(1)->setPen(QPen(Qt::red));
+   myplot->graph(1)->setData(x, z);
+  myplot->xAxis->setLabel("x");
+  myplot->yAxis->setLabel("y");
+  myplot->xAxis->setRange(0,mycat->myobs->total_span);
+  myplot->yAxis->setRange(-1, 1);
+   myplot->replot();
+ //mycat->myobs->getMr_At(4.55,true);
+
+
+//mycat->myobs->get_Mr(1.67, 1.66);*/
+
+//mycat->myobs->cross_sf(4.56);
+//mycat->myobs->cross_sf(1.66);
+  mycat->myobs-> cross_storge();
+
+
 
 }

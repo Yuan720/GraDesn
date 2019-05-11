@@ -11,6 +11,7 @@
 #include<vector>
 #include<QVariant>
 #include<XxwCustomPlot.h>
+#include<qcustomplot.h>
 #include<mytoolkit.h>
 #include<variables.h>
 #include<beam.h>
@@ -115,6 +116,7 @@ private:
     CacularThread *mycat;
     QThread *mqt;
     XxwCustomPlot  *m_customPlot;
+    QCustomPlot  *myplot;
 
 };
 
