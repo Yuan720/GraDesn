@@ -42,44 +42,6 @@ void MainWindow::on_listWidget_2_currentRowChanged(int currentRow)
     }
 }
 
-void MainWindow::on_pushButton_3_clicked()
-{   if((mycat->FulcrMidBeam==0)|(mycat->FulcrSideBeam==0)|(mycat->mid_SpanMidBeam==0)|(mycat->mid_SpanSideBeam==0)){
-    QMessageBox::information(this,QString("数据缺失"),QString("请先预存储支点和跨中截面主梁尺寸!"));
-    return;
-    }
-
-    bool toCountField;
-    bool isMidBeaan;
-    if(lineEditCheak("lineEdit_3")){
-
-        if(box_3_cheaked){
-            toCountField=true;
-
-      }else{
-            toCountField=false;
-
-}
-        if(ui->comboBox_3->currentIndex()==0){
-            //边梁
-         isMidBeaan=false;
-        }else{
-            //中梁
-        isMidBeaan=true;
-        }
-        vector<float> temp;
-        temp.push_back(mycat->myobs->total_span);
-        temp.push_back(lineEditDataProcess("lineEdit_3"));
-        temp.push_back(mycat->Transtionhalf_start);
-        temp.push_back(mycat->Transtionhalf_start);
-        QVariant data;
-        data.setValue(temp);
-        emit task_7_send(data,toCountField,isMidBeaan);
-    }
-    else
-        {
-        QMessageBox::information(this,QString("错误"),QString("输入数据不完整或输入数据类型有误!\n请检查后提交!"));
-     }
- }
 void MainWindow::on_commandLinkButton_clicked()
 {
     if( generalTableCheak("tableWidget_6",8)){
@@ -87,13 +49,8 @@ void MainWindow::on_commandLinkButton_clicked()
 
       QVariant task=getGeneralTableData ("tableWidget_6",8);
       emit task_4_send(task);;
-
-
-
-    }else{
-
-        QMessageBox::information(this,QString("错误"),QString("输入数据不完整或输入数据类型有误!\n请检查后提交!"));
-
+     }else{
+    QMessageBox::information(this,QString("错误"),QString("输入数据不完整或输入数据类型有误!\n请检查后提交!"));
     }
 }
 void MainWindow::on_commandLinkButton_2_clicked()
@@ -114,31 +71,36 @@ void MainWindow::on_commandLinkButton_2_clicked()
 
     }
 }
-
-
-
-
-
-
 void MainWindow::on_commandLinkButton_4_clicked()
-{
-    if(generalTableCheak("tableWidget_8",15))
-    {
-   QVariant data=getGeneralTableData("tableWidget_8",15);
-   emit task_6_send(data);
-    }
-    else
-    {
+{   vector<float> mydata;
+    if(mycat->mymb==0){
+        QMessageBox::information(this,QString("请先录入数据!"),QString("缺少数据,请先到数据录入界面存入相关数据!"));
 
-        QMessageBox::information(this,QString("错误"),QString("输入数据不完整或输入数据类型有误!\n请检查后提交!"));
+    }else{
+
+        mydata.push_back(mycat->mymb->mbd.BrigeWidth);
+        mydata.push_back(mycat->mymb->mbd.AspLayer);
+        mydata.push_back(mycat->mymb->mbd.MixedSoilLayer);
+        mydata.push_back(mycat->mymb->mbd.MBArea);
+        mydata.push_back(mycat->mymb->mbd.SideBeamArea);
+        mydata.push_back(mycat->mymb->mbd.CenterCrossBeamV);
+        mydata.push_back(mycat->mymb->mbd.SideCorssBeamV);
+        mydata.push_back(mycat->mymb->mbd.CalculaSpan);
+        mydata.push_back(mycat->mymb->mbd.gr);
+        mydata.push_back(mycat->mymb->mbd.crossBeamNum);
+        mydata.push_back(mycat->mymb->mbd.mianBeanNum);
+        mydata.push_back(mycat->mymb->mbd.Main_Bean_field_making_Area);
+        mydata.push_back(mycat->mymb->mbd.Side_Cross_Bean_field_making_Area);
+        mydata.push_back(mycat->mymb->mbd.Midle_Cross_Bean_field_making_Area);
+        mydata.push_back(mycat->mymb->mbd.Cross_Bean_t);
+         QVariant data;
+         data.setValue(mydata);
+         emit task_6_send(data);
 
     }
 
 
 }
-
-
-
 void MainWindow::task_4_finished(QVariant v){
 
     //todo
@@ -154,10 +116,7 @@ bool MainWindow::inputCheak(QString tb){
                return isInvalid;
            }
 
-
-
          }
-
      }
 
 
@@ -165,13 +124,10 @@ bool MainWindow::inputCheak(QString tb){
         QString qs=qtw->item(7,0)==0? " ":qtw->item(7,0)->text();
         qs.toFloat(&isInvalid);
         if(isInvalid){
-            return true;
-
-        }
+            return true; }
         else
         {
-
-            return false;
+        return false;
         }
 
      }
@@ -304,7 +260,6 @@ void MainWindow::renderCantilever(QVariant v){
 
 
 }
-
 void MainWindow::render4(QVariant v)
 {   vector<float> input=v.value<vector<float>>();
     QTableWidget  *qtw=ui->tableWidget_191;
@@ -472,7 +427,6 @@ void MainWindow::renderThridLoad(QVariant v ){
     }
 
 }
-
 vector<float> MainWindow::tableDataProcess(QString tableName){
      QTableWidget  *qtw=this->findChild< QTableWidget*>( tableName);
      vector<float> result;
@@ -491,12 +445,8 @@ float MainWindow::lineEditDataProcess(QString leID){
     QLineEdit  *qtw=this->findChild<QLineEdit*>( leID);
     return qtw->text().toFloat();}
 void MainWindow::pagePrepare(){
-
     generalTableInit("tableWidget_7");
     generalTableInit("tableWidget_6");
-    generalTableInit("tableWidget_8");
-    ui->label_28->hide();
-    ui->spinBox->hide();
     ui->spinBox_2->hide();
     ui->label_19->hide();
     ui->comboBox_4->hide();
@@ -525,6 +475,28 @@ void MainWindow::pagePrepare(){
     connect(mycat,&CacularThread::eff_combinFinished,this,&MainWindow::eff_combinRender);
     connect(this,&MainWindow::SectionCompute,mycat,&CacularThread::task_10_process);
     connect(mycat,&CacularThread::Sectionfinished,this,&MainWindow::render4);
+    connect(this,&MainWindow::prestrLossRq,mycat,&CacularThread::prestrLossProcess);
+
+}
+
+void MainWindow::beamInit()
+{
+    vector<float> temp;
+       temp.push_back(mycat->mymb->mbd.CalculaSpan*1000);
+       temp.push_back(mycat->mymb->mbd.AspLayer);
+       temp.push_back(mycat->mymb->mbd.MixedSoilLayer);
+       temp.push_back(mycat->mymb->mbd.CenterCrossBeamV);
+       temp.push_back(mycat->mymb->mbd.SideCorssBeamV);
+       temp.push_back(mycat->Transationhalf_start);
+       temp.push_back(mycat->Transtionhalf_end);
+       temp.push_back(mycat->mymb->mbd.Side_Cross_Bean_field_making_Area);
+       temp.push_back(mycat->mymb->mbd.Midle_Cross_Bean_field_making_Area);
+       temp.push_back(mycat->mymb->mbd.Cross_Bean_t);
+       beam  mybeam(*mycat->FulcrMidBeam,*mycat->mid_SpanMidBeam,temp,mycat->mymb->mbd.crossBeamNum);
+       beam  sidebeam(*mycat->FulcrSideBeam,*mycat->mid_SpanSideBeam,temp,mycat->mymb->mbd.crossBeamNum);
+
+
+       mycat->SetBeam(mybeam,sidebeam);
 
 }
 void MainWindow::on_listWidget_currentRowChanged(int currentRow)
@@ -532,11 +504,6 @@ void MainWindow::on_listWidget_currentRowChanged(int currentRow)
    ui-> stackedWidget->setCurrentIndex(currentRow);
 
 }
-
-
-
-
-
 
 void MainWindow::on_commandLinkButton_5_clicked()
 {   float num1;
@@ -579,51 +546,19 @@ void MainWindow::on_commandLinkButton_5_clicked()
 void MainWindow::on_pushButton_4_clicked()
 {
     //主梁活载内力计算按钮
-    if((mycat->FulcrMidBeam==0)|(mycat->FulcrSideBeam==0)|(mycat->mid_SpanMidBeam==0)|(mycat->mid_SpanSideBeam==0)){
+    if((mycat->FulcrMidBeam==0)|(mycat->FulcrSideBeam==0)|(mycat->mid_SpanMidBeam==0)|(mycat->mid_SpanSideBeam==0)|(mycat->myobs==0)){
         QMessageBox::information(this,QString("数据缺失"),QString("请先预存储支点和跨中截面主梁尺寸!"));
         return;
     }else{
-        if( generalTableCheak("tableWidget_17",3)){
 
-
-          QVariant task=getGeneralTableData ("tableWidget_17",3);
-          vector<float> test=task.value<vector<float>>();
+           vector<float> test;
+          test.push_back(mycat->myobs->bean_nums);
+          test.push_back(mycat->myobs->cal_span);
+          test.push_back(mycat->myobs->stoneWidth);
           test.push_back((float)ui->spinBox->value());
-
-
-          QVariant data;
+         QVariant data;
           data.setValue(test);
             emit task_9_send(data);
-
-
-
-
-
-        }else{
-
-            QMessageBox::information(this,QString("错误"),QString("输入数据不完整或输入数据类型有误!\n请检查后提交!"));
-
-        }
-
-    }
-}
-
-void MainWindow::on_tableWidget_17_itemChanged(QTableWidgetItem *item)
-{
-    if(item->row()==0&item->column()==1){
-        bool isInvalid;
-        int a=ui->tableWidget_17->item(0,1)->text().toInt(&isInvalid);
-        if(isInvalid){
-            ui->spinBox->setMinimum(1);
-           ui->spinBox->setMaximum(a);
-           ui->label_28->show();
-          ui->spinBox->show();
-        }
-        else{
-           ui->label_28->hide();
-          ui->spinBox->hide();
-        }
-
     }
 }
 void MainWindow::on_tabWidget_tabBarClicked(int index)
@@ -665,7 +600,6 @@ void MainWindow::on_spinBox_2_valueChanged(int arg1)
     emit eff_combin(ui->spinBox_2->value(),saftyLevel);
 
 }
-
 void MainWindow::on_comboBox_4_currentIndexChanged(int index)
 {
     int saftyLevel= ui->comboBox_4->currentIndex()+1;
@@ -728,7 +662,6 @@ void MainWindow::Steelplot(myPath path){
          m_customPlot->replot();
 
 }
-
 bool MainWindow::tableItemCheak(QTableWidgetItem *t)
 {   if(t==0){
     return false;
@@ -739,8 +672,82 @@ bool MainWindow::tableItemCheak(QTableWidgetItem *t)
          return true;
        }else{
         return false;
-        }
+    }
 }
+
+void MainWindow::prestrLossSolve()
+{
+    //预应力损失计算;
+    bool beamType;
+    int steelId;
+    float Sx;//截面位置;
+    float myphi_1;
+    float myphi_2;
+    float myxi_cs;
+    int mym;//张拉批次;
+    if(lineEditCheak("lineEdit_2")&lineEditCheak("lineEdit_7")&lineEditCheak("lineEdit_8")&lineEditCheak("lineEdit_9"))
+    {
+        Sx=lineEditDataProcess("lineEdit_2");
+        myphi_1=lineEditDataProcess("lineEdit_7");
+        myphi_2=lineEditDataProcess("lineEdit_8");
+        myxi_cs=lineEditDataProcess("lineEdit_9");
+        QSpinBox *sp=ui->spinBox_3;
+        mym=sp->value();
+        QComboBox *qcb=ui->comboBox;
+        steelId=qcb->currentIndex();
+        beamType=ui->comboBox_6->currentIndex()==0? false:true;
+        phi_1= myphi_1;
+        phi_2=myphi_2;
+        xi_cs=myxi_cs*1e-4;
+        m= mym;
+         emit prestrLossRq(Sx,beamType,steelId);
+
+
+
+
+    }else{
+
+        qDebug()<<"输入不完整!";
+    }
+
+
+
+
+}
+
+void MainWindow::SectionSolve(int x)
+{
+    if((mycat->FulcrMidBeam==0)|(mycat->FulcrSideBeam==0)|(mycat->mid_SpanMidBeam==0)|(mycat->mid_SpanSideBeam==0)){
+        QMessageBox::information(this,QString("数据缺失"),QString("请先预存储支点和跨中截面主梁尺寸!"));
+        return;
+        }
+       bool toCountField;
+       bool isMidBeaan;
+       if(box_3_cheaked){
+                toCountField=true;
+
+          }else
+       {
+                toCountField=false;
+
+    }
+            if(ui->comboBox_3->currentIndex()==0)
+            {
+                //边梁
+             isMidBeaan=false;
+            }else{
+                //中梁
+            isMidBeaan=true;
+            }
+            vector<float> temp;
+            temp.push_back( mycat->bridgeSpan);
+            temp.push_back(x/1e3);
+            temp.push_back(mycat->Transationhalf_start);
+            temp.push_back(mycat->Transtionhalf_end);
+            QVariant data;
+            data.setValue(temp);
+            emit task_7_send(data,toCountField,isMidBeaan);
+        }
 void MainWindow::on_commandLinkButton_6_clicked()
 {
     int itemCount=6;
@@ -763,9 +770,7 @@ void MainWindow::on_commandLinkButton_6_clicked()
 
                 }
                   cheakedCount++;
-
-            }
-
+        }
 
 Point start(callDatas[0],callDatas[1]);
 Point turn(callDatas[2],callDatas[3]);
@@ -773,11 +778,7 @@ myPath path(start,turn,callDatas[4],callDatas[5]);
 
 Steelplot(path);
 
-
-
-
-
-    }
+ }
 
 }
 void MainWindow::on_commandLinkButton_49_clicked()
@@ -810,24 +811,20 @@ void MainWindow::on_commandLinkButton_49_clicked()
 
                         QMessageBox message(QMessageBox::NoIcon,"数据已存在!",ui->comboBox_33->currentText()+"数据似乎已经\n存在,是否覆盖?",QMessageBox::No|QMessageBox::Yes);
 
-
                         if(message.exec()==QMessageBox::Yes){
 
                             mycat->FulcrMidBeam=new field_making_girder_beam(sbzl,taskdata1[13]);
                             mycat->FulcrSideBeam=new field_making_girder_beam(sbbl,taskdata2[13]);
                             QMessageBox::information(this,QString("存入成功"),QString("已存储!"));
-
-                        }
+                            }
                         else
                         {
-
-                           return;
-                        }
+                         return;
+                       }
                     }
 
                 }else{
                     if(mycat->mid_SpanSideBeam==0&mycat->mid_SpanMidBeam==0){
-
                             mycat->mid_SpanMidBeam=new field_making_girder_beam(sbzl,taskdata1[13]);
                             mycat->mid_SpanSideBeam=new field_making_girder_beam(sbbl,taskdata2[13]);
                                    QMessageBox::information(this,QString("存入成功"),QString("已存储!"));
@@ -842,15 +839,11 @@ void MainWindow::on_commandLinkButton_49_clicked()
                             }else{
 
                                 return;
-                            }
+                           }
                         }
-
-
-
-                }
-
-
-          }else{
+                     }
+                  }
+    else{
 QString qs1("必须输入");
 QString qs2(ui->comboBox_33->currentText());
 QString qs3("含现浇段主梁(边梁和中梁)\n的全部数据");
@@ -865,7 +858,7 @@ void MainWindow::on_commandLinkButton_50_clicked()
     }else
     {
         if(generalTableCheak("tableWidget_190",16)&table_192_cheak){
-            mycat->Transtionhalf_start=ui->tableWidget_192->item(1,0)->text().toFloat();
+            mycat->Transationhalf_start=ui->tableWidget_192->item(1,0)->text().toFloat();
             mycat->Transtionhalf_end=ui->tableWidget_192->item(1,1)->text().toFloat();
             QVariant data=getGeneralTableData("tableWidget_190",16);
             vector<float> input=data.value<vector<float>>();
@@ -878,6 +871,9 @@ void MainWindow::on_commandLinkButton_50_clicked()
               mycat->mymb=new MainBeam(mymbd);
               mycat->bridgeSpan=input[15];
               bridge_total_Span=input[15];
+              ui->spinBox_4->setMaximum(input[15]*1e3);
+              ui->horizontalSlider->setMaximum(input[15]*1e3);
+              beamInit();
               QMessageBox::information(this,QString("存入成功"),QString("已存储!"));
 
 
@@ -892,6 +888,9 @@ void MainWindow::on_commandLinkButton_50_clicked()
                     mycat->mymb=new MainBeam(mymbd);
                     mycat->bridgeSpan=input[15];
                     bridge_total_Span=input[15];
+                    ui->spinBox_4->setMaximum(input[15]*1e3);
+                    ui->horizontalSlider->setMaximum(input[15]*1e3);
+                    beamInit();
                     QMessageBox::information(this,QString("存入成功"),QString("已存储!"));
 
 
@@ -1068,7 +1067,11 @@ void MainWindow::on_tableWidget_189_cellClicked(int row, int column)
 
 }
 void MainWindow::on_lineEdit_editingFinished()
-{       bool precounted;
+{       if(mycat->paths.size()==0){
+    return;
+    }
+
+        bool precounted;
         precounted=ui->comboBox_5->currentIndex()>0? true:false;
          bool fieldCount=ui->comboBox_5->currentIndex()>1? true:false;
         QString input=ui->lineEdit->text();
@@ -1081,8 +1084,6 @@ void MainWindow::on_lineEdit_editingFinished()
      qDebug()<<"输入非法!!";
         }
 }
-
-
 void MainWindow::on_comboBox_34_currentIndexChanged(int index)
 {      bool precounted;
        precounted=ui->comboBox_5->currentIndex()>0? true:false;
@@ -1097,9 +1098,6 @@ void MainWindow::on_comboBox_34_currentIndexChanged(int index)
     qDebug()<<"输入非法!!";
         }
 }
-
-
-
 void MainWindow::on_comboBox_5_currentIndexChanged(int index)
 {
     bool precounted;
@@ -1116,16 +1114,16 @@ void MainWindow::on_comboBox_5_currentIndexChanged(int index)
 
     }
 }
-
 void MainWindow::on_pushButton_clicked()
 {
-   vector<float> temp;
+    prestrLossSolve();
+  /* vector<float> temp;
    temp.push_back(mycat->mymb->mbd.CalculaSpan*1000);
    temp.push_back(mycat->mymb->mbd.AspLayer);
    temp.push_back(mycat->mymb->mbd.MixedSoilLayer);
    temp.push_back(mycat->mymb->mbd.CenterCrossBeamV);
    temp.push_back(mycat->mymb->mbd.SideCorssBeamV);
-   temp.push_back(mycat->Transtionhalf_start);
+   temp.push_back(mycat->Transationhalf_start);
    temp.push_back(mycat->Transtionhalf_end);
    temp.push_back(mycat->mymb->mbd.Side_Cross_Bean_field_making_Area);
    temp.push_back(mycat->mymb->mbd.Midle_Cross_Bean_field_making_Area);
@@ -1133,7 +1131,7 @@ void MainWindow::on_pushButton_clicked()
    beam  mybeam(*mycat->FulcrMidBeam,*mycat->mid_SpanMidBeam,temp,5);
    beam sidebeam(*mycat->FulcrSideBeam,*mycat->mid_SpanSideBeam,temp,5);
    mybeam.setSteel(mycat->paths);
-   sidebeam.setSteel(mycat->paths);
+   sidebeam.setSteel(mycat->paths);*/
  //  qDebug()<<mybeam.getSigma_l6(6200)<<endl<<"beam分割!!!!";
 
  //  qDebug()<<mycat->getSigma_l6(6200,true);
@@ -1198,8 +1196,99 @@ double ts=(mycat->myobs->total_span)/100;
 
 //mycat->myobs->cross_sf(4.56);
 //mycat->myobs->cross_sf(1.66);
-  mycat->myobs-> cross_storge();
+//  mycat->myobs-> cross_storge();
 
 
 
+}
+void MainWindow::on_tabWidget_currentChanged(int index)
+{
+    ui->spinBox->setMinimum(1);
+    if(!mycat->myobs==0){
+    ui->spinBox->setMaximum(mycat->myobs->bean_nums);
+    ui->label_28->show();
+    ui->spinBox->show();
+    }
+
+
+}
+
+void MainWindow::on_horizontalSlider_valueChanged(int value)
+{   if(mycat->myobs==0){
+        QMessageBox::information(this,QString("数据缺失"),QString("请先预存储支点和跨中截面主梁尺寸!"));
+        return;
+    }
+    SectionSolve(value);
+}
+
+void MainWindow::on_checkBox_3_clicked()
+{
+    SectionSolve(ui->horizontalSlider->value());
+}
+
+void MainWindow::on_pushButton_3_clicked()
+{
+    m_customPlot=ui->widget_4;
+
+    m_customPlot->clearGraphs ( );
+    m_customPlot->showTracer(true);
+      // add title layout element:
+      if(!m_customPlot->plotLayout()->hasElement(1,0)){
+          m_customPlot->plotLayout()->insertRow(0);
+          m_customPlot->plotLayout()->addElement(0, 0, new QCPTextElement(m_customPlot, "1号梁活载弯矩包络图", QFont("黑体", 12, QFont::Bold)));
+          }
+
+      m_customPlot->legend->setVisible(true);
+      QFont legendFont = font();  // start out with MainWindow's font..
+      legendFont.setPointSize(9); // and make a bit smaller for legend
+      m_customPlot->legend->setFont(legendFont);
+      m_customPlot->legend->setBrush(QBrush(QColor(255,255,255,230)));
+      // by default, the legend is in the inset layout of the main axis rect. So this is how we access it to change legend placement:
+      m_customPlot->axisRect()->insetLayout()->setInsetAlignment(0, Qt::AlignTop|Qt::AlignCenter);
+
+      // make left and bottom axes always transfer their ranges to right and top axes:
+      connect(m_customPlot->xAxis, SIGNAL(rangeChanged(QCPRange)), m_customPlot->xAxis2, SLOT(setRange(QCPRange)));
+      connect(m_customPlot->yAxis, SIGNAL(rangeChanged(QCPRange)), m_customPlot->yAxis2, SLOT(setRange(QCPRange)));
+
+      // Allow user to drag axis ranges with mouse, zoom with mouse wheel and select graphs by clicking:
+      m_customPlot->setInteractions(QCP::iRangeDrag | QCP::iRangeZoom | QCP::iSelectPlottables);
+      // generate some data:
+
+      int nCount = 100;
+
+      double ts=(mycat->myobs->cal_span*1e3)/100;
+
+    QVector<double> x(nCount+1), y0(nCount+1);//, y1(nCount),y2(nCount); // initialize with entries 0..100
+      for (int i = 0; i <nCount; ++i)
+      {
+          x[i] =i*ts; // x goes from -1 to 1
+
+         // y0[i] = mycat->myobs->getLiveLoad_M(1,x[i]);
+           y0[i] = mycat->myobs->getLiveLoad_Sf(1,x[i]);
+                  //qSin(i * 10.0f / nCount); //sin
+         // y1[i] = qCos(i * 10.0f / nCount); //cos
+       //   y2[i]=i*i*1.0f/10000;
+      }
+      x[100]=mycat->myobs->cal_span*1e3;
+    //  y0[100] = mycat->myobs->getLiveLoad_M(1,x[100]);
+       y0[100] = mycat->myobs->getLiveLoad_Sf(1,x[100]);
+      // create graph and assign data to it:
+      QPen pen;
+      QCPGraph *pGraph = m_customPlot->addGraph();
+      m_customPlot->graph(0)->setData(x, y0);
+      pGraph->setName("1号梁弯矩包络图demon");
+      pGraph->setData(x,y0);
+      pGraph->setPen(QPen(Qt::blue));
+
+      // give the axes some labels:
+      m_customPlot->xAxis->setLabel("截面位置");
+      m_customPlot->yAxis->setLabel("M");
+      m_customPlot->rescaleAxes(true);
+        m_customPlot->replot();
+
+}
+
+void MainWindow::on_comboBox_3_currentIndexChanged(int index)
+{
+    SectionSolve(ui->horizontalSlider->value());
 }

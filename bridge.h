@@ -177,7 +177,7 @@ public:
 class OrdinaryBrigeSection
 {
 public:
-    float cross_beam_foce[5][6];
+
     //跨中边梁
 	field_making_girder_beam side_main_bean;
     //跨中中梁
@@ -486,16 +486,22 @@ public:
 	vector<float> getLivaLoadBending(int beamId) {
 		//返回向量组,对应该梁号的 支点 1/4截面 跨中截面 最大弯矩
 		vector<float> result;
-		float a[4] = { 0,f_c_lca,cal_span - f_c_lca ,cal_span };
-		float b[4] = { getTDC_for_FulcrByBeamId(beamId),getMcqByBeamId(beamId),getMcqByBeamId(beamId),  getTDC_for_FulcrByBeamId(beamId) };
-		BasicInterpolationTable  test(a, b, 4);
+        //float a[4] = { 0,f_c_lca,cal_span - f_c_lca ,cal_span };
+        //float b[4] = { getTDC_for_FulcrByBeamId(beamId),getMcqByBeamId(beamId),getMcqByBeamId(beamId),  getTDC_for_FulcrByBeamId(beamId) };
+        //BasicInterpolationTable  test(a, b, 4);
 		float temp1, temp2, temp3;
 		temp1 = 0;
-		temp2 = (pk * 3 / 16 * cal_span + qk * 3 / 32 * pow(cal_span, 2))*test.Interpolat(cal_span / 4)*vmcffe();
-		temp3 = (pk*cal_span / 4 + qk * pow(cal_span, 2) / 8)*vmcffe()*test.Interpolat(cal_span / 2);
+        float test1=(float)3 / 16 * cal_span;
+         float test2=(float)3/32 * pow(cal_span, 2);
+         float test3=getMcqByBeamId(beamId);
+          float test4=vmcffe();;
+
+        temp2 = (pk * 3 / 16 * cal_span + qk * 3 / 32 * pow(cal_span, 2))*getMcqByBeamId(beamId)*vmcffe();
+        temp3 = (pk*cal_span / 4 + qk * pow(cal_span, 2) / 8)*vmcffe()*getMcqByBeamId(beamId);
 		result.push_back(temp1);
 		result.push_back(temp2);
 		result.push_back(temp3);
+        qDebug()<<temp2<<"1/4截面弯矩_____"<<endl<<"----1/4截面弯矩-----"<<getLiveLoad_M(beamId,(cal_span/4)*1e3)<<"----halo!";
 		return	result;
 	}
 	vector<float> getLivaLoadSF(int beamId) {
@@ -513,9 +519,78 @@ public:
 		result.push_back(temp1);
 		result.push_back(temp2);
 		result.push_back(temp3);
+
 		return	result;
 
 	}
+
+    float getLiveLoad_M(int beamId,float x){
+        //x以毫米为单位输入;
+        x/=1e3;//转为米
+        float Mc=getMcqByBeamId(beamId);
+        float lj=cal_span;
+        float vmc=vmcffe();
+        float R_left=1-x/lj;
+        float R_right=x/lj;
+        float M_max=R_left*x;
+        float S=M_max*lj*0.5;
+        float bend;
+        bend=vmc*Mc*(pk*M_max+qk*S);
+        return bend;
+
+        //任意位置的活载弯矩
+    }
+    float getLiveLoad_Sf(int beamId,float x){
+    //任意位置的活载剪力
+        x/=1e3;//转为米
+        float lj=cal_span;
+        float Mc;
+        float vmc=vmcffe();
+        float flag=x>cal_span/2? -1:1;
+        x=x>cal_span/2? cal_span-x:x;
+        float R_left=1-x/lj;
+        float R_right=x/lj;
+        float V_max=R_left;
+        float S=V_max*(lj-x)*0.5;
+        float Sf;
+        Mc=getMcqByBeamId(beamId);
+
+        if(x>=lj/4){
+            //如果不要考虑横向分布系数变化;
+
+          Sf=vmc*Mc*(1.2*pk*V_max+qk*S);
+
+
+
+
+        }else{
+            //考虑横向分布系数变化
+
+            float m[4] = { 0,cal_span/4,cal_span -cal_span/4 ,cal_span };
+            float n[4] = { getTDC_for_FulcrByBeamId(beamId),getMcqByBeamId(beamId),getMcqByBeamId(beamId),  getTDC_for_FulcrByBeamId(beamId) };
+            BasicInterpolationTable  test(m, n, 4);
+            float S3=0.75*0.75*lj*0.5;
+               float b=V_max;
+               float a=0.75;
+               float h=lj/4-x;
+               float S4=(a+b)*h/2;
+                float CentroidX=h/3*(a+2*b)/(a+b)+x;
+                float y=test.Interpolat(CentroidX);
+                Sf=vmc*(1.2*pk*V_max*test.Interpolat(x)+qk*S3*Mc+qk*S4*y);
+
+
+
+        }
+
+
+
+        return Sf*flag;
+
+
+
+
+
+    }
 
     vector<float> liveLoadmcqSolve(int beamId) {
             float maxVehicleNum = getMaximumVehicle();
@@ -532,6 +607,7 @@ public:
 
         }
     vector<float> getFulcrMcqsByBeamId(int beamId) {
+        //求解支点截面的横向分布系数
             vector <float> res;
             if (beamId > (bean_nums + 1) / 2)
             {

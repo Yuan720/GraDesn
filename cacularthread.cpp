@@ -7,6 +7,11 @@ CacularThread::CacularThread(QObject *parent) : QObject(parent)
 {
 
 }
+
+void CacularThread::SetBeam(beam vbeam,beam sbeam)
+{   SDemonBeam=sbeam;
+    MDemonBeam=vbeam;
+}
 //信号处理函数--------------------------------
 void CacularThread::task_1_process(QVariant mv, bool taskType)
 {
@@ -386,7 +391,7 @@ ks
     vector<float> request;
     request.push_back(bridgeSpan*1000);
     request.push_back(x);
-    request.push_back(1000*Transtionhalf_start);
+    request.push_back(1000*Transationhalf_start);
     request.push_back(1000*Transtionhalf_end);
 
    QVariant data;
@@ -405,7 +410,6 @@ ks
  result.push_back(smoaSuam);
  result.push_back(staticMoment);
  result.push_back(centerHeight);
-
  result.push_back(fabs(centerHeight-getAverageSteelHeight(x)));
 
  return result;
@@ -545,6 +549,40 @@ vector<float> CacularThread::getAveSigma(float x)
 
 
       return res;
+
+}
+
+void CacularThread::prestrLossProcess(float Sx, bool beamType,int steelId)
+{   vector<float> res;
+    beam calbeam=beamType? MDemonBeam:SDemonBeam;
+    calbeam.setSteel(paths);
+    float sigma_l1,sigma_l2,sigma_l4,sigma_l5,sigma_l6,sigma_P1,Sigma_P2,sigma_stage1,sigma_stage2,sigma_Avrl1,sigma_Avrl2;
+    sigma_l1=calbeam.steelPaths[steelId].getSigma_l1(Sx);
+     sigma_l2=calbeam.steelPaths[steelId].getSigma_l2(Sx);
+     sigma_l4=calbeam.getSigma_l4(Ap);
+     sigma_l5=calbeam.getSigma_l5(Ap);
+     sigma_l6=calbeam.getSigma_l6(Ap);
+     sigma_P1=calbeam.getSigma_P_I(Sx,Ap);
+     Sigma_P2=calbeam.getSigma_P_II(Sx,Ap);
+     sigma_stage1=calbeam.getSigma_L_I(Sx,Ap);
+     sigma_stage2=calbeam.getSigma_L_II(Ap);
+     sigma_Avrl1=calbeam.getAveSigma_l1(Sx);
+     sigma_Avrl2=calbeam.getAveSigma_l2(Sx);
+      res.push_back(sigma_l1);
+      res.push_back(sigma_l2);
+      res.push_back(sigma_l4);
+      res.push_back(sigma_stage1);
+      res.push_back(sigma_l5);
+      res.push_back(sigma_l6);
+      res.push_back(sigma_stage2);
+      res.push_back( sigma_P1);
+       res.push_back(Sigma_P2);
+       QVariant data;
+       data.setValue(res);
+       emit prestrLossFinished(data);
+
+
+
 
 }
 vector<float> CacularThread::task_7_Dataprocess(QVariant v,bool field_count,bool beamType)

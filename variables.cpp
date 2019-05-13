@@ -27,5 +27,5 @@ float non_prestreSteel_s=23150;
  float As=4826;
  float as=45;
  float ap=125;
- //float cross_beam_foce[5][6];
+ float cross_beam_foce[5][6];
  //ap=125mm

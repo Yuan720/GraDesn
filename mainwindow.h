@@ -15,8 +15,6 @@
 #include<mytoolkit.h>
 #include<variables.h>
 #include<beam.h>
-
-
 using namespace std;
 namespace Ui {
 class MainWindow;
@@ -53,9 +51,12 @@ public:
     void render4(QVariant v);
     void onTabChoosed();
     void pagePrepare();
+    void beamInit();
     void Steelplot(myPath path);
     bool tableItemCheak(QTableWidgetItem *t);
     void Init_table_189();
+    void prestrLossSolve();
+    void SectionSolve(int x);
 signals:
     void task_1_send(QVariant v,bool taskType);
     void task_2_send(QVariant v,QVariant w,bool taskType);
@@ -70,7 +71,7 @@ signals:
     void eff_combin(int beanId,int saftyGrade);
     void nonPreStreSolve(float a,float fpd,float Ap);
     void SectionCompute(bool fieldCount,bool beamType,float x,bool precounted);
-
+    void prestrLossRq(float Sx,bool beamType,int steelId);
 private slots:
 
     void task_4_finished(QVariant v);
@@ -81,11 +82,9 @@ private slots:
     void on_commandLinkButton_4_clicked();
     void on_listWidget_2_currentRowChanged(int currentRow);
     void on_commandLinkButton_2_clicked();
-    void on_pushButton_3_clicked();
     void on_checkBox_3_stateChanged(int arg1);
     void on_commandLinkButton_5_clicked();
     void on_pushButton_4_clicked();
-    void on_tableWidget_17_itemChanged(QTableWidgetItem *item);
     void on_tabWidget_tabBarClicked(int index);
     void on_spinBox_2_valueChanged(int arg1);
     void on_comboBox_4_currentIndexChanged(int index);
@@ -101,12 +100,17 @@ private slots:
     void on_tableWidget_189_cellClicked(int row, int column);
     void on_lineEdit_editingFinished();
      void on_comboBox_34_currentIndexChanged(int index);
-
-
-
     void on_comboBox_5_currentIndexChanged(int index);
-
     void on_pushButton_clicked();
+    void on_tabWidget_currentChanged(int index);
+
+    void on_horizontalSlider_valueChanged(int value);
+
+    void on_checkBox_3_clicked();
+
+    void on_pushButton_3_clicked();
+
+    void on_comboBox_3_currentIndexChanged(int index);
 
 private:
     bool box_1_cheaked=false;

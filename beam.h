@@ -2,7 +2,6 @@
 #define BEAM_H
 #include<bridge.h>
 #include<mytoolkit.h>
-#include<QDebug>
 #include<Casoa.h>
 
 
@@ -25,7 +24,7 @@ public:
     float Side_Cross_Bean_field_making_Area;//端横隔梁现浇段面积;
     float Midle_Cross_Bean_field_making_Area;//中横梁现浇段面积
     float Cross_Bean_t;//横隔梁(宽)厚度
-    int m=2;//张拉批数
+   // int m=2;//张拉批数
     bool beamtype;
     vector<myPath> steelPaths;//钢筋走向;
     float getFirstStageLoad();//一期恒载;

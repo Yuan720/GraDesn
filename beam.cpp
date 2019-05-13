@@ -1,7 +1,7 @@
 #include "beam.h"
 beam::beam()
 {
-qDebug()<<"hahha";
+qDebug()<<"创建beam实例!"<<endl;
 }
 beam::beam(field_making_girder_beam pivot, field_making_girder_beam middle, vector<float> param1, int cBN)
 {
@@ -256,8 +256,7 @@ float beam::getSigma_cu(float x,float Ap,float Mq)
     //x截面位置;
     //输入的x以mm为单位;
     //默认四片梁
-
-    float MG1=1e6*bendingSolve(getFirstStageLoad(),x/1000);
+float MG1=1e6*bendingSolve(getFirstStageLoad(),x/1000);
     float MG21=1e6*bendingSolve(getSecondStageLoad(),x/1000);
     float MG22=1e6*bendingSolve(getThirdStageLoad(4),x/1000);
     float Sigma_PII=getSigma_P_II(x,Ap);
