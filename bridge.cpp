@@ -298,6 +298,7 @@ void OrdinaryBrigeSection::InitFsm(){
 
 }
 
+
 float OrdinaryBrigeSection::get_Mr(float px, float s)
 {
     int lf=getLeftBeamId(s);

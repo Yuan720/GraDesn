@@ -540,8 +540,9 @@ public:
 
         //任意位置的活载弯矩
     }
-    float getLiveLoad_Sf(int beamId,float x){
+    vector<float> getLiveLoad_Sf(int beamId,float x){
     //任意位置的活载剪力
+        vector<float> result;
         x/=1e3;//转为米
         float lj=cal_span;
         float Mc;
@@ -552,13 +553,17 @@ public:
         float R_right=x/lj;
         float V_max=R_left;
         float S=V_max*(lj-x)*0.5;
+        float Smin=(1-R_left)*x*0.5;
         float Sf;
+        float SfMin;
+
         Mc=getMcqByBeamId(beamId);
 
         if(x>=lj/4){
             //如果不要考虑横向分布系数变化;
 
           Sf=vmc*Mc*(1.2*pk*V_max+qk*S);
+
 
 
 
@@ -581,17 +586,25 @@ public:
 
 
         }
+         SfMin=vmc*Mc*(1.2*pk*(1-R_left)+qk*Smin);
+        float sectionMax;
+        float sectionMmin;
+        sectionMax=Sf*flag>-SfMin*flag? Sf*flag:-SfMin*flag;
+         sectionMmin=Sf*flag<-SfMin*flag? Sf*flag:-SfMin*flag;
+        result.push_back(Sf*flag);
+        result.push_back(-SfMin*flag);
+        result.push_back(sectionMax);
+         result.push_back(sectionMmin);
 
 
-
-        return Sf*flag;
+        return result;
 
 
 
 
 
     }
-
+    vector<float> get_Sf_EffCombina(int beamId,float x);
     vector<float> liveLoadmcqSolve(int beamId) {
             float maxVehicleNum = getMaximumVehicle();
             float max=0;

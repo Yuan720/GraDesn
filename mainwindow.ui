@@ -36,7 +36,7 @@
      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
     </property>
     <property name="currentIndex">
-     <number>5</number>
+     <number>3</number>
     </property>
     <widget class="QWidget" name="tab_4">
      <attribute name="title">
@@ -1977,293 +1977,375 @@ border:0px</string>
      <attribute name="toolTip">
       <string>计算主梁内力</string>
      </attribute>
-     <widget class="QCommandLinkButton" name="commandLinkButton_4">
+     <widget class="QScrollArea" name="scrollArea_3">
       <property name="geometry">
        <rect>
-        <x>310</x>
-        <y>330</y>
-        <width>81</width>
-        <height>41</height>
+        <x>0</x>
+        <y>0</y>
+        <width>1351</width>
+        <height>931</height>
        </rect>
       </property>
-      <property name="styleSheet">
-       <string notr="true">background-color: #aebed8;
+      <property name="widgetResizable">
+       <bool>true</bool>
+      </property>
+      <widget class="QWidget" name="scrollAreaWidgetContents_4">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>-304</y>
+         <width>1328</width>
+         <height>3000</height>
+        </rect>
+       </property>
+       <property name="minimumSize">
+        <size>
+         <width>0</width>
+         <height>3000</height>
+        </size>
+       </property>
+       <widget class="QLabel" name="label_22">
+        <property name="geometry">
+         <rect>
+          <x>470</x>
+          <y>20</y>
+          <width>131</width>
+          <height>31</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#55557f;&quot;&gt;恒载计算表&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
+       </widget>
+       <widget class="QTableWidget" name="tableWidget_14">
+        <property name="geometry">
+         <rect>
+          <x>370</x>
+          <y>70</y>
+          <width>403</width>
+          <height>225</height>
+         </rect>
+        </property>
+        <property name="rowCount">
+         <number>6</number>
+        </property>
+        <property name="columnCount">
+         <number>2</number>
+        </property>
+        <attribute name="horizontalHeaderVisible">
+         <bool>false</bool>
+        </attribute>
+        <attribute name="horizontalHeaderDefaultSectionSize">
+         <number>200</number>
+        </attribute>
+        <attribute name="horizontalHeaderMinimumSectionSize">
+         <number>60</number>
+        </attribute>
+        <attribute name="verticalHeaderVisible">
+         <bool>false</bool>
+        </attribute>
+        <row/>
+        <row/>
+        <row/>
+        <row/>
+        <row/>
+        <row/>
+        <column/>
+        <column/>
+        <item row="0" column="0">
+         <property name="text">
+          <string>边梁(一期)</string>
+         </property>
+         <property name="textAlignment">
+          <set>AlignCenter</set>
+         </property>
+        </item>
+        <item row="0" column="1">
+         <property name="text">
+          <string>中梁(一期)</string>
+         </property>
+         <property name="textAlignment">
+          <set>AlignCenter</set>
+         </property>
+        </item>
+        <item row="1" column="0">
+         <property name="text">
+          <string/>
+         </property>
+         <property name="textAlignment">
+          <set>AlignCenter</set>
+         </property>
+        </item>
+        <item row="1" column="1">
+         <property name="text">
+          <string/>
+         </property>
+         <property name="textAlignment">
+          <set>AlignCenter</set>
+         </property>
+        </item>
+        <item row="2" column="0">
+         <property name="text">
+          <string>边梁(二期)</string>
+         </property>
+         <property name="textAlignment">
+          <set>AlignCenter</set>
+         </property>
+        </item>
+        <item row="2" column="1">
+         <property name="text">
+          <string>中梁(二期)</string>
+         </property>
+         <property name="textAlignment">
+          <set>AlignCenter</set>
+         </property>
+        </item>
+        <item row="3" column="0">
+         <property name="text">
+          <string/>
+         </property>
+         <property name="textAlignment">
+          <set>AlignCenter</set>
+         </property>
+        </item>
+        <item row="3" column="1">
+         <property name="text">
+          <string/>
+         </property>
+         <property name="textAlignment">
+          <set>AlignCenter</set>
+         </property>
+        </item>
+        <item row="4" column="0">
+         <property name="text">
+          <string>三期</string>
+         </property>
+         <property name="textAlignment">
+          <set>AlignCenter</set>
+         </property>
+        </item>
+        <item row="4" column="1">
+         <property name="text">
+          <string/>
+         </property>
+         <property name="textAlignment">
+          <set>AlignCenter</set>
+         </property>
+        </item>
+       </widget>
+       <widget class="QCommandLinkButton" name="commandLinkButton_4">
+        <property name="geometry">
+         <rect>
+          <x>510</x>
+          <y>330</y>
+          <width>81</width>
+          <height>41</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: #aebed8;
 border-radius:5px;</string>
-      </property>
-      <property name="text">
-       <string>计算</string>
-      </property>
-     </widget>
-     <widget class="QTableWidget" name="tableWidget_14">
-      <property name="geometry">
-       <rect>
-        <x>150</x>
-        <y>80</y>
-        <width>403</width>
-        <height>225</height>
-       </rect>
-      </property>
-      <property name="rowCount">
-       <number>6</number>
-      </property>
-      <property name="columnCount">
-       <number>2</number>
-      </property>
-      <attribute name="horizontalHeaderVisible">
-       <bool>false</bool>
-      </attribute>
-      <attribute name="horizontalHeaderDefaultSectionSize">
-       <number>200</number>
-      </attribute>
-      <attribute name="horizontalHeaderMinimumSectionSize">
-       <number>60</number>
-      </attribute>
-      <attribute name="verticalHeaderVisible">
-       <bool>false</bool>
-      </attribute>
-      <row/>
-      <row/>
-      <row/>
-      <row/>
-      <row/>
-      <row/>
-      <column/>
-      <column/>
-      <item row="0" column="0">
-       <property name="text">
-        <string>边梁(一期)</string>
-       </property>
-       <property name="textAlignment">
-        <set>AlignCenter</set>
-       </property>
-      </item>
-      <item row="0" column="1">
-       <property name="text">
-        <string>中梁(一期)</string>
-       </property>
-       <property name="textAlignment">
-        <set>AlignCenter</set>
-       </property>
-      </item>
-      <item row="1" column="0">
-       <property name="text">
-        <string/>
-       </property>
-       <property name="textAlignment">
-        <set>AlignCenter</set>
-       </property>
-      </item>
-      <item row="1" column="1">
-       <property name="text">
-        <string/>
-       </property>
-       <property name="textAlignment">
-        <set>AlignCenter</set>
-       </property>
-      </item>
-      <item row="2" column="0">
-       <property name="text">
-        <string>边梁(二期)</string>
-       </property>
-       <property name="textAlignment">
-        <set>AlignCenter</set>
-       </property>
-      </item>
-      <item row="2" column="1">
-       <property name="text">
-        <string>中梁(二期)</string>
-       </property>
-       <property name="textAlignment">
-        <set>AlignCenter</set>
-       </property>
-      </item>
-      <item row="3" column="0">
-       <property name="text">
-        <string/>
-       </property>
-       <property name="textAlignment">
-        <set>AlignCenter</set>
-       </property>
-      </item>
-      <item row="3" column="1">
-       <property name="text">
-        <string/>
-       </property>
-       <property name="textAlignment">
-        <set>AlignCenter</set>
-       </property>
-      </item>
-      <item row="4" column="0">
-       <property name="text">
-        <string>三期</string>
-       </property>
-       <property name="textAlignment">
-        <set>AlignCenter</set>
-       </property>
-      </item>
-      <item row="4" column="1">
-       <property name="text">
-        <string/>
-       </property>
-       <property name="textAlignment">
-        <set>AlignCenter</set>
-       </property>
-      </item>
-     </widget>
-     <widget class="QLabel" name="label_22">
-      <property name="geometry">
-       <rect>
-        <x>290</x>
-        <y>30</y>
-        <width>131</width>
-        <height>31</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#55557f;&quot;&gt;恒载计算表&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-      </property>
-     </widget>
-     <widget class="QTableWidget" name="tableWidget_15">
-      <property name="geometry">
-       <rect>
-        <x>10</x>
-        <y>500</y>
-        <width>752</width>
-        <height>76</height>
-       </rect>
-      </property>
-      <property name="rowCount">
-       <number>2</number>
-      </property>
-      <property name="columnCount">
-       <number>5</number>
-      </property>
-      <attribute name="horizontalHeaderVisible">
-       <bool>false</bool>
-      </attribute>
-      <attribute name="horizontalHeaderDefaultSectionSize">
-       <number>150</number>
-      </attribute>
-      <attribute name="verticalHeaderVisible">
-       <bool>false</bool>
-      </attribute>
-      <attribute name="verticalHeaderHighlightSections">
-       <bool>false</bool>
-      </attribute>
-      <row/>
-      <row/>
-      <column/>
-      <column/>
-      <column/>
-      <column/>
-      <column/>
-      <item row="0" column="0">
-       <property name="text">
-        <string>截面位置(手动输入)</string>
-       </property>
-      </item>
-      <item row="0" column="1">
-       <property name="text">
-        <string>边主梁剪力(KN)</string>
-       </property>
-      </item>
-      <item row="0" column="2">
-       <property name="text">
-        <string>边主梁弯矩(KN.M)</string>
-       </property>
-      </item>
-      <item row="0" column="3">
-       <property name="text">
-        <string>中主梁剪力(KN)</string>
-       </property>
-      </item>
-      <item row="0" column="4">
-       <property name="text">
-        <string>中主梁弯矩(KN.M)</string>
-       </property>
-      </item>
-      <item row="1" column="0">
-       <property name="text">
-        <string/>
-       </property>
-      </item>
-     </widget>
-     <widget class="QComboBox" name="comboBox_2">
-      <property name="geometry">
-       <rect>
-        <x>10</x>
-        <y>450</y>
-        <width>161</width>
-        <height>41</height>
-       </rect>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">border-radius:4px;
+        </property>
+        <property name="text">
+         <string>计算</string>
+        </property>
+       </widget>
+       <widget class="QComboBox" name="comboBox_2">
+        <property name="geometry">
+         <rect>
+          <x>20</x>
+          <y>390</y>
+          <width>161</width>
+          <height>41</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">border-radius:4px;
 background-color:rgb(226, 216, 248);</string>
-      </property>
-      <item>
-       <property name="text">
-        <string>一期恒载内力</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>二期恒载内力</string>
-       </property>
-      </item>
-     </widget>
-     <widget class="QCommandLinkButton" name="commandLinkButton_5">
-      <property name="geometry">
-       <rect>
-        <x>340</x>
-        <y>600</y>
-        <width>81</width>
-        <height>41</height>
-       </rect>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">background-color: #aebed8;
+        </property>
+        <item>
+         <property name="text">
+          <string>一期恒载内力</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>二期恒载内力</string>
+         </property>
+        </item>
+       </widget>
+       <widget class="QTableWidget" name="tableWidget_15">
+        <property name="geometry">
+         <rect>
+          <x>20</x>
+          <y>450</y>
+          <width>752</width>
+          <height>76</height>
+         </rect>
+        </property>
+        <property name="rowCount">
+         <number>2</number>
+        </property>
+        <property name="columnCount">
+         <number>5</number>
+        </property>
+        <attribute name="horizontalHeaderVisible">
+         <bool>false</bool>
+        </attribute>
+        <attribute name="horizontalHeaderDefaultSectionSize">
+         <number>150</number>
+        </attribute>
+        <attribute name="verticalHeaderVisible">
+         <bool>false</bool>
+        </attribute>
+        <attribute name="verticalHeaderHighlightSections">
+         <bool>false</bool>
+        </attribute>
+        <row/>
+        <row/>
+        <column/>
+        <column/>
+        <column/>
+        <column/>
+        <column/>
+        <item row="0" column="0">
+         <property name="text">
+          <string>截面位置(手动输入)</string>
+         </property>
+        </item>
+        <item row="0" column="1">
+         <property name="text">
+          <string>边主梁剪力(KN)</string>
+         </property>
+        </item>
+        <item row="0" column="2">
+         <property name="text">
+          <string>边主梁弯矩(KN.M)</string>
+         </property>
+        </item>
+        <item row="0" column="3">
+         <property name="text">
+          <string>中主梁剪力(KN)</string>
+         </property>
+        </item>
+        <item row="0" column="4">
+         <property name="text">
+          <string>中主梁弯矩(KN.M)</string>
+         </property>
+        </item>
+        <item row="1" column="0">
+         <property name="text">
+          <string/>
+         </property>
+        </item>
+       </widget>
+       <widget class="QTableWidget" name="tableWidget_21">
+        <property name="geometry">
+         <rect>
+          <x>840</x>
+          <y>450</y>
+          <width>252</width>
+          <height>76</height>
+         </rect>
+        </property>
+        <property name="rowCount">
+         <number>2</number>
+        </property>
+        <property name="columnCount">
+         <number>2</number>
+        </property>
+        <attribute name="horizontalHeaderVisible">
+         <bool>false</bool>
+        </attribute>
+        <attribute name="verticalHeaderVisible">
+         <bool>false</bool>
+        </attribute>
+        <row/>
+        <row/>
+        <column/>
+        <column/>
+        <item row="0" column="0">
+         <property name="text">
+          <string>三期剪力(KN)</string>
+         </property>
+        </item>
+        <item row="0" column="1">
+         <property name="text">
+          <string>三期弯矩(KN.m)</string>
+         </property>
+        </item>
+       </widget>
+       <widget class="QCommandLinkButton" name="commandLinkButton_5">
+        <property name="geometry">
+         <rect>
+          <x>570</x>
+          <y>620</y>
+          <width>81</width>
+          <height>41</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: #aebed8;
 border-radius:5px;</string>
-      </property>
-      <property name="text">
-       <string>计算</string>
-      </property>
-     </widget>
-     <widget class="QTableWidget" name="tableWidget_21">
-      <property name="geometry">
-       <rect>
-        <x>790</x>
-        <y>500</y>
-        <width>252</width>
-        <height>76</height>
-       </rect>
-      </property>
-      <property name="rowCount">
-       <number>2</number>
-      </property>
-      <property name="columnCount">
-       <number>2</number>
-      </property>
-      <attribute name="horizontalHeaderVisible">
-       <bool>false</bool>
-      </attribute>
-      <attribute name="verticalHeaderVisible">
-       <bool>false</bool>
-      </attribute>
-      <row/>
-      <row/>
-      <column/>
-      <column/>
-      <item row="0" column="0">
-       <property name="text">
-        <string>三期剪力(KN)</string>
-       </property>
-      </item>
-      <item row="0" column="1">
-       <property name="text">
-        <string>三期弯矩(KN.m)</string>
-       </property>
-      </item>
+        </property>
+        <property name="text">
+         <string>计算</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_39">
+        <property name="geometry">
+         <rect>
+          <x>460</x>
+          <y>710</y>
+          <width>311</width>
+          <height>61</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:14pt; font-weight:600; color:#55007f;&quot;&gt;桥长方向恒载内力图像绘制&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
+       </widget>
+       <widget class="XxwCustomPlot" name="widget_7" native="true">
+        <property name="geometry">
+         <rect>
+          <x>110</x>
+          <y>790</y>
+          <width>1161</width>
+          <height>261</height>
+         </rect>
+        </property>
+       </widget>
+       <widget class="XxwCustomPlot" name="widget_8" native="true">
+        <property name="geometry">
+         <rect>
+          <x>110</x>
+          <y>1080</y>
+          <width>1161</width>
+          <height>331</height>
+         </rect>
+        </property>
+       </widget>
+       <widget class="QComboBox" name="comboBox_7">
+        <property name="geometry">
+         <rect>
+          <x>780</x>
+          <y>721</y>
+          <width>87</width>
+          <height>31</height>
+         </rect>
+        </property>
+        <item>
+         <property name="text">
+          <string>边梁</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>中梁</string>
+         </property>
+        </item>
+       </widget>
+      </widget>
      </widget>
     </widget>
     <widget class="QWidget" name="tab">
@@ -2348,215 +2430,310 @@ border:0px</string>
        <number>0</number>
       </property>
       <widget class="QWidget" name="page_5">
-       <widget class="QTableWidget" name="tableWidget_18">
+       <widget class="QScrollArea" name="scrollArea_2">
         <property name="geometry">
          <rect>
-          <x>10</x>
-          <y>50</y>
-          <width>378</width>
-          <height>152</height>
+          <x>0</x>
+          <y>0</y>
+          <width>1211</width>
+          <height>921</height>
          </rect>
         </property>
-        <property name="rowCount">
-         <number>4</number>
-        </property>
-        <property name="columnCount">
-         <number>3</number>
-        </property>
-        <attribute name="horizontalHeaderVisible">
-         <bool>false</bool>
-        </attribute>
-        <attribute name="verticalHeaderVisible">
-         <bool>false</bool>
-        </attribute>
-        <row/>
-        <row/>
-        <row/>
-        <row/>
-        <column/>
-        <column/>
-        <column/>
-        <item row="0" column="0">
-         <property name="text">
-          <string>支点截面弯矩</string>
-         </property>
-        </item>
-        <item row="0" column="1">
-         <property name="text">
-          <string>1/4截面弯矩</string>
-         </property>
-        </item>
-        <item row="0" column="2">
-         <property name="text">
-          <string>跨中弯矩</string>
-         </property>
-        </item>
-        <item row="2" column="0">
-         <property name="text">
-          <string>支点剪力</string>
-         </property>
-        </item>
-        <item row="2" column="1">
-         <property name="text">
-          <string>1/4截面剪力</string>
-         </property>
-        </item>
-        <item row="2" column="2">
-         <property name="text">
-          <string>跨中剪力</string>
-         </property>
-        </item>
-       </widget>
-       <widget class="QLabel" name="label_18">
-        <property name="geometry">
-         <rect>
-          <x>10</x>
-          <y>10</y>
-          <width>111</width>
-          <height>31</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#55007f;&quot;&gt;内力结果&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-        </property>
-       </widget>
-       <widget class="QPushButton" name="pushButton_4">
-        <property name="geometry">
-         <rect>
-          <x>250</x>
-          <y>510</y>
-          <width>93</width>
-          <height>28</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>计算</string>
-        </property>
-       </widget>
-       <widget class="QSpinBox" name="spinBox">
-        <property name="geometry">
-         <rect>
-          <x>80</x>
-          <y>500</y>
-          <width>51</width>
-          <height>31</height>
-         </rect>
-        </property>
-        <property name="minimum">
-         <number>1</number>
-        </property>
-       </widget>
-       <widget class="QLabel" name="label_28">
-        <property name="enabled">
+        <property name="widgetResizable">
          <bool>true</bool>
         </property>
-        <property name="geometry">
-         <rect>
-          <x>70</x>
-          <y>470</y>
-          <width>91</width>
-          <height>21</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>指定梁号</string>
-        </property>
-       </widget>
-       <widget class="QTableWidget" name="tableWidget_19">
-        <property name="geometry">
-         <rect>
-          <x>10</x>
-          <y>250</y>
-          <width>641</width>
-          <height>76</height>
-         </rect>
-        </property>
-        <property name="rowCount">
-         <number>2</number>
-        </property>
-        <property name="columnCount">
-         <number>1</number>
-        </property>
-        <attribute name="horizontalHeaderVisible">
-         <bool>false</bool>
-        </attribute>
-        <attribute name="verticalHeaderVisible">
-         <bool>false</bool>
-        </attribute>
-        <row/>
-        <row/>
-        <column/>
-        <item row="0" column="0">
-         <property name="text">
-          <string>布载列数</string>
+        <widget class="QWidget" name="scrollAreaWidgetContents_3">
+         <property name="geometry">
+          <rect>
+           <x>0</x>
+           <y>0</y>
+           <width>1188</width>
+           <height>3000</height>
+          </rect>
          </property>
-        </item>
-        <item row="1" column="0">
-         <property name="text">
-          <string>mcq</string>
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>3000</height>
+          </size>
          </property>
-        </item>
-       </widget>
-       <widget class="QLabel" name="label_29">
-        <property name="geometry">
-         <rect>
-          <x>10</x>
-          <y>220</y>
-          <width>241</width>
-          <height>21</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600; color:#55007f;&quot;&gt;支点截面横向分系数&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-        </property>
-       </widget>
-       <widget class="QLabel" name="label_30">
-        <property name="geometry">
-         <rect>
-          <x>10</x>
-          <y>340</y>
-          <width>241</width>
-          <height>21</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600; color:#55007f;&quot;&gt;跨中截面横向分系数&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-        </property>
-       </widget>
-       <widget class="QTableWidget" name="tableWidget_20">
-        <property name="geometry">
-         <rect>
-          <x>10</x>
-          <y>370</y>
-          <width>641</width>
-          <height>78</height>
-         </rect>
-        </property>
-        <property name="rowCount">
-         <number>2</number>
-        </property>
-        <property name="columnCount">
-         <number>1</number>
-        </property>
-        <attribute name="horizontalHeaderVisible">
-         <bool>false</bool>
-        </attribute>
-        <attribute name="verticalHeaderVisible">
-         <bool>false</bool>
-        </attribute>
-        <row/>
-        <row/>
-        <column/>
-        <item row="0" column="0">
-         <property name="text">
-          <string>布载列数</string>
-         </property>
-        </item>
-        <item row="1" column="0">
-         <property name="text">
-          <string>mcq</string>
-         </property>
-        </item>
+         <widget class="QLabel" name="label_18">
+          <property name="geometry">
+           <rect>
+            <x>30</x>
+            <y>10</y>
+            <width>111</width>
+            <height>31</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#55007f;&quot;&gt;内力结果&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          </property>
+         </widget>
+         <widget class="QTableWidget" name="tableWidget_18">
+          <property name="geometry">
+           <rect>
+            <x>30</x>
+            <y>60</y>
+            <width>378</width>
+            <height>152</height>
+           </rect>
+          </property>
+          <property name="rowCount">
+           <number>4</number>
+          </property>
+          <property name="columnCount">
+           <number>3</number>
+          </property>
+          <attribute name="horizontalHeaderVisible">
+           <bool>false</bool>
+          </attribute>
+          <attribute name="verticalHeaderVisible">
+           <bool>false</bool>
+          </attribute>
+          <row/>
+          <row/>
+          <row/>
+          <row/>
+          <column/>
+          <column/>
+          <column/>
+          <item row="0" column="0">
+           <property name="text">
+            <string>支点截面弯矩</string>
+           </property>
+          </item>
+          <item row="0" column="1">
+           <property name="text">
+            <string>1/4截面弯矩</string>
+           </property>
+          </item>
+          <item row="0" column="2">
+           <property name="text">
+            <string>跨中弯矩</string>
+           </property>
+          </item>
+          <item row="2" column="0">
+           <property name="text">
+            <string>支点剪力</string>
+           </property>
+          </item>
+          <item row="2" column="1">
+           <property name="text">
+            <string>1/4截面剪力</string>
+           </property>
+          </item>
+          <item row="2" column="2">
+           <property name="text">
+            <string>跨中剪力</string>
+           </property>
+          </item>
+         </widget>
+         <widget class="QLabel" name="label_29">
+          <property name="geometry">
+           <rect>
+            <x>30</x>
+            <y>240</y>
+            <width>241</width>
+            <height>21</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600; color:#55007f;&quot;&gt;支点截面横向分系数&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          </property>
+         </widget>
+         <widget class="QTableWidget" name="tableWidget_19">
+          <property name="geometry">
+           <rect>
+            <x>30</x>
+            <y>280</y>
+            <width>641</width>
+            <height>76</height>
+           </rect>
+          </property>
+          <property name="rowCount">
+           <number>2</number>
+          </property>
+          <property name="columnCount">
+           <number>1</number>
+          </property>
+          <attribute name="horizontalHeaderVisible">
+           <bool>false</bool>
+          </attribute>
+          <attribute name="verticalHeaderVisible">
+           <bool>false</bool>
+          </attribute>
+          <row/>
+          <row/>
+          <column/>
+          <item row="0" column="0">
+           <property name="text">
+            <string>布载列数</string>
+           </property>
+          </item>
+          <item row="1" column="0">
+           <property name="text">
+            <string>mcq</string>
+           </property>
+          </item>
+         </widget>
+         <widget class="QLabel" name="label_30">
+          <property name="geometry">
+           <rect>
+            <x>30</x>
+            <y>370</y>
+            <width>241</width>
+            <height>21</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600; color:#55007f;&quot;&gt;跨中截面横向分系数&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          </property>
+         </widget>
+         <widget class="QTableWidget" name="tableWidget_20">
+          <property name="geometry">
+           <rect>
+            <x>30</x>
+            <y>400</y>
+            <width>641</width>
+            <height>78</height>
+           </rect>
+          </property>
+          <property name="rowCount">
+           <number>2</number>
+          </property>
+          <property name="columnCount">
+           <number>1</number>
+          </property>
+          <attribute name="horizontalHeaderVisible">
+           <bool>false</bool>
+          </attribute>
+          <attribute name="verticalHeaderVisible">
+           <bool>false</bool>
+          </attribute>
+          <row/>
+          <row/>
+          <column/>
+          <item row="0" column="0">
+           <property name="text">
+            <string>布载列数</string>
+           </property>
+          </item>
+          <item row="1" column="0">
+           <property name="text">
+            <string>mcq</string>
+           </property>
+          </item>
+         </widget>
+         <widget class="QLabel" name="label_28">
+          <property name="enabled">
+           <bool>true</bool>
+          </property>
+          <property name="geometry">
+           <rect>
+            <x>30</x>
+            <y>500</y>
+            <width>91</width>
+            <height>21</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>指定梁号</string>
+          </property>
+         </widget>
+         <widget class="QSpinBox" name="spinBox">
+          <property name="geometry">
+           <rect>
+            <x>30</x>
+            <y>530</y>
+            <width>51</width>
+            <height>31</height>
+           </rect>
+          </property>
+          <property name="minimum">
+           <number>1</number>
+          </property>
+         </widget>
+         <widget class="QPushButton" name="pushButton_4">
+          <property name="geometry">
+           <rect>
+            <x>240</x>
+            <y>580</y>
+            <width>93</width>
+            <height>28</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>计算</string>
+          </property>
+         </widget>
+         <widget class="QLabel" name="label_21">
+          <property name="geometry">
+           <rect>
+            <x>400</x>
+            <y>670</y>
+            <width>221</width>
+            <height>51</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:14pt; font-weight:600; color:#55557f;&quot;&gt;活载内力包络图绘制&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          </property>
+         </widget>
+         <widget class="XxwCustomPlot" name="widget_5" native="true">
+          <property name="geometry">
+           <rect>
+            <x>110</x>
+            <y>780</y>
+            <width>941</width>
+            <height>251</height>
+           </rect>
+          </property>
+         </widget>
+         <widget class="XxwCustomPlot" name="widget_6" native="true">
+          <property name="geometry">
+           <rect>
+            <x>110</x>
+            <y>1060</y>
+            <width>941</width>
+            <height>261</height>
+           </rect>
+          </property>
+         </widget>
+         <widget class="QSpinBox" name="spinBox_5">
+          <property name="geometry">
+           <rect>
+            <x>710</x>
+            <y>680</y>
+            <width>71</width>
+            <height>31</height>
+           </rect>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">border-radius:3px;
+background-color:#a8a8a8;</string>
+          </property>
+          <property name="minimum">
+           <number>1</number>
+          </property>
+          <property name="maximum">
+           <number>10</number>
+          </property>
+         </widget>
+         <widget class="QLabel" name="label_38">
+          <property name="geometry">
+           <rect>
+            <x>650</x>
+            <y>680</y>
+            <width>51</width>
+            <height>31</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600; font-style:italic; color:#ffaa00;&quot;&gt;梁号&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          </property>
+         </widget>
+        </widget>
        </widget>
       </widget>
       <widget class="QWidget" name="page_3">
@@ -3144,7 +3321,7 @@ border-radius:5px;</string>
        <property name="geometry">
         <rect>
          <x>0</x>
-         <y>0</y>
+         <y>-877</y>
          <width>1328</width>
          <height>3000</height>
         </rect>

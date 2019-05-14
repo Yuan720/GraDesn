@@ -57,6 +57,10 @@ public:
     void Init_table_189();
     void prestrLossSolve();
     void SectionSolve(int x);
+    void draw_liveLoadM(int beamId);
+    void draw_liveLoadSf(int beamId);
+    void draw_deadLoadFoce(bool beamtype,bool foceType);
+
 signals:
     void task_1_send(QVariant v,bool taskType);
     void task_2_send(QVariant v,QVariant w,bool taskType);
@@ -111,6 +115,10 @@ private slots:
     void on_pushButton_3_clicked();
 
     void on_comboBox_3_currentIndexChanged(int index);
+
+    void on_spinBox_5_valueChanged(int arg1);
+
+    void on_comboBox_7_currentIndexChanged(int index);
 
 private:
     bool box_1_cheaked=false;
