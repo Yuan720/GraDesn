@@ -37,5 +37,6 @@ extern float As;//非预应力钢筋面积
 extern float as;
 extern float ap;
 extern float cross_beam_foce[5][6];
+extern int saftyGrade;
 
 #endif // VARIABLES_H

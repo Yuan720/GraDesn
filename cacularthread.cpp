@@ -209,6 +209,19 @@ void CacularThread::task_10_process(bool fieldCount, bool beamType, float x,bool
     emit Sectionfinished(data);
 
 }
+
+void CacularThread::get_Section_Combination(int beamId,float x)
+{
+   vector<float> res1=get_M_CombinationAt(beamId,x);
+   vector<float> res2=get_Sf_CombinationAt(beamId,x,true);
+   vector<float> res3=get_Sf_CombinationAt(beamId,x,false);
+   res1.insert(res1.end(),res2.begin(),res2.end());
+   res1.insert(res1.end(),res3.begin(),res3.end());
+   QVariant data;data.setValue(res1);
+   emit Section_combinFinished(data);
+
+
+}
 void CacularThread::getThridLoad(float f,float x){
     vector<float> a;
     QVariant data;
@@ -585,6 +598,65 @@ void CacularThread::prestrLossProcess(float Sx, bool beamType,int steelId)
 
 
 }
+
+vector<float> CacularThread::get_Sf_CombinationAt(int beamId,float x, bool result_type)
+{      //单位毫米
+    //result_type 布尔值true表示与最大剪力组合 false表示与最小剪力组合;
+    beam beamtosolve;
+       if(beamId==1|beamId==mymb->mbd.mianBeanNum){
+       beamtosolve=SDemonBeam;
+       }else{
+        beamtosolve=MDemonBeam;
+       }
+        vector <float> res;
+         vector<float> sf;
+        float liveLoad;
+        float vef=myobs->vmcffe();
+        float g=beamtosolve.getFirstStageLoad()+beamtosolve.getSecondStageLoad()+beamtosolve.getThirdStageLoad(mymb->mbd.mianBeanNum);
+        float dieLoad;
+        dieLoad=beamtosolve.shearFoceSolve(g,x/1e3);//转为米
+        sf=myobs->getLiveLoad_Sf(beamId,x);
+        liveLoad=result_type? sf[2]:sf[3];
+         res.push_back(dieLoad);
+         res.push_back(liveLoad);
+         res.push_back(liveLoad/vef);
+         res.push_back(ultimateLimitSta(dieLoad,liveLoad)) ;
+         res.push_back(sfd(dieLoad,liveLoad));
+         res.push_back(sqd(dieLoad,liveLoad));
+         return res;
+
+
+
+
+
+}
+
+vector<float> CacularThread::get_M_CombinationAt(int beamId,float x)
+{
+         //单位毫米
+        beam beamtosolve;
+        if(beamId==1|beamId==mymb->mbd.mianBeanNum){
+        beamtosolve=SDemonBeam;
+        }else{
+         beamtosolve=MDemonBeam;
+        }
+        vector <float> res;
+        float vef=myobs->vmcffe();
+        float liveLoad;
+        float dieLoad;
+        float g=beamtosolve.getFirstStageLoad()+beamtosolve.getSecondStageLoad()+beamtosolve.getThirdStageLoad(mymb->mbd.mianBeanNum);
+          dieLoad=beamtosolve.bendingSolve(g,x/1e3);//转为米
+           liveLoad=myobs->getLiveLoad_M(beamId,x);
+                res.push_back(dieLoad);
+                res.push_back(liveLoad);
+                res.push_back(liveLoad/vef);
+                res.push_back(ultimateLimitSta(dieLoad,liveLoad)) ;
+                res.push_back(sfd(dieLoad,liveLoad));
+                res.push_back(sqd(dieLoad,liveLoad));
+                     return res;
+}
+
+
 vector<float> CacularThread::task_7_Dataprocess(QVariant v,bool field_count,bool beamType)
 {
     //第一个参数 总跨长 第二个  请求截面位置      第三个参数 过渡起点坐标 第四个 过渡终点坐标

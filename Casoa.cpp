@@ -1,7 +1,8 @@
 #pragma execution_character_set("utf-8")
 #include<Casoa.h>
 #include<QDebug>
-int saftyGrade =1;
+
+
 float ultimateLimitSta(float dl, float cl){
 	float param1 = 1.2 - 0.1*saftyGrade;
 

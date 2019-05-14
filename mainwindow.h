@@ -42,6 +42,7 @@ public:
     void resultRender3(QVariant v);
     void resultRender4(QVariant v);
     void eff_combinRender(QVariant v);
+    void Section_combinRender(QVariant V);
     void renderThridLoad(QVariant v );
     void getIputDataByTable(QString tableName);
     bool lineEditCheak(QString eName);
@@ -76,6 +77,8 @@ signals:
     void nonPreStreSolve(float a,float fpd,float Ap);
     void SectionCompute(bool fieldCount,bool beamType,float x,bool precounted);
     void prestrLossRq(float Sx,bool beamType,int steelId);
+    void Section_Eff_Combin(int beamId,float x);//信号获取指定截面效应组合请求
+
 private slots:
 
     void task_4_finished(QVariant v);
@@ -107,18 +110,18 @@ private slots:
     void on_comboBox_5_currentIndexChanged(int index);
     void on_pushButton_clicked();
     void on_tabWidget_currentChanged(int index);
-
     void on_horizontalSlider_valueChanged(int value);
-
     void on_checkBox_3_clicked();
-
     void on_pushButton_3_clicked();
-
     void on_comboBox_3_currentIndexChanged(int index);
 
     void on_spinBox_5_valueChanged(int arg1);
 
     void on_comboBox_7_currentIndexChanged(int index);
+
+    void on_horizontalSlider_2_valueChanged(int value);
+
+    void on_comboBox_8_currentIndexChanged(int index);
 
 private:
     bool box_1_cheaked=false;

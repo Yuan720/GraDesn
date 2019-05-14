@@ -53,6 +53,10 @@ public:
         float getSigma_l6(float Ap,bool isMidBeam);
         vector<float> getAveSigma(float x);
         void prestrLossProcess(float Sx,bool beamType,int steelId);
+         vector<float> get_Sf_CombinationAt(int beamId,float x,bool result_type);//x截面处的剪力作用效应组合
+        vector<float> get_M_CombinationAt(int beamId,float x);//x截面处的弯矩作用效应组合
+        void get_Section_Combination(int beamId,float x);
+
 signals:
     void onTask_1_finished(QVariant v);
     void onTask_2_finished(QVariant v);
@@ -65,6 +69,7 @@ signals:
     void mcqRender(QVariant v,QString tbName);
     void thridLoadFinished(QVariant v);
     void eff_combinFinished(QVariant v);
+    void Section_combinFinished(QVariant v);
     void Sectionfinished(QVariant v);
     void prestrLossFinished(QVariant v);
 
@@ -79,5 +84,6 @@ public slots:
     void task_8_process(float x,float foce1,float foce2);
     void task_9_process(QVariant v);
     void task_10_process(bool fieldCount,bool beamType,float x,bool precounted);
+
 };
 #endif // CACULARTHREAD_H

@@ -16,6 +16,7 @@ float phi_2=1.768;
 float xi_cs=0.000357;
 //非预应力钢筋面积
 float non_preSteel_area=4826;
+int saftyGrade =1;
 //非预应力钢筋换算面积
 float non_prestreSteel_s=23150;
 //非预应力钢筋合力重心

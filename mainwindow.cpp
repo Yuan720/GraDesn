@@ -416,8 +416,30 @@ void MainWindow::eff_combinRender(QVariant v){
    }
 
 }
+
+void MainWindow::Section_combinRender(QVariant V)
+{      //填充数据作用效应组合
+    int index=0;
+    vector<float> res=V.value<vector<float>>();
+    QTableWidget *mytb=ui->tableWidget_8;
+    for(int i=1;i<mytb->columnCount();i++){
+        for(int j=1;j<mytb->rowCount();j++){
+            QTableWidgetItem *it=new QTableWidgetItem();
+            it->setText(QString("%1").arg(res[index]));
+            mytb->setItem(j,i,it);
+            index++;
+ }
+}
+
+
+
+
+
+
+}
 void MainWindow::renderThridLoad(QVariant v ){
     vector<float> input=v.value<vector<float>>();
+
     QTableWidget *qw=ui->tableWidget_21;
     for(int i=0;i<input.size();i++){
 
@@ -447,9 +469,9 @@ float MainWindow::lineEditDataProcess(QString leID){
 void MainWindow::pagePrepare(){
     generalTableInit("tableWidget_7");
     generalTableInit("tableWidget_6");
-    ui->spinBox_2->hide();
+   // ui->spinBox_2->hide();
     ui->label_19->hide();
-    ui->comboBox_4->hide();
+ //   ui->comboBox_4->hide();
     ui->label_31->hide();
     connect(this,&MainWindow::destroyed,[=](){mqt->terminate();});
     connect(this,&MainWindow::task_1_send,mycat,&CacularThread::task_1_process);
@@ -476,6 +498,8 @@ void MainWindow::pagePrepare(){
     connect(this,&MainWindow::SectionCompute,mycat,&CacularThread::task_10_process);
     connect(mycat,&CacularThread::Sectionfinished,this,&MainWindow::render4);
     connect(this,&MainWindow::prestrLossRq,mycat,&CacularThread::prestrLossProcess);
+    connect(this,&MainWindow::Section_Eff_Combin,mycat,&CacularThread::get_Section_Combination);
+    connect(mycat,&CacularThread::Section_combinFinished,this,&MainWindow::Section_combinRender);
 
 }
 
@@ -602,9 +626,12 @@ void MainWindow::on_spinBox_2_valueChanged(int arg1)
 }
 void MainWindow::on_comboBox_4_currentIndexChanged(int index)
 {
-    int saftyLevel= ui->comboBox_4->currentIndex()+1;
+    saftyGrade= ui->comboBox_4->currentIndex()+1;
 
-    emit eff_combin(ui->spinBox_2->value(),saftyLevel);
+     int beamId=ui->spinBox_2->value();
+     emit Section_Eff_Combin(beamId,ui->horizontalSlider_2->value());
+   // emit eff_combin(ui->spinBox_2->value(),saftyLevel);
+
 }
 void MainWindow::Steelplot(myPath path){
      m_customPlot=ui->widget_3;
@@ -1070,6 +1097,8 @@ void MainWindow::on_commandLinkButton_50_clicked()
               ui->spinBox_4->setMaximum(input[15]*1e3);
               ui->spinBox_5->setMaximum(mycat->mymb->mbd.mianBeanNum);
               ui->horizontalSlider->setMaximum(input[15]*1e3);
+              ui->spinBox_6->setMaximum(input[15]*1e3);
+              ui->horizontalSlider_2->setMaximum(input[15]*1e3);
               beamInit();
               QMessageBox::information(this,QString("存入成功"),QString("已存储!"));
 
@@ -1087,6 +1116,8 @@ void MainWindow::on_commandLinkButton_50_clicked()
                     bridge_total_Span=input[15];
                     ui->spinBox_4->setMaximum(input[15]*1e3);
                     ui->horizontalSlider->setMaximum(input[15]*1e3);
+                    ui->spinBox_6->setMaximum(input[15]*1e3);
+                    ui->horizontalSlider_2->setMaximum(input[15]*1e3);
                     beamInit();
                     QMessageBox::information(this,QString("存入成功"),QString("已存储!"));
 
@@ -1421,7 +1452,7 @@ void MainWindow::on_checkBox_3_clicked()
 }
 void MainWindow::on_pushButton_3_clicked()
 {
-
+mycat->get_M_CombinationAt(1, 16900);
 
 }
 void MainWindow::on_comboBox_3_currentIndexChanged(int index)
@@ -1450,4 +1481,28 @@ void MainWindow::on_comboBox_7_currentIndexChanged(int index)
     draw_deadLoadFoce(beamType,true);
     draw_deadLoadFoce(beamType,false);
 
+}
+
+void MainWindow::on_horizontalSlider_2_valueChanged(int value)
+{   float x=value;
+   int beamId=ui->spinBox_2->value();
+   emit Section_Eff_Combin(beamId,x);
+}
+
+void MainWindow::on_comboBox_8_currentIndexChanged(int index)
+{   float lj=(int)(mycat->myobs->cal_span*1e3);
+    switch (index) {
+    case 0:
+        ui->horizontalSlider_2->setValue(0);
+        break;
+    case 1:
+        ui->horizontalSlider_2->setValue(lj/4);
+
+        break;
+    case 2:
+        ui->horizontalSlider_2->setValue(lj/2);
+        break;
+    default:
+        break;
+    }
 }

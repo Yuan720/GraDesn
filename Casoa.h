@@ -1,4 +1,5 @@
 #pragma once
+#include<variables.h>
 //作用效应组合计算
 //承载能力极限状态 d1恒载值,cl汽车活载值;
 
