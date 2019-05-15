@@ -248,7 +248,28 @@ void CacularThread::get_Section_Combination(int beamId,float x)
    QVariant data;data.setValue(res1);
    emit Section_combinFinished(data);
 
+   
+}
 
+float CacularThread::getStageDieLoad(int stage,float x,bool foceType)
+{ //foceType true表示弯矩 false表示剪力;
+    x/=1e3;//输入毫米转为米
+    float g;
+    switch (stage) {
+    case 1:
+        
+        break;
+    case 2:
+        
+        break;
+    case 3:
+        
+        break;
+    default:
+        break;
+    }
+    
+    
 }
 void CacularThread::getThridLoad(float f,float x){
     vector<float> a;
@@ -667,7 +688,10 @@ vector<float> CacularThread::get_M_CombinationAt(int beamId,float x)
         float vef=myobs->vmcffe();
         float liveLoad;
         float dieLoad;
-        float g=beamtosolve.getFirstStageLoad()+beamtosolve.getSecondStageLoad()+beamtosolve.getThirdStageLoad(mymb->mbd.mianBeanNum);
+        float g1=beamtosolve.getFirstStageLoad();
+        float g2=beamtosolve.getSecondStageLoad();
+        float g3=beamtosolve.getThirdStageLoad(mymb->mbd.mianBeanNum);
+        float g=g1+g2+g3;
           dieLoad=beamtosolve.bendingSolve(g,x/1e3);//转为米
            liveLoad=myobs->getLiveLoad_M(beamId,x);
                 res.push_back(dieLoad);

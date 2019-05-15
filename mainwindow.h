@@ -50,7 +50,6 @@ public:
     float lineEditDataProcess(QString leID);
     void renderCantilever(QVariant v);
     void render4(QVariant v);
-    void onTabChoosed();
     void pagePrepare();
     void beamInit();
     void Steelplot(myPath path);
@@ -73,12 +72,11 @@ signals:
     void task_8_send(float x,float foce1,float foce2);
     void task_9_send(QVariant v);
     void thridStageLoad(float f,float x);
-    void eff_combin(int beanId,int saftyGrade);
     void nonPreStreSolve(float a,float fpd,float Ap);
     void SectionCompute(bool fieldCount,bool beamType,float x,bool precounted);
     void prestrLossRq(float Sx,bool beamType,int steelId);
     void Section_Eff_Combin(int beamId,float x);//信号获取指定截面效应组合请求
-
+    void getSigmaValues(int steelId,bool beamType,float x);//请求截面x处的指定钢束的预应力损失值
 private slots:
 
     void task_4_finished(QVariant v);
@@ -92,16 +90,13 @@ private slots:
     void on_checkBox_3_stateChanged(int arg1);
     void on_commandLinkButton_5_clicked();
     void on_pushButton_4_clicked();
-    void on_tabWidget_tabBarClicked(int index);
     void on_spinBox_2_valueChanged(int arg1);
     void on_comboBox_4_currentIndexChanged(int index);
     void on_commandLinkButton_6_clicked();
     void on_commandLinkButton_49_clicked();
     void on_commandLinkButton_50_clicked();
     void on_commandLinkButton_51_clicked();
-
     void on_pushButton_2_clicked();
-
     void on_commandLinkButton_3_clicked();
     void on_commandLinkButton_52_clicked();
     void on_tableWidget_189_cellClicked(int row, int column);
@@ -114,14 +109,11 @@ private slots:
     void on_checkBox_3_clicked();
     void on_pushButton_3_clicked();
     void on_comboBox_3_currentIndexChanged(int index);
-
     void on_spinBox_5_valueChanged(int arg1);
-
     void on_comboBox_7_currentIndexChanged(int index);
-
     void on_horizontalSlider_2_valueChanged(int value);
-
     void on_comboBox_8_currentIndexChanged(int index);
+    void on_horizontalSlider_5_valueChanged(int value);
 
 private:
     bool box_1_cheaked=false;

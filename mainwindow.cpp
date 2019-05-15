@@ -37,9 +37,7 @@ void MainWindow::on_checkBox_3_stateChanged(int arg1)
 void MainWindow::on_listWidget_2_currentRowChanged(int currentRow)
 {
     ui-> stackedWidget_2->setCurrentIndex(currentRow);
-    if(currentRow==1){
-        onTabChoosed();
-    }
+
 }
 
 void MainWindow::on_commandLinkButton_clicked()
@@ -398,24 +396,7 @@ void MainWindow::mcqRender(QVariant v,QString tbName){
         }
 
 }
-void MainWindow::eff_combinRender(QVariant v){
-    vector<float> input=v.value<vector<float>>();
 
-   QTableWidget *qtw=ui->tableWidget_22;
-   int count=0;
-   for(int i=1;i<qtw->rowCount();i++){
-       for(int j=1;j<qtw->columnCount();j++){
-           QTableWidgetItem *it=new QTableWidgetItem();
-           it->setText(QString("%1").arg(input[count]));
-     qtw->setItem(i,j,it);
-     count++;
-
-       }
-
-
-   }
-
-}
 
 void MainWindow::Section_combinRender(QVariant V)
 {      //填充数据作用效应组合
@@ -493,14 +474,12 @@ void MainWindow::pagePrepare(){
     connect(mycat,&CacularThread::mcqRender,this,&MainWindow::mcqRender);
     connect(this,&MainWindow::thridStageLoad,mycat,&CacularThread::getThridLoad);
     connect(mycat,&CacularThread::thridLoadFinished,this,&MainWindow::renderThridLoad);
-    connect(this,&MainWindow::eff_combin,mycat,&CacularThread::effCombin);
-    connect(mycat,&CacularThread::eff_combinFinished,this,&MainWindow::eff_combinRender);
     connect(this,&MainWindow::SectionCompute,mycat,&CacularThread::task_10_process);
     connect(mycat,&CacularThread::Sectionfinished,this,&MainWindow::render4);
     connect(this,&MainWindow::prestrLossRq,mycat,&CacularThread::prestrLossProcess);
     connect(this,&MainWindow::Section_Eff_Combin,mycat,&CacularThread::get_Section_Combination);
     connect(mycat,&CacularThread::Section_combinFinished,this,&MainWindow::Section_combinRender);
-
+    connect(this,&MainWindow::getSigmaValues,mycat,&CacularThread::SigmaValuesSolve);
 }
 
 void MainWindow::beamInit()
@@ -585,43 +564,9 @@ void MainWindow::on_pushButton_4_clicked()
             emit task_9_send(data);
     }
 }
-void MainWindow::on_tabWidget_tabBarClicked(int index)
-{
-    if(index==3&ui->listWidget_2->currentRow()==1){
-   onTabChoosed();
-    }
-
-
-}
-void MainWindow::onTabChoosed(){
-
-    if(mycat->myobs==0|mycat->mymb==0){
-
-        QMessageBox::information(this,QString("请先完善数据!"),QString("要计算作用效应组合,需要先在恒载和活载\n内力计算界面预输入必要数据!"));
-
-
-    }else{
-        float a=mycat->myobs->bean_nums;
-        ui->spinBox_2->setMinimum(1);
-        ui->spinBox_2->setMaximum(a);
-        ui->label_19->show();
-        ui->spinBox_2->show();
-        ui->comboBox_4->show();
-        ui->label_31->show();
-        int saftyLevel= ui->comboBox_4->currentIndex()+1;
-
-        emit eff_combin(ui->spinBox_2->value(),saftyLevel);
-
-
-    }
-
-
-}
 void MainWindow::on_spinBox_2_valueChanged(int arg1)
 {
-    int saftyLevel= ui->comboBox_4->currentIndex()+1;
-
-    emit eff_combin(ui->spinBox_2->value(),saftyLevel);
+   emit Section_Eff_Combin(arg1,ui->horizontalSlider_2->value());
 
 }
 void MainWindow::on_comboBox_4_currentIndexChanged(int index)
@@ -630,7 +575,7 @@ void MainWindow::on_comboBox_4_currentIndexChanged(int index)
 
      int beamId=ui->spinBox_2->value();
      emit Section_Eff_Combin(beamId,ui->horizontalSlider_2->value());
-   // emit eff_combin(ui->spinBox_2->value(),saftyLevel);
+
 
 }
 void MainWindow::Steelplot(myPath path){
@@ -1097,8 +1042,9 @@ void MainWindow::on_commandLinkButton_50_clicked()
               ui->spinBox_4->setMaximum(input[15]*1e3);
               ui->spinBox_5->setMaximum(mycat->mymb->mbd.mianBeanNum);
               ui->horizontalSlider->setMaximum(input[15]*1e3);
-              ui->spinBox_6->setMaximum(input[15]*1e3);
-              ui->horizontalSlider_2->setMaximum(input[15]*1e3);
+              ui->spinBox_6->setMaximum(mycat->myobs->cal_span*1e3);
+              ui->horizontalSlider_2->setMaximum(mycat->myobs->cal_span*1e3);
+              ui->spinBox_2->setMaximum(mycat->myobs->bean_nums);
               beamInit();
               QMessageBox::information(this,QString("存入成功"),QString("已存储!"));
 
@@ -1116,8 +1062,10 @@ void MainWindow::on_commandLinkButton_50_clicked()
                     bridge_total_Span=input[15];
                     ui->spinBox_4->setMaximum(input[15]*1e3);
                     ui->horizontalSlider->setMaximum(input[15]*1e3);
-                    ui->spinBox_6->setMaximum(input[15]*1e3);
-                    ui->horizontalSlider_2->setMaximum(input[15]*1e3);
+                     ui->spinBox_2->setMaximum(mycat->myobs->bean_nums);
+                    ui->spinBox_6->setMaximum(mycat->myobs->cal_span*1e3);
+                    ui->horizontalSlider_2->setMaximum(mycat->myobs->cal_span*1e3);
+
                     beamInit();
                     QMessageBox::information(this,QString("存入成功"),QString("已存储!"));
 
@@ -1452,7 +1400,7 @@ void MainWindow::on_checkBox_3_clicked()
 }
 void MainWindow::on_pushButton_3_clicked()
 {
-mycat->get_M_CombinationAt(1, 16900);
+
 
 }
 void MainWindow::on_comboBox_3_currentIndexChanged(int index)
@@ -1484,7 +1432,11 @@ void MainWindow::on_comboBox_7_currentIndexChanged(int index)
 }
 
 void MainWindow::on_horizontalSlider_2_valueChanged(int value)
-{   float x=value;
+{   if(mycat->myobs==0){
+        return;
+    //数据不完整,暂不处理
+    }
+    float x=value;
    int beamId=ui->spinBox_2->value();
    emit Section_Eff_Combin(beamId,x);
 }
@@ -1505,4 +1457,26 @@ void MainWindow::on_comboBox_8_currentIndexChanged(int index)
     default:
         break;
     }
+}
+
+void MainWindow::on_horizontalSlider_5_valueChanged(int value)
+{   if(mycat->myobs==0|mycat->paths.size()==0){
+        //说明数据不完整
+    return;
+    }
+
+    float a=lineEditDataProcess("lineEdit_7");
+    float b=lineEditDataProcess("lineEdit_8");
+    float c=lineEditDataProcess("lineEdit_9");
+    int steelId=ui->comboBox->currentIndex()+1;
+    if(value<mycat->paths[steelId-1].pathStartPoint.x){
+        return;
+    }
+    bool beamType=ui->comboBox_6->currentIndex()==0? false:true;
+    float x=value;
+    m=ui->spinBox_3->value();
+    phi_1=a;phi_2=b,xi_cs=c*1e-4;//初始化相关参数;
+    emit getSigmaValues( steelId,beamType, 8450);
+
+    //截面x处的预应力损失计算;
 }

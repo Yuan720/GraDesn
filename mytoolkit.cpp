@@ -81,7 +81,7 @@ double myPath::getAngleByX(double x)
     if(x<=tangentPoint2.x){
        angle=total_angle;
     }
-    if(tangentPoint2.x<x<tangentPoint1.x){
+    if(tangentPoint2.x<x&x<tangentPoint1.x){
       Point temp(x,getYvalue(x));
     angle=atan((tangentPoint1.x-temp.x)/(center.y-temp.y));
 
@@ -93,10 +93,37 @@ double myPath::getAngleByX(double x)
 
     return angle;
 }
+
+double myPath::getAngleFromFurByX(double x)
+{
+    //要返回的角度
+      double angle;
+       //总角度
+       double total_angle;
+       total_angle=atan((tangentPoint1.x-tangentPoint2.x)/(center.y-tangentPoint2.y));
+
+
+       if(x<=tangentPoint2.x){
+          angle=0;
+       }
+       if(tangentPoint2.x<x&x<tangentPoint1.x){
+         Point temp(x,getYvalue(x));
+       angle=total_angle-atan((tangentPoint1.x-temp.x)/(center.y-temp.y));
+
+       }
+       if(x>tangentPoint1.x){
+
+                  angle=total_angle;
+       }
+
+       return angle;
+
+}
 double myPath::getSigma_l1(float x)
 {    //截面摩擦应力损失
     //x在式子里面被转为米为单位
-    return 0.75*fpk*(1-pow(M_E,-(mu*getAngleByX(x)+k*( x-pathStartPoint.x)/1000)));
+
+    return 0.75*fpk*(1-pow(M_E,-(mu*getAngleFromFurByX(x)+k*( x-pathStartPoint.x)/1000)));
 }
 double myPath::getSigma_l2(float x)
 {

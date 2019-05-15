@@ -69,6 +69,7 @@ public:
     double getPivotDistance();
     double getYvalue(double x);
     double getAngleByX(double x);
+    double getAngleFromFurByX(double x);
     double getSigma_l1(float x);
     double getSigma_l2(float x);
   vector<float> localPressure(float Al,float Ab,float Dcor );//¾Ö²¿³ÐÑ¹

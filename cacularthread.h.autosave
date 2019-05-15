@@ -55,6 +55,7 @@ public:
          vector<float> get_Sf_CombinationAt(int beamId,float x,bool result_type);//x截面处的剪力作用效应组合
         vector<float> get_M_CombinationAt(int beamId,float x);//x截面处的弯矩作用效应组合
         void get_Section_Combination(int beamId,float x);
+        float getStageDieLoad(int stage,float x,bool foceType);
 
 signals:
     void onTask_1_finished(QVariant v);
