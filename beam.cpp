@@ -235,11 +235,11 @@ float beam::getSigma_L2_ById(int id, float x)
     return steelPaths[id+1].getSigma_l2( x);
 }
 float beam::getSigma_L_I(float x,float Ap)
-{
+{ //平均值
  return getAveSigma_l1(x)+getAveSigma_l2(x)+getSigma_l4(Ap);
 }
 float beam::getSigma_L_II(float Ap)
-{
+{   //平均值
     return getSigma_l5(Ap)+getSigma_l6(Ap);
 }
 float beam::getSigma_P_I(float x, float Ap)
@@ -727,4 +727,39 @@ float as=0;
  as=(22.4*bf*root-Fpd*ap)/fsd;
 
  return as;
+}
+
+float beam::getStageDieLoad(int stage, float x, bool foceType)
+{
+     //foceType true表示弯矩 false表示剪力;
+        x/=1e3;//输入毫米转为米
+        float g;
+        switch (stage) {
+        case 0:
+          g=getFirstStageLoad()+getSecondStageLoad()+getThirdStageLoad(numberOfBeam);
+            break;
+        case 1:
+          g=getFirstStageLoad();
+            break;
+        case 2:
+            g=getSecondStageLoad();
+
+            break;
+        case 3:
+            g=getThirdStageLoad(numberOfBeam);
+
+            break;
+        default:
+            g=getFirstStageLoad()+getSecondStageLoad()+getThirdStageLoad(numberOfBeam);
+            break;
+ }
+        if(foceType){
+            //弯矩
+            return bendingSolve(g,x);
+        }else{
+           //剪力
+           return shearFoceSolve(g,x);
+        }
+
+
 }

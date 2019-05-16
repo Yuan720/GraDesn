@@ -1801,7 +1801,7 @@ void MainWindow::draw_prestrLossL()
        m_customPlot->graph(0)->setData(x, y0);
       //   QCPGraph *myGraph = m_customPlot->addGraph();
          // m_customPlot->graph(1)->setData(x, z0);
-        pGraph->setName("预加力阶段");
+        pGraph->setName("预加应力阶段");
        // myGraph->setName("使用阶段");
        pGraph->setData(x,y0);
         pGraph->setPen(QPen(Qt::red));

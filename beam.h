@@ -73,6 +73,7 @@ public:
     field_making_girder_beam getSectionAt(float x);
    float steelAreaSolve(float ms,float myfpk,float myap);//‘§”¶¡¶∏÷ΩÓº∆À„
    float unPreSteelAreaSlove(float Md,float a,float  myfpd,float myAp,float myfsd);
+    float getStageDieLoad(int stage,float x,bool foceType);
 
 
 

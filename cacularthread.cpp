@@ -238,6 +238,64 @@ void CacularThread::SigmaValuesSolve(int steelId,bool beamType, float x)
 
 }
 
+void CacularThread::stageDeadloadSolve(int stage,bool foceType,bool beamType)
+{   beam beamTosolve=beamType? MDemonBeam:SDemonBeam;
+    int nCount = 100;
+     double ts=(myobs->cal_span*1e3)/100;
+    QVector<double> x(nCount+1),y(nCount+1);//, y1(nCount),y2(nCount); // initialize with entries 0..100
+    for (int i = 0; i <nCount; ++i)
+       {
+      x[i] =i*ts; // x goes from -1 to 1
+      y[i]=beamTosolve.getStageDieLoad(stage,x[i],foceType);
+
+      }
+      x[100]=myobs->cal_span*1e3;
+      y[100]=beamTosolve.getStageDieLoad(stage,x[100],foceType);
+      QVariant data;
+      data.setValue(y);
+      emit StageLoadFinished(data,foceType);
+
+}
+
+void CacularThread::CombinLoadSolve(int beamId,int combinType, bool foceType)
+{       bool Type=(combinType==1)? true:false;
+        int nCount = 100;
+         int index=Type? 6:7;
+         double ts=(myobs->cal_span*1e3)/100;
+        QVector<double> x(nCount+1),y(nCount+1);//, y1(nCount),y2(nCount); // initialize with entries 0..100
+       if(foceType){
+        for (int i = 0; i <nCount; ++i)
+          {
+         x[i] =i*ts; // x goes from -1 to 1
+         y[i]=get_M_CombinationAt(beamId,x[i])[index];
+
+
+         }
+         x[100]=myobs->cal_span*1e3;
+         y[100]=get_M_CombinationAt(beamId,x[100])[index];
+       }else{
+
+           for (int i = 0; i <nCount; ++i)
+          {
+         x[i] =i*ts; // x goes from -1 to 1
+         y[i]=get_Sf_CombinationAt(beamId,x[i],true)[index];//剪力组合绘制的是剪力最大值对应的组合;
+
+
+         }
+         x[100]=myobs->cal_span*1e3;
+         y[100]=get_Sf_CombinationAt(beamId,x[100],true)[index];
+
+       }
+
+
+          QVariant data;
+          data.setValue(y);
+              emit CombinationSolveFinished(data);
+
+
+
+}
+
 void CacularThread::get_Section_Combination(int beamId,float x)
 {
    vector<float> res1=get_M_CombinationAt(beamId,x);
@@ -250,6 +308,8 @@ void CacularThread::get_Section_Combination(int beamId,float x)
 
 
 }
+
+
 void CacularThread::getThridLoad(float f,float x){
     vector<float> a;
     QVariant data;
@@ -474,8 +534,6 @@ float CacularThread::getSigma_l4(float Ap,bool isMidBeam)
  float A=mydata[0];float I=mydata[1];float ep=mydata[4];
  float apha_ep=1.95*pow(10,5)/(3.35*pow(10,4));
  float sigma_pc=Np/A+(Np*pow(ep,2))/I;
-
- float mm=(float)(m-1)/(2*m)*apha_ep*sigma_pc;
  return (float)(m-1)/(2*m)*apha_ep*sigma_pc;
 
 
@@ -592,16 +650,18 @@ void CacularThread::prestrLossProcess(float Sx, bool beamType,int steelId)
 {   vector<float> res;
     beam calbeam=beamType? MDemonBeam:SDemonBeam;
     calbeam.setSteel(paths);
-    float sigma_l1,sigma_l2,sigma_l4,sigma_l5,sigma_l6,sigma_P1,Sigma_P2,sigma_stage1,sigma_stage2,sigma_Avrl1,sigma_Avrl2;
-    sigma_l1=calbeam.steelPaths[steelId].getSigma_l1(Sx);
+    float sigma_l1,sigma_l2,sigma_l4,sigma_l5,sigma_l6,sigma_P1,Sigma_P2,sigma_stage1,sigma_stage2,sigma_Avrl1,sigma_Avrl2, sigma_stageAv1,sigma_stageAV2;
+     sigma_l1=calbeam.steelPaths[steelId].getSigma_l1(Sx);
      sigma_l2=calbeam.steelPaths[steelId].getSigma_l2(Sx);
      sigma_l4=calbeam.getSigma_l4(Ap);
+     sigma_stage1=sigma_l1+sigma_l2+sigma_l4;
      sigma_l5=calbeam.getSigma_l5(Ap);
      sigma_l6=calbeam.getSigma_l6(Ap);
      sigma_P1=calbeam.getSigma_P_I(Sx,Ap);
      Sigma_P2=calbeam.getSigma_P_II(Sx,Ap);
-     sigma_stage1=calbeam.getSigma_L_I(Sx,Ap);
-     sigma_stage2=calbeam.getSigma_L_II(Ap);
+     sigma_stageAv1=calbeam.getSigma_L_I(Sx,Ap);
+     sigma_stageAV2=calbeam.getSigma_L_II(Ap);
+     sigma_stage2= sigma_stageAV2;
      sigma_Avrl1=calbeam.getAveSigma_l1(Sx);
      sigma_Avrl2=calbeam.getAveSigma_l2(Sx);
       res.push_back(sigma_l1);
@@ -611,9 +671,18 @@ void CacularThread::prestrLossProcess(float Sx, bool beamType,int steelId)
       res.push_back(sigma_l5);
       res.push_back(sigma_l6);
       res.push_back(sigma_stage2);
-      res.push_back( sigma_P1);
-       res.push_back(Sigma_P2);
-       QVariant data;
+      res.push_back( 0.75*fpk-sigma_stage1);
+      res.push_back(0.75*fpk-sigma_stage1-sigma_stage2);
+      res.push_back(sigma_Avrl1);
+      res.push_back(sigma_Avrl2);
+      res.push_back(sigma_l4);
+      res.push_back(sigma_stageAv1);
+      res.push_back(sigma_l5);
+      res.push_back(sigma_l6);
+      res.push_back(sigma_stageAV2);
+      res.push_back(sigma_P1);
+      res.push_back(Sigma_P2);
+    QVariant data;
        data.setValue(res);
        emit prestrLossFinished(data);
 
@@ -635,17 +704,26 @@ vector<float> CacularThread::get_Sf_CombinationAt(int beamId,float x, bool resul
          vector<float> sf;
         float liveLoad;
         float vef=myobs->vmcffe();
-        float g=beamtosolve.getFirstStageLoad()+beamtosolve.getSecondStageLoad()+beamtosolve.getThirdStageLoad(mymb->mbd.mianBeanNum);
-        float dieLoad;
-        dieLoad=beamtosolve.shearFoceSolve(g,x/1e3);//转为米
-        sf=myobs->getLiveLoad_Sf(beamId,x);
-        liveLoad=result_type? sf[2]:sf[3];
+         float dieLoad;
+        float dieLoadg1=beamtosolve.getStageDieLoad(1, x, false);
+        float dieLoadg2=beamtosolve.getStageDieLoad(2, x, false);
+        float dieLoadg3=beamtosolve.getStageDieLoad(3, x, false);
+        dieLoad=beamtosolve.getStageDieLoad(0, x, false);
+           liveLoad=myobs->getLiveLoad_M(beamId,x);
+
+
+         sf=myobs->getLiveLoad_Sf(beamId,x);
+         liveLoad=result_type? sf[2]:sf[3];
+         res.push_back(dieLoadg1);
+         res.push_back(dieLoadg2);
+         res.push_back(dieLoadg3);
          res.push_back(dieLoad);
          res.push_back(liveLoad);
          res.push_back(liveLoad/vef);
          res.push_back(ultimateLimitSta(dieLoad,liveLoad)) ;
-         res.push_back(sfd(dieLoad,liveLoad));
-         res.push_back(sqd(dieLoad,liveLoad));
+         res.push_back(dieLoad+liveLoad/vef);//标准组合;
+         res.push_back(sfd(dieLoad,liveLoad/vef));
+         res.push_back(sqd(dieLoad,liveLoad/vef));
          return res;
 
 
@@ -667,15 +745,21 @@ vector<float> CacularThread::get_M_CombinationAt(int beamId,float x)
         float vef=myobs->vmcffe();
         float liveLoad;
         float dieLoad;
-        float g=beamtosolve.getFirstStageLoad()+beamtosolve.getSecondStageLoad()+beamtosolve.getThirdStageLoad(mymb->mbd.mianBeanNum);
-          dieLoad=beamtosolve.bendingSolve(g,x/1e3);//转为米
+        float dieLoadg1=beamtosolve.getStageDieLoad(1, x, true);
+        float dieLoadg2=beamtosolve.getStageDieLoad(2, x, true);
+        float dieLoadg3=beamtosolve.getStageDieLoad(3, x, true);
+        dieLoad=beamtosolve.getStageDieLoad(0, x, true);
            liveLoad=myobs->getLiveLoad_M(beamId,x);
+                res.push_back(dieLoadg1);
+                res.push_back(dieLoadg2);
+                res.push_back(dieLoadg3);
                 res.push_back(dieLoad);
                 res.push_back(liveLoad);
                 res.push_back(liveLoad/vef);
                 res.push_back(ultimateLimitSta(dieLoad,liveLoad)) ;
-                res.push_back(sfd(dieLoad,liveLoad));
-                res.push_back(sqd(dieLoad,liveLoad));
+                res.push_back((dieLoad+liveLoad/vef)) ;  //标准组合
+                res.push_back(sfd(dieLoad,liveLoad/vef));
+                res.push_back(sqd(dieLoad,liveLoad/vef));
                      return res;
 }
 

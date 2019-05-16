@@ -60,7 +60,8 @@ public:
     void draw_liveLoadM(int beamId);
     void draw_liveLoadSf(int beamId);
     void draw_deadLoadFoce(bool beamtype,bool foceType);
-
+    void deadLoadRequest();
+    void getCombinLoadFoce();
 signals:
     void task_1_send(QVariant v,bool taskType);
     void task_2_send(QVariant v,QVariant w,bool taskType);
@@ -77,6 +78,8 @@ signals:
     void prestrLossRq(float Sx,bool beamType,int steelId);
     void Section_Eff_Combin(int beamId,float x);//信号获取指定截面效应组合请求
     void getSigmaValues(int steelId,bool beamType,float x);//请求截面x处的指定钢束的预应力损失值
+    void RequstForDeadLoad(int stage,bool foceType,bool beamType);
+    void RequestForCombinLoad(int beamId,int CombinType,bool foceType);
 private slots:
 
     void task_4_finished(QVariant v);
@@ -107,13 +110,24 @@ private slots:
     void on_tabWidget_currentChanged(int index);
     void on_horizontalSlider_valueChanged(int value);
     void on_checkBox_3_clicked();
-    void on_pushButton_3_clicked();
     void on_comboBox_3_currentIndexChanged(int index);
     void on_spinBox_5_valueChanged(int arg1);
     void on_comboBox_7_currentIndexChanged(int index);
     void on_horizontalSlider_2_valueChanged(int value);
     void on_comboBox_8_currentIndexChanged(int index);
     void on_horizontalSlider_5_valueChanged(int value);
+    void draw__StagedeadLoadFoce(QVariant data,bool foceType);//绘制三期恒载内力图像
+    void on_pushButton_9_clicked();
+    void on_comboBox_18_currentIndexChanged(const QString &arg1);
+    void on_comboBox_17_currentIndexChanged(int index);
+    void draw_CombinLoadFoce(QVariant data);
+    void on_comboBox_25_currentIndexChanged(int index);
+    void on_comboBox_19_currentIndexChanged(int index);
+    void prestrLossRender(QVariant data);
+
+    void on_horizontalSlider_5_actionTriggered(int action);
+    void  draw_prestrLossP();
+    void  draw_prestrLossL();
 
 private:
     bool box_1_cheaked=false;

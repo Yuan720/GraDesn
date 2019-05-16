@@ -120,16 +120,19 @@ double myPath::getAngleFromFurByX(double x)
 
 }
 double myPath::getSigma_l1(float x)
-{    //截面摩擦应力损失
+{   x=x>(1e3*bridge_total_Span/2)?  (1e3*bridge_total_Span)-x:x;
+    //截面摩擦应力损失
     //x在式子里面被转为米为单位
 
     return 0.75*fpk*(1-pow(M_E,-(mu*getAngleFromFurByX(x)+k*( x-pathStartPoint.x)/1000)));
 }
 double myPath::getSigma_l2(float x)
 {
+     x=x>(1e3*bridge_total_Span/2)?  (1e3*bridge_total_Span)-x:x;//对称计算
+
    float sigma_0=0.75*fpk;
-   float sigma_l=sigma_0-getSigma_l1(x);
-   float delta_sigma_d=(sigma_0-sigma_l)/(x-pathStartPoint.x);
+   float sigma_l=sigma_0-getSigma_l1(1e3*bridge_total_Span/2);
+   float delta_sigma_d=(sigma_0-sigma_l)/(1e3*bridge_total_Span/2-pathStartPoint.x);
    //摩擦影响长度
    float lf=sqrt(delta_l*Ep/delta_sigma_d);
    if((x-pathStartPoint.x)>lf){

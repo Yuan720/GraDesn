@@ -2427,7 +2427,7 @@ border:0px</string>
        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;支点截面横向分布计算&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
       </property>
       <property name="currentIndex">
-       <number>1</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="page_5">
        <widget class="QScrollArea" name="scrollArea_2">
@@ -2753,7 +2753,7 @@ background-color:#a8a8a8;</string>
          <property name="geometry">
           <rect>
            <x>0</x>
-           <y>-591</y>
+           <y>-967</y>
            <width>1188</width>
            <height>3000</height>
           </rect>
@@ -3210,6 +3210,19 @@ background-color:#a8a8a8;</string>
            </property>
           </item>
          </widget>
+         <widget class="QPushButton" name="pushButton_9">
+          <property name="geometry">
+           <rect>
+            <x>280</x>
+            <y>740</y>
+            <width>81</width>
+            <height>41</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>调试用</string>
+          </property>
+         </widget>
         </widget>
        </widget>
       </widget>
@@ -3637,7 +3650,7 @@ border-radius:5px;</string>
        <property name="geometry">
         <rect>
          <x>0</x>
-         <y>-911</y>
+         <y>-1151</y>
          <width>1328</width>
          <height>3000</height>
         </rect>
@@ -4530,19 +4543,6 @@ p, li { white-space: pre-wrap; }
          </rect>
         </property>
        </widget>
-       <widget class="QLabel" name="label_20">
-        <property name="geometry">
-         <rect>
-          <x>20</x>
-          <y>1830</y>
-          <width>131</width>
-          <height>41</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:16pt; font-weight:600; color:#aa55ff;&quot;&gt;验算&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-        </property>
-       </widget>
        <widget class="QLabel" name="label_25">
         <property name="geometry">
          <rect>
@@ -4567,19 +4567,6 @@ p, li { white-space: pre-wrap; }
         </property>
         <property name="text">
          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; font-weight:600; color:#00007f;&quot;&gt; mm&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-        </property>
-       </widget>
-       <widget class="QPushButton" name="pushButton_3">
-        <property name="geometry">
-         <rect>
-          <x>540</x>
-          <y>1240</y>
-          <width>141</width>
-          <height>28</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>活载弯矩试绘制</string>
         </property>
        </widget>
        <widget class="QSlider" name="horizontalSlider_5">
@@ -4630,31 +4617,31 @@ p, li { white-space: pre-wrap; }
          </rect>
         </property>
         <property name="text">
-         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:12pt; font-weight:600; color:#55aa00;&quot;&gt;预应力损失图像绘制&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:12pt; font-weight:600; color:#55aa00;&quot;&gt;有效预应力图像绘制&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
         </property>
        </widget>
-       <widget class="QComboBox" name="comboBox_26">
+       <widget class="XxwCustomPlot" name="widget_21" native="true">
         <property name="geometry">
          <rect>
           <x>70</x>
-          <y>1390</y>
-          <width>71</width>
+          <y>1849</y>
+          <width>1091</width>
+          <height>351</height>
+         </rect>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_98">
+        <property name="geometry">
+         <rect>
+          <x>500</x>
+          <y>1800</y>
+          <width>201</width>
           <height>31</height>
          </rect>
         </property>
-        <property name="styleSheet">
-         <string notr="true">font: 9pt &quot;微软雅黑&quot;;</string>
+        <property name="text">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:12pt; font-weight:600; color:#55aa00;&quot;&gt;预应力损失图像绘制&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
         </property>
-        <item>
-         <property name="text">
-          <string>σpΙ</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>σpΙΙ</string>
-         </property>
-        </item>
        </widget>
       </widget>
      </widget>

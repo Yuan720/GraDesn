@@ -56,6 +56,7 @@ public:
         vector<float> get_M_CombinationAt(int beamId,float x);//x截面处的弯矩作用效应组合
         void get_Section_Combination(int beamId,float x);
 
+
 signals:
     void onTask_1_finished(QVariant v);
     void onTask_2_finished(QVariant v);
@@ -70,6 +71,8 @@ signals:
     void Section_combinFinished(QVariant v);
     void Sectionfinished(QVariant v);
     void prestrLossFinished(QVariant v);
+    void StageLoadFinished(QVariant v,bool foceType);
+    void CombinationSolveFinished(QVariant v);
 
 public slots:
     void task_1_process(QVariant v,bool taskType);
@@ -83,5 +86,7 @@ public slots:
     void task_9_process(QVariant v);
     void task_10_process(bool fieldCount,bool beamType,float x,bool precounted);
     void SigmaValuesSolve(int steelId,bool beamType,float x);
+    void stageDeadloadSolve(int stage,bool foceType,bool beamType);
+    void  CombinLoadSolve(int beamId,int combinType,bool foceType);
 };
 #endif // CACULARTHREAD_H

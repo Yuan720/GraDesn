@@ -20,7 +20,7 @@ public:
 	int sizex;
 	float *ivar;
 	float *idvar;
-	BasicInterpolationTable() {};
+    BasicInterpolationTable() {}
 	BasicInterpolationTable(float x[], float y[], int xsz) {
 		sizex = xsz;
 		ivar = x;
@@ -32,7 +32,7 @@ public:
 		ivar = x;
 		idvar = y;
 
-	};
+    }
 	float Interpolat(float var) {
 		if (var < *ivar) {
 			return var * ((*idvar) / (*ivar));
@@ -55,6 +55,7 @@ public:
 					if (var == *(ivar + i)) {
 						return *(idvar + i);
 					}
+
                     if ((ivar[i + 1] > var)&(var > ivar[i])) {
 
 						return	*(idvar + i) + (var - *(ivar + i))*(*(idvar + i + 1) - *(idvar + i)) / (*(ivar + i + 1) - *(ivar + i));
@@ -66,7 +67,7 @@ public:
 		}
 
 
-	};
+    }
 
 };
 //三角形类
@@ -491,11 +492,6 @@ public:
         //BasicInterpolationTable  test(a, b, 4);
 		float temp1, temp2, temp3;
 		temp1 = 0;
-        float test1=(float)3 / 16 * cal_span;
-         float test2=(float)3/32 * pow(cal_span, 2);
-         float test3=getMcqByBeamId(beamId);
-          float test4=vmcffe();;
-
         temp2 = (pk * 3 / 16 * cal_span + qk * 3 / 32 * pow(cal_span, 2))*getMcqByBeamId(beamId)*vmcffe();
         temp3 = (pk*cal_span / 4 + qk * pow(cal_span, 2) / 8)*vmcffe()*getMcqByBeamId(beamId);
 		result.push_back(temp1);
@@ -531,7 +527,7 @@ public:
         float lj=cal_span;
         float vmc=vmcffe();
         float R_left=1-x/lj;
-        float R_right=x/lj;
+       // float R_right=x/lj;
         float M_max=R_left*x;
         float S=M_max*lj*0.5;
         float bend;
@@ -550,7 +546,7 @@ public:
         float flag=x>cal_span/2? -1:1;
         x=x>cal_span/2? cal_span-x:x;
         float R_left=1-x/lj;
-        float R_right=x/lj;
+        //float R_right=x/lj;
         float V_max=R_left;
         float S=V_max*(lj-x)*0.5;
         float Smin=(1-R_left)*x*0.5;
