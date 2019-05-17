@@ -4,6 +4,8 @@ double Pi=3.1415926;
 float fpk=1860;
 float mu=0.25;
 float k=0.0015;
+float fcuk=50;//混泥土强度等级默认C50 Mpa;
+float ftd;//默认C50 1.83;
 float pivot_X=550;
 float bridge_total_Span;
 float bridge_calspan;
@@ -30,4 +32,11 @@ float non_prestreSteel_s=23150;
  float ap=125;
  float cross_beam_foce[5][6];
  int numberOfBeam=4;
+ float NominalStArea=140;
+ float Fsv=280;//箍筋强度
+ float nv=2;//肢数
+ float dv=10;//箍筋直径mm
+ float Sv1=200;//箍筋间距1;
+ float Sv2=200;
+ float divid_X=8000;//毫米计算
  //ap=125mm

@@ -55,6 +55,8 @@ public:
     myPath(Point pathStart, Point pathTurn, double radius,double half_span,double d);
     myPath(Point pathStart, Point pathTurn, double radius,double half_span,double d,float stlarea);
     //»¡Ô²ÐÄ
+    int steelNUm;
+
     float steelArea;
     double d;
     Point center;

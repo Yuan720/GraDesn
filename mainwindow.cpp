@@ -1406,7 +1406,11 @@ double ts=(mycat->myobs->total_span)/100;
 //  mycat->myobs-> cross_storge();
 draw_prestrLossP();
 draw_prestrLossL();
-
+    mycat->MDemonBeam.setSteel(mycat->paths);
+qDebug()<<mycat->MDemonBeam.obliqueSectionCheaking(0)<<"抗剪支点";
+qDebug()<<mycat->MDemonBeam.obliqueSectionCheaking(8750)<<"抗剪1/4";
+qDebug()<<mycat->MDemonBeam.obliqueSectionCheaking(16900)<<"抗剪支点跨中";
+draw_Mu(2);
 
 }
 void MainWindow::on_tabWidget_currentChanged(int index)
@@ -1589,7 +1593,7 @@ void MainWindow::on_comboBox_17_currentIndexChanged(int index)
     deadLoadRequest();
 }
 
-void MainWindow::draw_CombinLoadFoce(QVariant data)
+void MainWindow::draw_CombinLoadFoce(QVariant data,QVariant W,bool foceType)
 {
     //绘制效应组合内力图;
       m_customPlot=ui->widget_18;
@@ -1636,7 +1640,7 @@ void MainWindow::draw_CombinLoadFoce(QVariant data)
            // create graph and assign data to it:
           QCPGraph *pGraph = m_customPlot->addGraph();
             m_customPlot->graph(0)->setData(x, y0);
-            pGraph->setName(str2);
+            pGraph->setName("剪力最大值组合");
             pGraph->setData(x,y0);
             if(ui->comboBox_25->currentIndex()==0){
                 pGraph->setPen(QPen(Qt::blue));
@@ -1644,6 +1648,14 @@ void MainWindow::draw_CombinLoadFoce(QVariant data)
             }else{
                  pGraph->setPen(QPen(Qt::red));
                  m_customPlot->yAxis->setLabel("SF (KN)");
+            }
+            if(!foceType){
+                QCPGraph *myGraph = m_customPlot->addGraph();
+                 QVector<double> z0=W.value<QVector<double>>();
+                 m_customPlot->graph(1)->setData(x, z0);
+                myGraph->setData(x,z0);
+                  myGraph->setName("剪力最小值组合");
+                   myGraph->setPen(QPen(Qt::green));
             }
             m_customPlot->xAxis->setLabel("截面位置(mm)");
             m_customPlot->rescaleAxes(true);
@@ -1801,7 +1813,7 @@ void MainWindow::draw_prestrLossL()
        m_customPlot->graph(0)->setData(x, y0);
       //   QCPGraph *myGraph = m_customPlot->addGraph();
          // m_customPlot->graph(1)->setData(x, z0);
-        pGraph->setName("预加力阶段");
+        pGraph->setName("预加应力阶段");
        // myGraph->setName("使用阶段");
        pGraph->setData(x,y0);
         pGraph->setPen(QPen(Qt::red));
@@ -1814,5 +1826,69 @@ void MainWindow::draw_prestrLossL()
 
 
 
+}
+
+void MainWindow::draw_Mu(int beamID)
+{
+
+        bool beamType=(beamID==1|beamID==mycat->myobs->bean_nums)? false:true;
+        beam beamToSolve=beamType? mycat->MDemonBeam:mycat->SDemonBeam;
+          beamToSolve.setSteel(mycat->paths);
+      m_customPlot=ui->widget_22;
+      QString str="弯矩承载力";
+      m_customPlot->clearGraphs ( );
+      m_customPlot->showTracer(true);
+        if(!m_customPlot->plotLayout()->hasElement(1,0)){
+            m_customPlot->plotLayout()->insertRow(0);
+            m_customPlot->plotLayout()->addElement(0, 0, new QCPTextElement(m_customPlot, str, QFont("黑体", 12, QFont::Bold)));
+            }else{
+            m_customPlot->plotLayout()->remove(m_customPlot->plotLayout()->element(0,0));
+            m_customPlot->plotLayout()->addElement(0, 0, new QCPTextElement(m_customPlot, str, QFont("黑体", 12, QFont::Bold)));
+     }
+       m_customPlot->legend->setVisible(true);
+        QFont legendFont = font();  // start out with MainWindow's font..
+        legendFont.setPointSize(9); // and make a bit smaller for legend
+        m_customPlot->legend->setFont(legendFont);
+        m_customPlot->legend->setBrush(QBrush(QColor(255,255,255,230)));
+        // by default, the legend is in the inset layout of the main axis rect. So this is how we access it to change legend placement:
+        m_customPlot->axisRect()->insetLayout()->setInsetAlignment(0, Qt::AlignTop|Qt::AlignCenter);
+       // make left and bottom axes always transfer their ranges to right and top axes:
+        connect(m_customPlot->xAxis, SIGNAL(rangeChanged(QCPRange)), m_customPlot->xAxis2, SLOT(setRange(QCPRange)));
+        connect(m_customPlot->yAxis, SIGNAL(rangeChanged(QCPRange)), m_customPlot->yAxis2, SLOT(setRange(QCPRange)));
+       // Allow user to drag axis ranges with mouse, zoom with mouse wheel and select graphs by clicking:
+        m_customPlot->setInteractions(QCP::iRangeDrag | QCP::iRangeZoom | QCP::iSelectPlottables);
+        // generate some data:
+       int nCount = 100;
+       double ts=(mycat->myobs->cal_span*1e3)/100;
+       QVector<double> x(nCount+1), y0(nCount+1),z0(nCount+1);//, y1(nCount),y2(nCount); // initialize with entries 0..100
+        for (int i = 0; i <nCount; ++i)
+        {
+            x[i] =i*ts; // x goes from -1 to 1
+            y0[i] = beamToSolve.get_Mu(x[i]);
+            z0[i] =mycat->get_M_CombinationAt(beamID,x[i])[6];
+
+
+     }
+        x[100]=mycat->myobs->cal_span*1e3;
+      y0[100] = beamToSolve.get_Mu(x[100]);
+      z0[100] =mycat->get_M_CombinationAt(beamID,x[100])[6];
+
+     //  z0[100] = beamToSolve.getSigma_P_II(x[100]+myd1,Ap);
+        // create graph and assign data to it:
+
+        QCPGraph *pGraph = m_customPlot->addGraph();
+       m_customPlot->graph(0)->setData(x, y0);
+       QCPGraph *myGraph = m_customPlot->addGraph();
+         m_customPlot->graph(1)->setData(x, z0);
+        pGraph->setName("抗弯承载力");
+       myGraph->setName("弯矩设计值");
+        pGraph->setData(x,y0);
+        pGraph->setPen(QPen(Qt::red));
+       myGraph->setPen(QPen(Qt::green));
+   // give the axes some labels:
+        m_customPlot->xAxis->setLabel("截面位置(mm)");
+        m_customPlot->yAxis->setLabel("KN.m");
+        m_customPlot->rescaleAxes(true);
+        m_customPlot->replot();
 }
 

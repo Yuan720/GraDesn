@@ -3,6 +3,7 @@
 #include<bridge.h>
 #include<mytoolkit.h>
 #include<Casoa.h>
+#include<variables.h>
 
 
 class beam
@@ -12,7 +13,7 @@ public:
     beam(field_making_girder_beam pivot,field_making_girder_beam middle,vector<float> param1,int  cBN );
     field_making_girder_beam pivotSetion;//支点截面;
     field_making_girder_beam middleSetion;//跨中截面;
-    float spanLength; //计算跨长;
+    float spanLength; //计算跨长mm;
     float AspLayer; //沥青混凝土铺装厚度
     float MixedSoilLayer; //水泥混凝土铺装厚度
     float CenterCrossBeamV;//中横梁体积
@@ -49,17 +50,17 @@ public:
     float getSigma_P_I(float x,float Ap);
     float getSigma_P_II(float x,float Ap);
     float getSigma_cu(float x,float Ap,float Mq);
-    float getDepthOfCompression();
+    float getDepthOfCompression(float x);
     float getSteel_a();//求解钢筋的合力作用点到截面底边距离
     float getSteel_a(float ap);
     float getSinThetaByX(float x);
-    float get_Mu();
+    float get_Mu(float x);//单位mm
     float get_Apb(float x);
     float get_ep0(float x);
     float get_epn(float x);
     vector<float> deflecationSolve(float Ms);//挠度计算;
 
-    vector<float>  obliqueSectionCheaking(float x,float vd);//斜截面抗剪检验
+    float  obliqueSectionCheaking(float x);//斜截面抗剪检验
     vector <float> crackChecking(float MQs,float Mql);//正截面抗裂验算;
     vector <float> obliqueCrackChecking(float x); //斜截面抗裂
     vector<float> MainStress(float x,float Mq,float VQs,int stage);//主应力计算

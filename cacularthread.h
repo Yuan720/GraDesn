@@ -72,7 +72,7 @@ signals:
     void Sectionfinished(QVariant v);
     void prestrLossFinished(QVariant v);
     void StageLoadFinished(QVariant v,bool foceType);
-    void CombinationSolveFinished(QVariant v);
+    void CombinationSolveFinished(QVariant v,QVariant W,bool foceType);
 
 public slots:
     void task_1_process(QVariant v,bool taskType);

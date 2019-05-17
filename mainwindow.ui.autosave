@@ -4064,7 +4064,7 @@ background-color:#a8a8a8;</string>
        <property name="geometry">
         <rect>
          <x>0</x>
-         <y>-599</y>
+         <y>-1195</y>
          <width>1328</width>
          <height>3000</height>
         </rect>
@@ -4770,10 +4770,10 @@ p, li { white-space: pre-wrap; }
        <widget class="QTextBrowser" name="textBrowser">
         <property name="geometry">
          <rect>
-          <x>1130</x>
-          <y>1740</y>
+          <x>1120</x>
+          <y>1710</y>
           <width>171</width>
-          <height>241</height>
+          <height>271</height>
          </rect>
         </property>
         <property name="html">
@@ -4786,8 +4786,8 @@ p, li { white-space: pre-wrap; }
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;σl4&lt;/span&gt;—分批张拉引起的应力损失.&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;σl5&lt;/span&gt;—钢筋松弛引起的应力损失.&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;σl6&lt;/span&gt;—混凝土收缩徐变引起的应力损失.&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;σpΙ&lt;/span&gt;—欲加力阶段.&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;σpΙΙ&lt;/span&gt;—使用阶段.&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;σpΙ&lt;/span&gt;—欲加力阶段有效预应力&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;σpΙΙ&lt;/span&gt;—使用阶段有效预应力&lt;/p&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
         </property>
        </widget>

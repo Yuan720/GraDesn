@@ -7,7 +7,6 @@ CacularThread::CacularThread(QObject *parent) : QObject(parent)
 {
 
 }
-
 void CacularThread::SetBeam(beam vbeam,beam sbeam)
 {   SDemonBeam=sbeam;
     MDemonBeam=vbeam;
@@ -209,7 +208,6 @@ void CacularThread::task_10_process(bool fieldCount, bool beamType, float x,bool
     emit Sectionfinished(data);
 
 }
-
 void CacularThread::SigmaValuesSolve(int steelId,bool beamType, float x)
 {
     beam beamtoSolve=beamType? MDemonBeam:SDemonBeam;
@@ -237,7 +235,6 @@ void CacularThread::SigmaValuesSolve(int steelId,bool beamType, float x)
 
 
 }
-
 void CacularThread::stageDeadloadSolve(int stage,bool foceType,bool beamType)
 {   beam beamTosolve=beamType? MDemonBeam:SDemonBeam;
     int nCount = 100;
@@ -256,13 +253,13 @@ void CacularThread::stageDeadloadSolve(int stage,bool foceType,bool beamType)
       emit StageLoadFinished(data,foceType);
 
 }
-
 void CacularThread::CombinLoadSolve(int beamId,int combinType, bool foceType)
-{       bool Type=(combinType==1)? true:false;
+{      //false为剪力
+    bool Type=(combinType==1)? true:false;
         int nCount = 100;
          int index=Type? 6:7;
          double ts=(myobs->cal_span*1e3)/100;
-        QVector<double> x(nCount+1),y(nCount+1);//, y1(nCount),y2(nCount); // initialize with entries 0..100
+        QVector<double> x(nCount+1),y(nCount+1),z(nCount+1);//, y1(nCount),y2(nCount); // initialize with entries 0..100
        if(foceType){
         for (int i = 0; i <nCount; ++i)
           {
@@ -279,23 +276,27 @@ void CacularThread::CombinLoadSolve(int beamId,int combinType, bool foceType)
           {
          x[i] =i*ts; // x goes from -1 to 1
          y[i]=get_Sf_CombinationAt(beamId,x[i],true)[index];//剪力组合绘制的是剪力最大值对应的组合;
-
+         z[i]=get_Sf_CombinationAt(beamId,x[i],false)[index];
 
          }
          x[100]=myobs->cal_span*1e3;
          y[100]=get_Sf_CombinationAt(beamId,x[100],true)[index];
+         z[100]=get_Sf_CombinationAt(beamId,x[100],false)[index];
 
        }
 
 
           QVariant data;
+          QVariant w;
           data.setValue(y);
-              emit CombinationSolveFinished(data);
+          w.setValue(z);
+
+
+              emit CombinationSolveFinished(data,w,foceType);
 
 
 
 }
-
 void CacularThread::get_Section_Combination(int beamId,float x)
 {
    vector<float> res1=get_M_CombinationAt(beamId,x);
@@ -304,12 +305,11 @@ void CacularThread::get_Section_Combination(int beamId,float x)
    res1.insert(res1.end(),res2.begin(),res2.end());
    res1.insert(res1.end(),res3.begin(),res3.end());
    QVariant data;data.setValue(res1);
+
    emit Section_combinFinished(data);
 
 
 }
-
-
 void CacularThread::getThridLoad(float f,float x){
     vector<float> a;
     QVariant data;

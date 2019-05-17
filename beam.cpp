@@ -281,12 +281,17 @@ float MG1=1e6*bendingSolve(getFirstStageLoad(),x/1000);
    return sigma_cu;
 
 }
-float beam::getDepthOfCompression()
+float beam::getDepthOfCompression(float x)
 {//受压区高度;
-    float field=(middleSetion.sbg.left.isSideBeam|middleSetion.sbg.right.isSideBeam)? middleSetion.fmgb_length:2*middleSetion.fmgb_length;
-    float bf=middleSetion.sbg.left.b1+middleSetion.sbg.right.b1+field;
+    //x以mm为单位;
+    field_making_girder_beam SolveBeam=getSectionAt(x);
+    bool beamtype=(SolveBeam.sbg.left.isSideBeam|SolveBeam.sbg.right.isSideBeam);
+    float field=beamtype? SolveBeam.fmgb_length:2*SolveBeam.fmgb_length;
+    //(middleSetion.sbg.left.isSideBeam|middleSetion.sbg.right.isSideBeam)? middleSetion.fmgb_length:2*middleSetion.fmgb_length;
+    float bf=SolveBeam.sbg.left.b1+SolveBeam.sbg.right.b1+field;
      bf*=1e3;
-     return (fpd*Ap+fsd*As)/(fcd*bf);
+
+     return (fpd*Ap+fsd*As)/(fcd*bf);//单位毫米
 }
 float beam::getSteel_a()
 {   //a
@@ -308,13 +313,16 @@ float beam::getSinThetaByX(float x)
     }
     return sintheta/steelPaths.size();
 }
-float beam::get_Mu()
-{   float field=(middleSetion.sbg.left.isSideBeam|middleSetion.sbg.right.isSideBeam)? middleSetion.fmgb_length:2*middleSetion.fmgb_length;
-    float bf=middleSetion.sbg.left.b1+middleSetion.sbg.right.b1+field;
-    bf*=1e3;
-    float x=getDepthOfCompression();
-    float h0=1e3*middleSetion.sbg.left.h-getSteel_a();
-    return fcd*bf*x*(h0-x/2);
+float beam::get_Mu(float lca)
+{    float myd=(bridge_total_Span*1e3-spanLength)/2;
+    field_making_girder_beam SolveBeam=getSectionAt(lca);
+     bool beamtype=(SolveBeam.sbg.left.isSideBeam|SolveBeam.sbg.right.isSideBeam);
+     float field=beamtype? SolveBeam.fmgb_length:2*SolveBeam.fmgb_length;
+     float bf=SolveBeam.sbg.left.b1+SolveBeam.sbg.right.b1+field;
+      bf*=1e3;
+     float x=getDepthOfCompression(lca);
+    float h0=1e3*middleSetion.sbg.left.h-getSteel_a(getAverageSteelHeight(lca+myd));
+    return fcd*bf*x*(h0-x/2)/1e6;//返回单位kn.m;
 }
 float beam::get_Apb(float x)
 {   float Apb=0;
@@ -366,35 +374,25 @@ res.push_back(Wl);
 return res;
 
 }
-vector<float> beam::obliqueSectionCheaking(float x,float vd)
-{
+float  beam::obliqueSectionCheaking(float x)
+{   float myd=(1e3*bridge_total_Span-spanLength)/2;
     float apha1=1, apha2=1.25, apha3=1.1;
-    float ap=getAverageSteelHeight(x);
+    float ap=getAverageSteelHeight(x+myd);
     float a=getSteel_a(ap);
     float h0=1e3*middleSetion.sbg.left.h-a;
-    float ftd=1.83;//c50混凝土抗拉强度
-    float gamma=1.0;//结构重要性系数
     float b;
-    float fcuk=50;
-    vector<float> cheakedData;
-     field_making_girder_beam fb=getSectionAt(x);
-      b=(fb.sbg.left.d2+fb.sbg.right.d2)*1e3;
-    cheakedData.push_back(0.5*1e-3*apha2*ftd*b*h0);
-   // cheakedData.push_back(gamma*vd);
-    cheakedData.push_back(0.51*(1e-3)*sqrt(fcuk)*b*h0);
-     float Asv=157.08;
-    float sv=200;
-    float fsv=280;
-
+    field_making_girder_beam fb=getSectionAt(x);
+    b=(fb.sbg.left.d2+fb.sbg.right.d2)*1e3;
+   // cheakedData.push_back(0.5*1e-3*apha2*ftd*b*h0);
+    //cheakedData.push_back(0.51*(1e-3)*sqrt(fcuk)*b*h0);
+    float Asv=nv*M_PI*pow(dv,2)/4;
+    float sv=x<divid_X? Sv1:Sv2;
     float rhosv=Asv/(sv*b);
     float p=100*(Ap+As)/(b*h0);
-    float vcs=apha1*apha2*apha3*0.45*1e-3*b*h0*sqrt((2+0.6*p)*sqrt(fcuk)*rhosv*fsv);
+    float vcs=apha1*apha2*apha3*0.45*1e-3*b*h0*sqrt((2+0.6*p)*sqrt(fcuk)*rhosv*Fsv);
     float sinThetaP=getSinThetaByX(x);
     float vpd=0.75*1e-3*fpd*Ap*sinThetaP;
-     cheakedData.push_back(vcs);
-     cheakedData.push_back(vpd);
-     cheakedData.push_back(vcs+vpd);
-     return cheakedData;
+     return vcs+vpd;
 
 
 
@@ -522,9 +520,10 @@ vector<float> beam::getSpecifiedAreaMoment(float x, bool fieldCount, bool preCou
     return res;
 }
 field_making_girder_beam beam::getSectionAt(float x)
-{
+{       //单位mm
     //第一个参数 总跨长 第二个  请求截面位置      第三个参数 过渡起点坐标 第四个 过渡终点坐标
  //过渡段起点 终点以米计
+    bool isSideBeam=(middleSetion.sbg.left.isSideBeam|middleSetion.sbg.right.isSideBeam);
     float halfLength=half_Trans_end*1000-half_Trans_start*1000;
     float xe=x>spanLength/2? spanLength-x:x;
     if(xe<=1000*half_Trans_start){
@@ -572,7 +571,7 @@ field_making_girder_beam beam::getSectionAt(float x)
 
     }
 
-    if(!beamtype){
+    if(isSideBeam){
         myhbg1=half_box_girder(half_left,true);
         myhbg2= half_box_girder (half_right,false);
 

@@ -120,7 +120,7 @@ private slots:
     void on_pushButton_9_clicked();
     void on_comboBox_18_currentIndexChanged(const QString &arg1);
     void on_comboBox_17_currentIndexChanged(int index);
-    void draw_CombinLoadFoce(QVariant data);
+    void draw_CombinLoadFoce(QVariant data,QVariant W,bool foceType);
     void on_comboBox_25_currentIndexChanged(int index);
     void on_comboBox_19_currentIndexChanged(int index);
     void prestrLossRender(QVariant data);
@@ -128,6 +128,7 @@ private slots:
     void on_horizontalSlider_5_actionTriggered(int action);
     void  draw_prestrLossP();
     void  draw_prestrLossL();
+    void draw_Mu(int beamID);
 
 private:
     bool box_1_cheaked=false;
