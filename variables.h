@@ -48,4 +48,7 @@ extern float dv;//箍筋直径
 extern float Sv1;//箍筋间距1;
 extern float Sv2;
 extern float divid_X;
+extern float sigma_con;//控制张拉应力;
+extern float feck;
+extern float fck;
 #endif // VARIABLES_H

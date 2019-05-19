@@ -123,12 +123,22 @@ private slots:
     void draw_CombinLoadFoce(QVariant data,QVariant W,bool foceType);
     void on_comboBox_25_currentIndexChanged(int index);
     void on_comboBox_19_currentIndexChanged(int index);
+
     void prestrLossRender(QVariant data);
 
     void on_horizontalSlider_5_actionTriggered(int action);
     void  draw_prestrLossP();
     void  draw_prestrLossL();
     void draw_Mu(int beamID);
+    void draw_oblique_sf(int beamID);
+    void drawSigmaCt(int beamId);
+    void drawPermanentStress(int beamId);
+    void draw_MainStress(int beamId);
+    void drawfocescheaking(int beamId);//对所用应力验算进行绘图;
+
+    void on_spinBox_16_valueChanged(int arg1);
+    void mainBeamdeadLoad();
+
 
 private:
     bool box_1_cheaked=false;

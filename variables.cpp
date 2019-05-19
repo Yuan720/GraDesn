@@ -5,7 +5,7 @@ float fpk=1860;
 float mu=0.25;
 float k=0.0015;
 float fcuk=50;//混泥土强度等级默认C50 Mpa;
-float ftd;//默认C50 1.83;
+float ftd=1.83;//默认C50 1.83;
 float pivot_X=550;
 float bridge_total_Span;
 float bridge_calspan;
@@ -39,4 +39,7 @@ float non_prestreSteel_s=23150;
  float Sv1=200;//箍筋间距1;
  float Sv2=200;
  float divid_X=8000;//毫米计算
+ float sigma_con=1395;
+ float feck=29.6;//c45轴心抗压
+    float fck=32.4;
  //ap=125mm

@@ -297,6 +297,33 @@ void CacularThread::CombinLoadSolve(int beamId,int combinType, bool foceType)
 
 
 }
+
+vector<float> CacularThread::PermanentCheak(int beamID, float x)
+{  beam beamTosolve;
+    bool beamType=(beamID==1|beamID==myobs->bean_nums)? false:true;
+         beamTosolve=beamType? MDemonBeam:SDemonBeam;
+         beamTosolve.setSteel(paths);
+         float Mq=myobs->getLiveLoad_M(beamID,x);
+         vector<float> test=beamTosolve.PermanentCheak(x,Mq);
+         return beamTosolve.PermanentCheak(x,Mq);
+
+}
+
+vector<float> CacularThread::MainStressSolve(int beamId,float x)
+{
+          bool beamType=(beamId==1|beamId==myobs->bean_nums)? false:true;
+           beam beamToSolve=beamType? MDemonBeam:SDemonBeam;
+            beamToSolve.setSteel(paths);
+                float Vq,Mq;
+             Mq=myobs->getLiveLoad_M(beamId,x);
+             Vq=myobs->getLiveLoad_Sf(beamId,x)[2];//
+             return beamToSolve.MainStress(x,Mq,Vq);
+
+
+
+
+
+}
 void CacularThread::get_Section_Combination(int beamId,float x)
 {
    vector<float> res1=get_M_CombinationAt(beamId,x);

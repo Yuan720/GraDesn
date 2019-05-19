@@ -71,33 +71,8 @@ void MainWindow::on_commandLinkButton_2_clicked()
     }
 }
 void MainWindow::on_commandLinkButton_4_clicked()
-{   vector<float> mydata;
-    if(mycat->mymb==0){
-        QMessageBox::information(this,QString("请先录入数据!"),QString("缺少数据,请先到数据录入界面存入相关数据!"));
-
-    }else{
-
-        mydata.push_back(mycat->mymb->mbd.BrigeWidth);
-        mydata.push_back(mycat->mymb->mbd.AspLayer);
-        mydata.push_back(mycat->mymb->mbd.MixedSoilLayer);
-        mydata.push_back(mycat->mymb->mbd.MBArea);
-        mydata.push_back(mycat->mymb->mbd.SideBeamArea);
-        mydata.push_back(mycat->mymb->mbd.CenterCrossBeamV);
-        mydata.push_back(mycat->mymb->mbd.SideCorssBeamV);
-        mydata.push_back(mycat->mymb->mbd.CalculaSpan);
-        mydata.push_back(mycat->mymb->mbd.gr);
-        mydata.push_back(mycat->mymb->mbd.crossBeamNum);
-        mydata.push_back(mycat->mymb->mbd.mianBeanNum);
-        mydata.push_back(mycat->mymb->mbd.Main_Bean_field_making_Area);
-        mydata.push_back(mycat->mymb->mbd.Side_Cross_Bean_field_making_Area);
-        mydata.push_back(mycat->mymb->mbd.Midle_Cross_Bean_field_making_Area);
-        mydata.push_back(mycat->mymb->mbd.Cross_Bean_t);
-         QVariant data;
-         data.setValue(mydata);
-         emit task_6_send(data);
-
-    }
-
+{
+mainBeamdeadLoad();
 
 }
 void MainWindow::task_4_finished(QVariant v){
@@ -1074,6 +1049,7 @@ void MainWindow::on_commandLinkButton_50_clicked()
               ui->horizontalSlider_5->setMaximum(mycat->myobs->cal_span*1e3);
               ui->spinBox_13->setMaximum(mycat->myobs->cal_span*1e3);
               ui->spinBox_2->setMaximum(mycat->myobs->bean_nums);
+                ui->spinBox_16->setMaximum(mycat->myobs->bean_nums);
               numberOfBeam=mycat->mymb->mbd.mianBeanNum;
               beamInit();
               QMessageBox::information(this,QString("存入成功"),QString("已存储!"));
@@ -1092,11 +1068,12 @@ void MainWindow::on_commandLinkButton_50_clicked()
                     bridge_total_Span=input[15];
                     ui->spinBox_4->setMaximum(input[15]*1e3);
                     ui->horizontalSlider->setMaximum(input[15]*1e3);
-                     ui->spinBox_2->setMaximum(mycat->myobs->bean_nums);
+                    ui->spinBox_2->setMaximum(mycat->myobs->bean_nums);
+                    ui->spinBox_16->setMaximum(mycat->myobs->bean_nums);
                     ui->spinBox_6->setMaximum(mycat->myobs->cal_span*1e3);
                     ui->horizontalSlider_2->setMaximum(mycat->myobs->cal_span*1e3);
-                     ui->horizontalSlider_5->setMaximum(mycat->myobs->cal_span*1e3);
-                      ui->spinBox_13->setMaximum(mycat->myobs->cal_span*1e3);
+                    ui->horizontalSlider_5->setMaximum(mycat->myobs->cal_span*1e3);
+                     ui->spinBox_13->setMaximum(mycat->myobs->cal_span*1e3);
                     numberOfBeam=mycat->mymb->mbd.mianBeanNum;
                     beamInit();
                     QMessageBox::information(this,QString("存入成功"),QString("已存储!"));
@@ -1404,13 +1381,22 @@ double ts=(mycat->myobs->total_span)/100;
 //mycat->myobs->cross_sf(4.56);
 //mycat->myobs->cross_sf(1.66);
 //  mycat->myobs-> cross_storge();
-draw_prestrLossP();
-draw_prestrLossL();
+/*draw_prestrLossP();
+draw_prestrLossL();*/
     mycat->MDemonBeam.setSteel(mycat->paths);
-qDebug()<<mycat->MDemonBeam.obliqueSectionCheaking(0)<<"抗剪支点";
-qDebug()<<mycat->MDemonBeam.obliqueSectionCheaking(8750)<<"抗剪1/4";
-qDebug()<<mycat->MDemonBeam.obliqueSectionCheaking(16900)<<"抗剪支点跨中";
-draw_Mu(2);
+/*mycat->MDemonBeam.obliqueSectionCheaking(0);
+mycat->MDemonBeam.obliqueSectionCheaking(33800);
+/*
+ * qDebug()<<mycat->MDemonBeam.obliqueSectionCheaking(16900)<<"抗剪支点跨中";
+draw_Mu(2);*/
+  //  draw_oblique_sf(1);
+  // mycat->MDemonBeam.getSigma_ct(0);
+   // drawSigmaCt(1);
+  // mycat->PermanentCheak(1, 16900);
+   // drawPermanentStress(1);
+ // mycat->MDemonBeam.MainStress(8750, 2498.85, 136.386);
+    draw_MainStress(1);
+
 
 }
 void MainWindow::on_tabWidget_currentChanged(int index)
@@ -1420,7 +1406,30 @@ void MainWindow::on_tabWidget_currentChanged(int index)
     ui->spinBox->setMaximum(mycat->myobs->bean_nums);
     ui->label_28->show();
     ui->spinBox->show();
+
     }
+    if(index==5&!mycat->myobs==0&mycat->paths.size()>0){
+
+         drawfocescheaking(ui->spinBox_16->value());
+    }
+    if(index==6&!mycat->myobs==0&mycat->paths.size()>0){
+
+         draw_prestrLossP();
+       draw_prestrLossL();
+    }
+    if(index==4&!mycat->myobs==0&mycat->paths.size()>0){
+    mainBeamdeadLoad();
+    bool beamType;
+    if(ui->comboBox_7->currentIndex()==0){
+      beamType=false;
+    }else{
+      beamType=true;
+    }
+    draw_deadLoadFoce(beamType,true);
+    draw_deadLoadFoce(beamType,false);
+
+    }
+
 
 
 }
@@ -1833,7 +1842,7 @@ void MainWindow::draw_Mu(int beamID)
 
         bool beamType=(beamID==1|beamID==mycat->myobs->bean_nums)? false:true;
         beam beamToSolve=beamType? mycat->MDemonBeam:mycat->SDemonBeam;
-          beamToSolve.setSteel(mycat->paths);
+        beamToSolve.setSteel(mycat->paths);
       m_customPlot=ui->widget_22;
       QString str="弯矩承载力";
       m_customPlot->clearGraphs ( );
@@ -1891,4 +1900,392 @@ void MainWindow::draw_Mu(int beamID)
         m_customPlot->rescaleAxes(true);
         m_customPlot->replot();
 }
+
+void MainWindow::draw_oblique_sf(int beamID)
+{    bool beamType=(beamID==1|beamID==mycat->myobs->bean_nums)? false:true;
+     beam beamToSolve=beamType? mycat->MDemonBeam:mycat->SDemonBeam;
+     beamToSolve.setSteel(mycat->paths);
+     m_customPlot=ui->widget_23;
+      QString str="抗剪承载力";
+      m_customPlot->clearGraphs ( );
+      m_customPlot->showTracer(true);
+        if(!m_customPlot->plotLayout()->hasElement(1,0)){
+            m_customPlot->plotLayout()->insertRow(0);
+            m_customPlot->plotLayout()->addElement(0, 0, new QCPTextElement(m_customPlot, str, QFont("黑体", 12, QFont::Bold)));
+            }else{
+            m_customPlot->plotLayout()->remove(m_customPlot->plotLayout()->element(0,0));
+            m_customPlot->plotLayout()->addElement(0, 0, new QCPTextElement(m_customPlot, str, QFont("黑体", 12, QFont::Bold)));
+     }
+       m_customPlot->legend->setVisible(true);
+        QFont legendFont = font();  // start out with MainWindow's font..
+        legendFont.setPointSize(9); // and make a bit smaller for legend
+        m_customPlot->legend->setFont(legendFont);
+        m_customPlot->legend->setBrush(QBrush(QColor(255,255,255,230)));
+        // by default, the legend is in the inset layout of the main axis rect. So this is how we access it to change legend placement:
+        m_customPlot->axisRect()->insetLayout()->setInsetAlignment(0, Qt::AlignTop|Qt::AlignCenter);
+       // make left and bottom axes always transfer their ranges to right and top axes:
+        connect(m_customPlot->xAxis, SIGNAL(rangeChanged(QCPRange)), m_customPlot->xAxis2, SLOT(setRange(QCPRange)));
+        connect(m_customPlot->yAxis, SIGNAL(rangeChanged(QCPRange)), m_customPlot->yAxis2, SLOT(setRange(QCPRange)));
+       // Allow user to drag axis ranges with mouse, zoom with mouse wheel and select graphs by clicking:
+        m_customPlot->setInteractions(QCP::iRangeDrag | QCP::iRangeZoom | QCP::iSelectPlottables);
+
+
+         int nCount = 100;
+         double ts=(mycat->myobs->cal_span*1e3)/100;
+         QVector<double> x(nCount+1), y0(nCount+1),z0(nCount+1),u0(nCount+1),V0(nCount+1);//, y1(nCount),y2(nCount); // initialize with entries 0..100
+          for (int i = 0; i <nCount; ++i)
+          {
+              x[i] =i*ts; // x goes from -1 to 1
+              vector<float> temp=beamToSolve.obliqueSectionCheaking(x[i]);
+              y0[i] = temp[0];
+                z0[i] =temp[1];
+                u0[i]=temp[2];
+                V0[i]=mycat->get_Sf_CombinationAt(beamID,x[i],true)[6];//todo
+
+
+       }
+          x[100]=mycat->myobs->cal_span*1e3;
+           vector<float> temp=beamToSolve.obliqueSectionCheaking(x[100]);
+           y0[100] = temp[0];
+             z0[100] =temp[1];
+             u0[100]=temp[2];
+             V0[100]=mycat->get_Sf_CombinationAt(beamID,x[100],true)[6];//todo
+       //数据生成;
+
+              QCPGraph *pGraph = m_customPlot->addGraph();
+             m_customPlot->graph(0)->setData(x, y0);
+             QCPGraph *myGraph = m_customPlot->addGraph();
+               m_customPlot->graph(1)->setData(x, z0);
+              pGraph->setName("抗剪下限值");
+             myGraph->setName("抗剪上限值");
+              pGraph->setData(x,y0);
+              pGraph->setPen(QPen(Qt::red));
+             myGraph->setPen(QPen(Qt::green));
+
+              QCPGraph *Graph = m_customPlot->addGraph();
+             m_customPlot->graph(2)->setData(x, u0);
+             QCPGraph *Graphu = m_customPlot->addGraph();
+               m_customPlot->graph(3)->setData(x, V0);
+              Graph->setName("Vs+Vpd");
+            Graphu->setName("设计剪力值");
+              Graph->setData(x,u0);
+              Graphu->setPen(QPen(Qt::blue));
+             Graph->setPen(QPen(Qt::gray));
+         // give the axes some labels:
+              m_customPlot->xAxis->setLabel("截面位置(mm)");
+              m_customPlot->yAxis->setLabel("KN");
+              m_customPlot->rescaleAxes(true);
+              m_customPlot->replot();
+
+
+
+
+}
+
+void MainWindow::drawSigmaCt(int beamId)
+{
+
+    bool beamType=(beamId==1|beamId==mycat->myobs->bean_nums)? false:true;
+        beam beamToSolve=beamType? mycat->MDemonBeam:mycat->SDemonBeam;
+        beamToSolve.setSteel(mycat->paths);
+        m_customPlot=ui->widget_24;
+         QString str="短暂状况正应力验算";
+         m_customPlot->clearGraphs ( );
+         m_customPlot->showTracer(true);
+           if(!m_customPlot->plotLayout()->hasElement(1,0)){
+               m_customPlot->plotLayout()->insertRow(0);
+               m_customPlot->plotLayout()->addElement(0, 0, new QCPTextElement(m_customPlot, str, QFont("黑体", 12, QFont::Bold)));
+               }else{
+               m_customPlot->plotLayout()->remove(m_customPlot->plotLayout()->element(0,0));
+               m_customPlot->plotLayout()->addElement(0, 0, new QCPTextElement(m_customPlot, str, QFont("黑体", 12, QFont::Bold)));
+        }
+          m_customPlot->legend->setVisible(true);
+           QFont legendFont = font();  // start out with MainWindow's font..
+           legendFont.setPointSize(9); // and make a bit smaller for legend
+           m_customPlot->legend->setFont(legendFont);
+           m_customPlot->legend->setBrush(QBrush(QColor(255,255,255,230)));
+           // by default, the legend is in the inset layout of the main axis rect. So this is how we access it to change legend placement:
+           m_customPlot->axisRect()->insetLayout()->setInsetAlignment(0, Qt::AlignTop|Qt::AlignCenter);
+          // make left and bottom axes always transfer their ranges to right and top axes:
+           connect(m_customPlot->xAxis, SIGNAL(rangeChanged(QCPRange)), m_customPlot->xAxis2, SLOT(setRange(QCPRange)));
+           connect(m_customPlot->yAxis, SIGNAL(rangeChanged(QCPRange)), m_customPlot->yAxis2, SLOT(setRange(QCPRange)));
+          // Allow user to drag axis ranges with mouse, zoom with mouse wheel and select graphs by clicking:
+           m_customPlot->setInteractions(QCP::iRangeDrag | QCP::iRangeZoom | QCP::iSelectPlottables);
+
+
+            int nCount = 100;
+            double ts=(mycat->myobs->cal_span*1e3)/100;
+            QVector<double> x(nCount+1), y0(nCount+1),z0(nCount+1),u0(2);//, y1(nCount),y2(nCount); // initialize with entries 0..100
+             for (int i = 0; i <nCount; ++i)
+             {
+                 x[i] =i*ts; // x goes from -1 to 1
+                 vector<float> temp=beamToSolve.getSigma_ct(x[i]);
+                 y0[i] = temp[0];
+                   z0[i] =temp[1];
+
+
+
+          }
+             x[100]=mycat->myobs->cal_span*1e3;
+              vector<float> temp=beamToSolve.getSigma_ct(x[100]);
+              y0[100] = temp[0];
+                z0[100] =temp[1];
+
+          //数据生成;
+
+                 QCPGraph *pGraph = m_customPlot->addGraph();
+                m_customPlot->graph(0)->setData(x, y0);
+                QCPGraph *myGraph = m_customPlot->addGraph();
+                  m_customPlot->graph(1)->setData(x, z0);
+                 pGraph->setName("上缘");
+                myGraph->setName("下缘");
+                 pGraph->setData(x,y0);
+                 pGraph->setPen(QPen(Qt::red));
+                myGraph->setPen(QPen(Qt::green));
+
+                 QCPGraph *Graph = m_customPlot->addGraph();
+                    QVector<double> k(2);
+                 k[0]=0;
+                 k[1]=1e3*mycat->myobs->cal_span;
+                m_customPlot->graph(2)->setData(k, u0);
+                 Graph->setName("0.7fck");
+                 u0[0]=0.7*feck;
+                  u0[1]=0.7*feck;
+                 Graph->setData(k,u0);
+                Graph->setPen(QPen(Qt::blue));
+            // give the axes some labels:
+                 m_customPlot->xAxis->setLabel("截面位置(mm)");
+                 m_customPlot->yAxis->setLabel("MPa");
+                 m_customPlot->rescaleAxes(true);
+                 m_customPlot->replot();
+
+}
+
+void MainWindow::drawPermanentStress(int beamId)
+{
+    m_customPlot=ui->widget_25;
+         QString str="持久状况正应力验算";
+         m_customPlot->clearGraphs ( );
+         m_customPlot->showTracer(true);
+           if(!m_customPlot->plotLayout()->hasElement(1,0)){
+               m_customPlot->plotLayout()->insertRow(0);
+               m_customPlot->plotLayout()->addElement(0, 0, new QCPTextElement(m_customPlot, str, QFont("黑体", 12, QFont::Bold)));
+               }else{
+               m_customPlot->plotLayout()->remove(m_customPlot->plotLayout()->element(0,0));
+               m_customPlot->plotLayout()->addElement(0, 0, new QCPTextElement(m_customPlot, str, QFont("黑体", 12, QFont::Bold)));
+        }
+          m_customPlot->legend->setVisible(true);
+           QFont legendFont = font();  // start out with MainWindow's font..
+           legendFont.setPointSize(9); // and make a bit smaller for legend
+           m_customPlot->legend->setFont(legendFont);
+           m_customPlot->legend->setBrush(QBrush(QColor(255,255,255,230)));
+           // by default, the legend is in the inset layout of the main axis rect. So this is how we access it to change legend placement:
+           m_customPlot->axisRect()->insetLayout()->setInsetAlignment(0, Qt::AlignTop|Qt::AlignCenter);
+          // make left and bottom axes always transfer their ranges to right and top axes:
+           connect(m_customPlot->xAxis, SIGNAL(rangeChanged(QCPRange)), m_customPlot->xAxis2, SLOT(setRange(QCPRange)));
+           connect(m_customPlot->yAxis, SIGNAL(rangeChanged(QCPRange)), m_customPlot->yAxis2, SLOT(setRange(QCPRange)));
+          // Allow user to drag axis ranges with mouse, zoom with mouse wheel and select graphs by clicking:
+           m_customPlot->setInteractions(QCP::iRangeDrag | QCP::iRangeZoom | QCP::iSelectPlottables);
+
+
+            int nCount = 100;
+            double ts=(mycat->myobs->cal_span*1e3)/100;
+            QVector<double> x(nCount+1), y0(nCount+1),z0(nCount+1),u0(2),V0(2);//, y1(nCount),y2(nCount); // initialize with entries 0..100
+             for (int i = 0; i <nCount; ++i)
+             {
+                 x[i] =i*ts; // x goes from -1 to 1
+                 vector<float> temp=mycat->PermanentCheak(beamId,x[i]);
+                 y0[i] = temp[0];
+                   z0[i] =temp[1];
+
+
+
+          }
+             x[100]=mycat->myobs->cal_span*1e3;
+              vector<float> temp=mycat->PermanentCheak(beamId,x[100]);;
+              y0[100] = temp[0];
+                z0[100] =temp[1];
+
+          //数据生成;
+
+                 QCPGraph *pGraph = m_customPlot->addGraph();
+                m_customPlot->graph(0)->setData(x, y0);
+                QCPGraph *myGraph = m_customPlot->addGraph();
+                  m_customPlot->graph(1)->setData(x, z0);
+                 pGraph->setName("截面混凝土正应力");
+                myGraph->setName("预应力钢束拉应力");
+                 pGraph->setData(x,y0);
+                 pGraph->setPen(QPen(Qt::red));
+                myGraph->setPen(QPen(Qt::green));
+
+                 QCPGraph *Graph = m_customPlot->addGraph();
+                    QVector<double> k(2);
+                 k[0]=0;
+                 k[1]=1e3*mycat->myobs->cal_span;
+                m_customPlot->graph(2)->setData(k, u0);
+                 Graph->setName("0.65fpk");
+                 u0[0]=0.65*fpk;
+                  u0[1]=0.65*fpk;
+                 Graph->setData(k,u0);
+                Graph->setPen(QPen(Qt::blue));
+                V0[0]=0.5*fck;
+                V0[1]=0.5*fck;
+                QCPGraph *blGraph = m_customPlot->addGraph();
+               m_customPlot->graph(3)->setData(k, V0);
+                blGraph->setName("0.5fck");
+                 blGraph->setData(k,V0);
+                 blGraph->setPen(QPen(Qt::black));
+            // give the axes some labels:
+                 m_customPlot->xAxis->setLabel("截面位置(mm)");
+                 m_customPlot->yAxis->setLabel("MPa");
+                 m_customPlot->rescaleAxes(true);
+                 m_customPlot->replot();
+
+
+
+
+}
+
+void MainWindow::draw_MainStress(int beamId)
+{
+
+         m_customPlot=ui->widget_26;
+         QString str="主应力验算";
+         m_customPlot->clearGraphs ( );
+         m_customPlot->showTracer(true);
+           if(!m_customPlot->plotLayout()->hasElement(1,0)){
+               m_customPlot->plotLayout()->insertRow(0);
+               m_customPlot->plotLayout()->addElement(0, 0, new QCPTextElement(m_customPlot, str, QFont("黑体", 12, QFont::Bold)));
+               }else{
+               m_customPlot->plotLayout()->remove(m_customPlot->plotLayout()->element(0,0));
+               m_customPlot->plotLayout()->addElement(0, 0, new QCPTextElement(m_customPlot, str, QFont("黑体", 12, QFont::Bold)));
+        }
+          m_customPlot->legend->setVisible(true);
+           QFont legendFont = font();  // start out with MainWindow's font..
+           legendFont.setPointSize(9); // and make a bit smaller for legend
+           m_customPlot->legend->setFont(legendFont);
+           m_customPlot->legend->setBrush(QBrush(QColor(255,255,255,230)));
+           // by default, the legend is in the inset layout of the main axis rect. So this is how we access it to change legend placement:
+           m_customPlot->axisRect()->insetLayout()->setInsetAlignment(0, Qt::AlignTop|Qt::AlignCenter);
+          // make left and bottom axes always transfer their ranges to right and top axes:
+           connect(m_customPlot->xAxis, SIGNAL(rangeChanged(QCPRange)), m_customPlot->xAxis2, SLOT(setRange(QCPRange)));
+           connect(m_customPlot->yAxis, SIGNAL(rangeChanged(QCPRange)), m_customPlot->yAxis2, SLOT(setRange(QCPRange)));
+          // Allow user to drag axis ranges with mouse, zoom with mouse wheel and select graphs by clicking:
+           m_customPlot->setInteractions(QCP::iRangeDrag | QCP::iRangeZoom | QCP::iSelectPlottables);
+            //MainStressSolve
+           int nCount = 100;
+           double ts=(mycat->myobs->cal_span*1e3/2)/100;
+           QVector<double> x(nCount+1), y0(nCount+1), y1(nCount+1), y2(nCount+1), y3(nCount+1), y4(nCount+1),
+                    y5(nCount+1),u0(2),V0(2);//, y1(nCount),y2(nCount); // initialize with entries 0..100
+            for (int i = 0; i <nCount; ++i)
+            {
+                x[i] =i*ts; // x goes from -1 to 1
+                vector<float> temp=mycat->MainStressSolve(beamId,x[i]);
+                y0[i] = temp[0];
+                y1[i] = temp[1];
+                y2[i] = temp[2];
+                y3[i] = temp[3];
+                y4[i] = temp[4];
+                y5[i] = temp[5];
+
+
+
+
+         }
+            x[100]=mycat->myobs->cal_span*1e3/2;
+            vector<float> temp=mycat->MainStressSolve(beamId,x[100]);
+            y0[100] = temp[0];
+            y1[100] = temp[1];
+            y2[100] = temp[2];
+            y3[100] = temp[3];
+            y4[100] = temp[4];
+            y5[100] = temp[5];
+            u0[0]=0;
+            u0[1]=x[100];
+            V0[0]=0.6*fck;
+             V0[1]=0.6*fck;
+             QCPGraph *pGraph1 = m_customPlot->addGraph();
+             QCPGraph *pGraph2 = m_customPlot->addGraph();
+             QCPGraph *pGraph3 = m_customPlot->addGraph();
+             QCPGraph *pGraph4 = m_customPlot->addGraph();
+             QCPGraph *pGraph5 = m_customPlot->addGraph();
+             QCPGraph *pGraph6 = m_customPlot->addGraph();
+             QCPGraph *pGraph7 = m_customPlot->addGraph();
+              pGraph1->setData(x,y0);
+              pGraph2->setData(x,y1);
+              pGraph3->setData(x,y2);
+              pGraph4->setData(x,y3);
+              pGraph5->setData(x,y4);
+              pGraph6->setData(x,y5);
+              pGraph7->setData(u0,V0);
+               pGraph1->setName("a-a截面sigma_cp");
+               pGraph2->setName("b-b截面sigma_cp");
+               pGraph3->setName("c-c截面sigma_cp");
+               pGraph4->setName("a-a截面sigma_tp");
+               pGraph5->setName("b-b截面sigma_tp");
+               pGraph6->setName("c-c截面sigma_tp");
+               pGraph7->setName("限值");
+                pGraph1->setPen(QPen(Qt::yellow));
+                pGraph2->setPen(QPen(Qt::blue));
+                pGraph3->setPen(QPen(Qt::green));
+                pGraph4->setPen(QPen(Qt::darkBlue));
+                pGraph5->setPen(QPen(Qt::darkMagenta));
+                pGraph6->setPen(QPen(Qt::darkYellow));
+                pGraph7->setPen(QPen(Qt::red));
+
+                m_customPlot->xAxis->setLabel("截面位置(mm)");
+                m_customPlot->yAxis->setLabel("MPa");
+                m_customPlot->rescaleAxes(true);
+                m_customPlot->replot();
+
+
+}
+
+void MainWindow::drawfocescheaking(int beamId)
+{
+   draw_Mu(beamId);
+    draw_oblique_sf(beamId);
+    drawSigmaCt(beamId);
+   drawPermanentStress( beamId);
+   draw_MainStress(beamId);
+
+
+}
+
+
+void MainWindow::on_spinBox_16_valueChanged(int arg1)
+{
+    drawfocescheaking(arg1) ;
+}
+
+void MainWindow::mainBeamdeadLoad()
+{//主梁内力页数据渲染
+    vector<float> mydata;
+        if(mycat->mymb==0){
+            QMessageBox::information(this,QString("请先录入数据!"),QString("缺少数据,请先到数据录入界面存入相关数据!"));
+
+        }else{
+
+            mydata.push_back(mycat->mymb->mbd.BrigeWidth);
+            mydata.push_back(mycat->mymb->mbd.AspLayer);
+            mydata.push_back(mycat->mymb->mbd.MixedSoilLayer);
+            mydata.push_back(mycat->mymb->mbd.MBArea);
+            mydata.push_back(mycat->mymb->mbd.SideBeamArea);
+            mydata.push_back(mycat->mymb->mbd.CenterCrossBeamV);
+            mydata.push_back(mycat->mymb->mbd.SideCorssBeamV);
+            mydata.push_back(mycat->mymb->mbd.CalculaSpan);
+            mydata.push_back(mycat->mymb->mbd.gr);
+            mydata.push_back(mycat->mymb->mbd.crossBeamNum);
+            mydata.push_back(mycat->mymb->mbd.mianBeanNum);
+            mydata.push_back(mycat->mymb->mbd.Main_Bean_field_making_Area);
+            mydata.push_back(mycat->mymb->mbd.Side_Cross_Bean_field_making_Area);
+            mydata.push_back(mycat->mymb->mbd.Midle_Cross_Bean_field_making_Area);
+            mydata.push_back(mycat->mymb->mbd.Cross_Bean_t);
+             QVariant data;
+             data.setValue(mydata);
+             emit task_6_send(data);
+
+        }
+}
+
 

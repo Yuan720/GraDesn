@@ -88,5 +88,7 @@ public slots:
     void SigmaValuesSolve(int steelId,bool beamType,float x);
     void stageDeadloadSolve(int stage,bool foceType,bool beamType);
     void  CombinLoadSolve(int beamId,int combinType,bool foceType);
+    vector<float>  PermanentCheak(int beamID,float x);//ÓÀ¾Ã×´¿öÑéËã
+    vector<float> MainStressSolve(int beamId,float x);
 };
 #endif // CACULARTHREAD_H

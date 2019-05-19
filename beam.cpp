@@ -250,24 +250,26 @@ float beam::getSigma_P_II(float x,float Ap)
 {
     return 0.75*fpk-getSigma_L_II(Ap)-getSigma_L_I(x,Ap);
 }
-float beam::getSigma_cu(float x,float Ap,float Mq)
+vector<float> beam:: PermanentCheak(float x,float Mq)
 {   //Mq指三期荷载与计入冲击系数的汽车荷载之和;
     //截面混凝土正应力
     //x截面位置;
     //输入的x以mm为单位;
     //默认四片梁
-float MG1=1e6*bendingSolve(getFirstStageLoad(),x/1000);
+    vector<float> result;
+     float myd=(bridge_total_Span*1e3-spanLength)/2;
+    float MG1=1e6*bendingSolve(getFirstStageLoad(),x/1000);
     float MG21=1e6*bendingSolve(getSecondStageLoad(),x/1000);
     float MG22=1e6*bendingSolve(getThirdStageLoad(4),x/1000);
-    float Sigma_PII=getSigma_P_II(x,Ap);
+    float Sigma_PII=getSigma_P_II(x+myd,Ap);
     float Sigma_l6=getSigma_l6(Ap);
     float As=non_preSteel_area;
     float as=non_prestrepip_center;
     float ap;
     float An;
-    ap=getAverageSteelHeight(x);
-    float NpII=getSigma_P_II(x,Ap)*Ap-getSigma_l6(Ap)*As;
-    vector<float> sectionInfo_1=sectionFeatures(false, false, x);
+    ap=getAverageSteelHeight(x+myd);
+    float NpII=getSigma_P_II(x+myd,Ap)*Ap-getSigma_l6(Ap)*As;
+    vector<float> sectionInfo_1=sectionFeatures(false, false, x);//以支点为零点
     float ynb=sectionInfo_1[3];
     float epn=(Sigma_PII*Ap*(ynb-ap)-Sigma_l6*As*(ynb-as))/(Sigma_PII*Ap-Sigma_l6*As);
    vector<float> sectionInfo_2=sectionFeatures(false, true, x);
@@ -278,7 +280,20 @@ float MG1=1e6*bendingSolve(getFirstStageLoad(),x/1000);
    float We0u=sectionInfo_3[6];
    float sigma_cu;
    sigma_cu=NpII/An-NpII*epn/Wnu+MG1/Wnu+MG21/We0u+(MG22+Mq)/W0u;
-   return sigma_cu;
+   float sigma_Kt;
+   float apha_ep;
+   float sigma_Val;
+   float Wop,Weop;
+   apha_ep=Ep/Ec;
+  Weop=sectionInfo_2[1]/sectionInfo_2[4];
+  Wop=sectionInfo_3[1]/sectionInfo_2[4];
+  sigma_Kt=MG21/Weop+(MG22+Mq)/Wop;
+  sigma_Val=getSigma_P_II(x+myd,Ap)+apha_ep*sigma_Kt;
+
+
+   result.push_back(sigma_cu);
+   result.push_back(sigma_Val);
+   return result;
 
 }
 float beam::getDepthOfCompression(float x)
@@ -305,7 +320,8 @@ float beam::getSteel_a(float ap)
     return a;
 }
 float beam::getSinThetaByX(float x)
-{   float sintheta=0;
+{   x=x>bridge_total_Span*1e3/2? bridge_total_Span*1e3-x:x;
+    float sintheta=0;
     for(int i=0;i<steelPaths.size();i++){
       float test=steelPaths[i].getAngleByX(x);
         sintheta+=sin(steelPaths[i].getAngleByX(x));
@@ -325,7 +341,9 @@ float beam::get_Mu(float lca)
     return fcd*bf*x*(h0-x/2)/1e6;//返回单位kn.m;
 }
 float beam::get_Apb(float x)
-{   float Apb=0;
+{   //x是以主梁全场端点为零点的;
+    x=x>1e3*bridge_total_Span/2? 1e3*bridge_total_Span-x:x;
+    float Apb=0;
     for(int i=0;i<steelPaths.size();i++){
         if(steelPaths[i].getAngleByX(x)>0){
             Apb+=steelPaths[i].steelArea;
@@ -374,8 +392,11 @@ res.push_back(Wl);
 return res;
 
 }
-float  beam::obliqueSectionCheaking(float x)
-{   float myd=(1e3*bridge_total_Span-spanLength)/2;
+vector<float>  beam::obliqueSectionCheaking(float x)
+{
+  //-------------------------
+    vector<float> res;
+    float myd=(1e3*bridge_total_Span-spanLength)/2;
     float apha1=1, apha2=1.25, apha3=1.1;
     float ap=getAverageSteelHeight(x+myd);
     float a=getSteel_a(ap);
@@ -383,21 +404,18 @@ float  beam::obliqueSectionCheaking(float x)
     float b;
     field_making_girder_beam fb=getSectionAt(x);
     b=(fb.sbg.left.d2+fb.sbg.right.d2)*1e3;
-   // cheakedData.push_back(0.5*1e-3*apha2*ftd*b*h0);
-    //cheakedData.push_back(0.51*(1e-3)*sqrt(fcuk)*b*h0);
     float Asv=nv*M_PI*pow(dv,2)/4;
     float sv=x<divid_X? Sv1:Sv2;
     float rhosv=Asv/(sv*b);
     float p=100*(Ap+As)/(b*h0);
     float vcs=apha1*apha2*apha3*0.45*1e-3*b*h0*sqrt((2+0.6*p)*sqrt(fcuk)*rhosv*Fsv);
-    float sinThetaP=getSinThetaByX(x);
-    float vpd=0.75*1e-3*fpd*Ap*sinThetaP;
-     return vcs+vpd;
-
-
-
-
-
+    float sinThetaP=getSinThetaByX(x+myd);
+    float apb=get_Apb(x+myd);
+    float vpd=0.75*1e-3*fpd*apb*sinThetaP;
+    res.push_back(0.5*1e-3*apha2*ftd*b*h0);
+    res.push_back(0.51*1e-3*sqrt(fcuk)*b*h0);
+    res.push_back(vcs+vpd);
+    return res;
 }
 vector<float> beam::crackChecking(float MQs,float Mql)
 {  //按照跨中截面计算
@@ -440,76 +458,96 @@ vector<float> beam::obliqueCrackChecking(float x)
     vector<float> res;
     return res;
 }
-vector<float> beam::MainStress(float x, float Mq, float Vq,int stage=1)
-{   Mq*=1e6;
+vector<float> beam::MainStress(float x, float Mq, float Vq)
+{   //x以毫米为单位
+    Mq*=1e6;
     Vq*=1e3;
-    vector<float> MSn;
-    vector<float> sectiondata1=sectionFeatures(false,false,spanLength/2);
-    vector<float> sectiondata2=sectionFeatures(false,true,spanLength/2);
-    vector<float> sectiondata3=sectionFeatures(true,true,spanLength/2);
-    float yna,ye0a,ynb;
+    vector<float> MSn1;
+    vector<float> MSn2;
+    vector<float> MSn3;
+    vector<float> sectiondata1=sectionFeatures(false,false,x);//第一阶段
+    vector<float> sectiondata2=sectionFeatures(false,true,x);//第二阶段
+    vector<float> sectiondata3=sectionFeatures(true,true,x);//第三阶段
+    vector<float> yna,ye0a; //它们分别存储着三个计算点与一二阶段重心距离;
+    float ynb;//第一阶段重心高度(距离底边)
+    float myd=(bridge_total_Span*1e3-spanLength)/2;
     ynb=sectiondata1[3];
-    switch (stage){
-    case 2:{
+    {
+        vector<float> stage1,stage2,stage3;
+        stage1=getSpecifiedAreaMoment(x+myd, false,false);
+        stage2=getSpecifiedAreaMoment(x+myd, false,true);
+        stage3=getSpecifiedAreaMoment(x+myd, true,true);
+        MSn1.push_back( stage1[0]);
+        MSn1.push_back(stage2[0]);
+        MSn1.push_back( stage3[0]);//a-a截面
+        MSn2.push_back( stage1[1]);
+        MSn2.push_back(stage2[1]);
+        MSn2.push_back( stage3[1]);//b-b截面
+        MSn3.push_back( stage1[2]);
+        MSn3.push_back(stage2[2]);
+        MSn3.push_back( stage3[2]);//c-c截面
+        yna.push_back(fabs(sectiondata1[7]-sectiondata1[3]));
+        ye0a.push_back(fabs(sectiondata2[7]-sectiondata2[3]));
+        yna.push_back(fabs(sectiondata1[3]-sectiondata1[3]));
+        ye0a.push_back(fabs(sectiondata2[3]-sectiondata2[3]));
+        yna.push_back(fabs(sectiondata1[8]-sectiondata1[3]));
+        ye0a.push_back(fabs(sectiondata2[8]-sectiondata2[3]));
 
-        MSn.push_back(getSpecifiedAreaMoment(x, false,false)[1]);
-        MSn.push_back(getSpecifiedAreaMoment(x, false,true)[1]);
-        MSn.push_back(getSpecifiedAreaMoment(x, true,true)[1]);
-       yna=sectiondata1[3]-sectiondata1[3];
-       ye0a=sectiondata2[3]-sectiondata1[3];
+  }
 
-    break;
-    }
-    case 3:{
-        MSn.push_back(getSpecifiedAreaMoment(x, false,false)[2]);
-        MSn.push_back(getSpecifiedAreaMoment(x, false,true)[2]);
-        MSn.push_back(getSpecifiedAreaMoment(x, true,true)[2]);
-        yna=sectiondata1[8]-sectiondata1[3];
-        ye0a=sectiondata2[8]-sectiondata1[3];
-
-        break;
-   }
-    default:{
-        MSn.push_back(getSpecifiedAreaMoment(x, false,false)[0]);
-        MSn.push_back(getSpecifiedAreaMoment(x, false,true)[0]);
-        MSn.push_back(getSpecifiedAreaMoment(x, true,true)[0]);
-        yna=sectiondata1[7]-sectiondata1[3];
-        ye0a=sectiondata2[7]-sectiondata1[3];
-
-    }
-
-    }
 float VG1,VG21,VG22,b,NpII,epn,MG1,MG21,MG22,An,In,Ie0,I0,Sn,Se0,sinThetaP,S0;
-float tau;
- float rho_cx;
- float rho_tp;
- float sigma_tp,sigma_cp;
+vector<float> tau;
+ vector<float> rho_cx;
+vector<float>  sigma_tp,sigma_cp;
  VG1=1e3*shearFoceSolve(getFirstStageLoad(),x/1e3);
  VG21=1e3*shearFoceSolve(getSecondStageLoad(),x/1e3);
  VG22=1e3*shearFoceSolve(getThirdStageLoad(4),x/1e3);
  MG1=1e6*bendingSolve(getFirstStageLoad(),x/1e3);
  MG21=1e6*bendingSolve(getSecondStageLoad(),x/1e3);
  MG22=1e6*bendingSolve(getThirdStageLoad(4),x/1e3);
- sinThetaP=getSinThetaByX(x);
+ sinThetaP=getSinThetaByX(x+myd);
  An=sectiondata1[0];
  In=sectiondata1[1];
  Ie0=sectiondata2[1];
  I0=sectiondata3[1];
- Sn=MSn[0];
- Se0=MSn[1];
- S0=MSn[2];
- NpII=getSigma_P_II(x,Ap)*get_Apb(x)*sqrt(1-pow(getSinThetaByX(x),2))+getSigma_P_II(x,Ap)*(Ap-get_Apb(x))-getSigma_l6(Ap)*As;
- epn=((getSigma_P_II(x,Ap)*get_Apb(x)*sqrt(1-pow(getSinThetaByX(x),2))+getSigma_P_II(x,Ap)*(Ap-get_Apb(x)))*(ynb-getAverageSteelHeight(x))-getSigma_l6(Ap)*As*(ynb-as))/NpII;
- tau=VG1*Sn/(sectiondata1[7]*In)+VG21*Se0/(sectiondata1[7]*Ie0)+(VG22+Vq)*S0/(sectiondata1[7]*I0)-getSigma_P_II(x,Ap)*get_Apb(x)*getSinThetaByX(x)*Sn/(sectiondata1[7]*In);
- rho_cx=NpII/An-(NpII*epn*yna)/In+MG1*yna/In+MG21*ye0a/Ie0+(MG22+Mq)*yna/I0;
- sigma_tp=rho_cx/2-sqrt(pow(rho_cx/2,2)+pow(tau,2));
- sigma_cp=rho_cx/2+sqrt(pow(rho_cx/2,2)+pow(tau,2));
-vector<float> res;
-res.push_back(tau);
-res.push_back(rho_cx);
- res.push_back(sigma_tp);
- res.push_back(sigma_cp);
-return res;
+ {
+     Sn=MSn1[0];
+     Se0=MSn1[1];
+     S0=MSn1[2];
+    float tau1=VG1*Sn/(sectiondata1[7]*In)+VG21*Se0/(sectiondata1[7]*Ie0)+(VG22+Vq)*S0/(sectiondata1[7]*I0)-getSigma_P_II(x+myd,Ap)*get_Apb(x+myd)*sinThetaP*Sn/(sectiondata1[7]*In);
+    Sn=MSn2[0];
+    Se0=MSn2[1];
+    S0=MSn2[2];
+    float tau2=VG1*Sn/(sectiondata1[7]*In)+VG21*Se0/(sectiondata1[7]*Ie0)+(VG22+Vq)*S0/(sectiondata1[7]*I0)-getSigma_P_II(x+myd,Ap)*get_Apb(x+myd)*sinThetaP*Sn/(sectiondata1[7]*In);
+    Sn=MSn3[0];
+    Se0=MSn3[1];
+    S0=MSn3[2];
+    float tau3=VG1*Sn/(sectiondata1[7]*In)+VG21*Se0/(sectiondata1[7]*Ie0)+(VG22+Vq)*S0/(sectiondata1[7]*I0)-getSigma_P_II(x+myd,Ap)*get_Apb(x+myd)*sinThetaP*Sn/(sectiondata1[7]*In);
+    tau.push_back(tau1);
+    tau.push_back(tau2);
+    tau.push_back(tau3);
+
+ }
+ {
+
+     NpII=getSigma_P_II(x+myd,Ap)*get_Apb(myd+x)*sqrt(1-pow(sinThetaP,2))+getSigma_P_II(x+myd,Ap)*(Ap-get_Apb(x+myd))-getSigma_l6(Ap)*As;
+     epn=((getSigma_P_II(x+myd,Ap)*get_Apb(x+myd)*sqrt(1-pow(sinThetaP,2))+getSigma_P_II(x+myd,Ap)*(Ap-get_Apb(x+myd)))*(ynb-getAverageSteelHeight(x+myd))-getSigma_l6(Ap)*As*(ynb-as))/NpII;
+     rho_cx.push_back(NpII/An-(NpII*epn*yna[0])/In+MG1*yna[0]/In+MG21*ye0a[0]/Ie0+(MG22+Mq)*yna[0]/I0);
+     rho_cx.push_back(NpII/An-(NpII*epn*yna[1])/In+MG1*yna[1]/In+MG21*ye0a[1]/Ie0+(MG22+Mq)*yna[1]/I0);
+     rho_cx.push_back(NpII/An-(NpII*epn*yna[2])/In+MG1*yna[2]/In+MG21*ye0a[2]/Ie0+(MG22+Mq)*yna[2]/I0);
+for(int i=0;i<3;i++){
+    sigma_tp.push_back(rho_cx[i]/2-sqrt(pow(rho_cx[i]/2,2)+pow(tau[i],2)));
+    sigma_cp.push_back(rho_cx[i]/2+sqrt(pow(rho_cx[i]/2,2)+pow(tau[i],2)));
+
+}
+ sigma_cp.insert(sigma_cp.end(),sigma_tp.begin(),sigma_tp.end());
+
+
+
+
+ }
+
+ return sigma_cp;
 
 }
 vector<float> beam::getSpecifiedAreaMoment(float x, bool fieldCount, bool preCounted)
@@ -621,7 +659,8 @@ vector<float> beam::getSectionInfo(float x, bool fieldCount)
             return result;
 }
 vector<float> beam::sectionFeatures(bool fieldCount, bool precounted, float x)
-{   //布尔值1表示是否计入现浇段
+{   //x是以支点为零点的坐标
+    //布尔值1表示是否计入现浇段
     //布尔值2true表示中梁,false表示边梁
     //布尔值三表示是否计入预应力筋;
     //面积
@@ -632,6 +671,7 @@ vector<float> beam::sectionFeatures(bool fieldCount, bool precounted, float x)
     //ks
     // 效率指标
     //返回的是计入非预应力钢筋和预留管道的几何特性;
+    float myd=(bridge_total_Span*1e3-spanLength)/2;
     float AreaSum;
      float smoaSuam;
      float staticMoment;
@@ -639,14 +679,14 @@ vector<float> beam::sectionFeatures(bool fieldCount, bool precounted, float x)
      vector<float> respon=getSectionInfo(x,fieldCount);
      vector<float> result;
     AreaSum=respon[0]-getPipAreaSum(precounted)+non_prestreSteel_s;
-    staticMoment=respon[2]-getPipStaticMomentSum(x,precounted)+non_prestreSteel_s*non_prestrepip_center;
+    staticMoment=respon[2]-getPipStaticMomentSum(x+myd,precounted)+non_prestreSteel_s*non_prestrepip_center;
     centerHeight=staticMoment/AreaSum;
-    smoaSuam=respon[1]+respon[0]*pow(respon[3]-centerHeight,2)-getPipSmoaSum(x,centerHeight,precounted)+non_prestreSteel_s*pow(non_prestrepip_center-centerHeight,2);
+    smoaSuam=respon[1]+respon[0]*pow(respon[3]-centerHeight,2)-getPipSmoaSum(x+myd,centerHeight,precounted)+non_prestreSteel_s*pow(non_prestrepip_center-centerHeight,2);
     result.push_back(AreaSum);
     result.push_back(smoaSuam);
     result.push_back(staticMoment);
     result.push_back(centerHeight);//yb
-    result.push_back(fabs(centerHeight-getAverageSteelHeight(x)));//ep
+    result.push_back(fabs(centerHeight-getAverageSteelHeight(x+myd)));//ep
     result.push_back(smoaSuam/centerHeight);//wb
     result.push_back(smoaSuam/(respon[4]-centerHeight));//wu
     result.push_back(respon[5]);
@@ -655,18 +695,17 @@ vector<float> beam::sectionFeatures(bool fieldCount, bool precounted, float x)
 
     return result;
 }
-vector<float> beam::getSigma_ct(float Ap)
-{     vector<float> avrege1;
-      avrege1.push_back(getAveSigma_l1(spanLength/2));
-      avrege1.push_back(getAveSigma_l2(spanLength/2));
-    float N_pI=(0.75*fpk-avrege1[0]-avrege1[1]-getSigma_l4(Ap))*Ap;
-    float MG1=1e6*bendingSolve(getFirstStageLoad(),spanLength/(2*1000));
-    vector<float> sectionInfo=sectionFeatures(false, false, spanLength/2);
+vector<float> beam::getSigma_ct(float x)
+{
+    float myd=(bridge_total_Span*1e3-spanLength)/2;
+    float N_pI=getSigma_P_I(x+myd,Ap)*Ap;
+    float MG1=1e6*bendingSolve(getFirstStageLoad(),x/1e3);
+    vector<float> sectionInfo=sectionFeatures(false, false, x);
     float An=sectionInfo[0];float epn=sectionInfo[4];float Wnu=sectionInfo[6];float Wnb=sectionInfo[5];
     vector<float> res;
     res.push_back((N_pI/An)-(N_pI*epn/Wnu)+MG1/Wnu);
-    res.push_back((N_pI/An)-(N_pI*epn/Wnb)+MG1/Wnb);
-    return res;
+    res.push_back((N_pI/An)+(N_pI*epn/Wnb)-MG1/Wnb);
+    return res;//fck c45 29.6
 }
 float beam::steelAreaSolve(float ms,float myfpk,float myap){
 
@@ -727,7 +766,6 @@ float as=0;
 
  return as;
 }
-
 float beam::getStageDieLoad(int stage, float x, bool foceType)
 {
      //foceType true表示弯矩 false表示剪力;

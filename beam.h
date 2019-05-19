@@ -43,37 +43,37 @@ public:
     float getPipAreaSum(bool precounted);
     float getPipStaticMomentSum(float x,bool precounted);
     float getPipSmoaSum(float x,float newCenterHeight ,bool precounted);
+
     float getSigma_L1_ById(int id,float x);
     float getSigma_L2_ById(int id,float x);
     float getSigma_L_I(float x,float Ap);
     float getSigma_L_II(float Ap);
     float getSigma_P_I(float x,float Ap);
     float getSigma_P_II(float x,float Ap);
-    float getSigma_cu(float x,float Ap,float Mq);
-    float getDepthOfCompression(float x);
+    vector<float>  PermanentCheak(float x,float Mq);//永久状况验算
+    float getDepthOfCompression(float x);//受压区高度
     float getSteel_a();//求解钢筋的合力作用点到截面底边距离
-    float getSteel_a(float ap);
-    float getSinThetaByX(float x);
+    float getSteel_a(float ap);//同上重载函数
+    float getSinThetaByX(float x);//求解指定截面的钢束平均弯起角的正弦值;
     float get_Mu(float x);//单位mm
-    float get_Apb(float x);
+    float get_Apb(float x);//求解指定截面已起弯的钢筋面积;
     float get_ep0(float x);
-    float get_epn(float x);
+    float get_epn(float x);//以上对应换算截面和净截面的钢筋合力作用点高度
     vector<float> deflecationSolve(float Ms);//挠度计算;
-
-    float  obliqueSectionCheaking(float x);//斜截面抗剪检验
+    vector<float>  obliqueSectionCheaking(float x);//斜截面抗剪检验
     vector <float> crackChecking(float MQs,float Mql);//正截面抗裂验算;
     vector <float> obliqueCrackChecking(float x); //斜截面抗裂
-    vector<float> MainStress(float x,float Mq,float VQs,int stage);//主应力计算
+    vector<float> MainStress(float x,float Mq,float VQs);//主应力计算
     vector<float> getSpecifiedAreaMoment(float x, bool fieldCount, bool preCounted);
     //  float getSigma_steel();
     vector<float> getSectionInfo(float x,bool fieldCount);//前期几何计算
     vector<float> sectionFeatures(bool fieldCount,bool precounted,float x);//考虑钢筋后的几何特征;
-    vector<float> getSigma_ct(float Ap);
+    vector<float> getSigma_ct(float x);  //短暂状况的正应力计算
     vector<float> normalSectionCheaking();//正截面承载力检验;
     vector<float> obliqueSectionCheaking();//斜截面承载力检验;
     field_making_girder_beam getSectionAt(float x);
-   float steelAreaSolve(float ms,float myfpk,float myap);//预应力钢筋计算
-   float unPreSteelAreaSlove(float Md,float a,float  myfpd,float myAp,float myfsd);
+    float steelAreaSolve(float ms,float myfpk,float myap);//预应力钢筋计算
+    float unPreSteelAreaSlove(float Md,float a,float  myfpd,float myAp,float myfsd);
     float getStageDieLoad(int stage,float x,bool foceType);
 
 
