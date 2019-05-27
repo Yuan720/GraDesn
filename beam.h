@@ -61,7 +61,7 @@ public:
     float get_epn(float x);//以上对应换算截面和净截面的钢筋合力作用点高度
     vector<float> deflecationSolve(float Ms);//挠度计算;
     vector<float>  obliqueSectionCheaking(float x);//斜截面抗剪检验
-    vector <float> crackChecking(float MQs,float Mql);//正截面抗裂验算;
+    vector <float> crackChecking(float x,float MQs,float Mql);//正截面抗裂验算;
     vector <float> obliqueCrackChecking(float x); //斜截面抗裂
     vector<float> MainStress(float x,float Mq,float VQs);//主应力计算
     vector<float> getSpecifiedAreaMoment(float x, bool fieldCount, bool preCounted);

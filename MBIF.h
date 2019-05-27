@@ -93,6 +93,7 @@ public:
     }
 
     float  ThirdStageLoad(){
+
          float gh2 = (mbd.AspLayer * 23)*mbd.BrigeWidth / mbd.mianBeanNum;
          float langan=collectionDegreeSolve();
           float re = gh2+langan;

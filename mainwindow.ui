@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1360</width>
-    <height>1012</height>
+    <width>1343</width>
+    <height>965</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -36,7 +36,7 @@
      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>5</number>
     </property>
     <widget class="QWidget" name="tab_4">
      <attribute name="title">
@@ -47,8 +47,8 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>1361</width>
-        <height>931</height>
+        <width>1341</width>
+        <height>891</height>
        </rect>
       </property>
       <property name="widgetResizable">
@@ -58,8 +58,8 @@
        <property name="geometry">
         <rect>
          <x>0</x>
-         <y>-24</y>
-         <width>1338</width>
+         <y>0</y>
+         <width>1318</width>
          <height>3000</height>
         </rect>
        </property>
@@ -1008,10 +1008,10 @@ border-radius:5px;</string>
        <widget class="QLabel" name="label_265">
         <property name="geometry">
          <rect>
-          <x>910</x>
+          <x>790</x>
           <y>30</y>
-          <width>401</width>
-          <height>361</height>
+          <width>521</width>
+          <height>411</height>
          </rect>
         </property>
         <property name="text">
@@ -1144,126 +1144,19 @@ border-radius:5px;</string>
        <widget class="XxwCustomPlot" name="widget_3" native="true">
         <property name="geometry">
          <rect>
-          <x>80</x>
-          <y>1030</y>
+          <x>10</x>
+          <y>1010</y>
           <width>1181</width>
           <height>241</height>
          </rect>
         </property>
        </widget>
-       <widget class="QTableWidget" name="tableWidget_23">
-        <property name="geometry">
-         <rect>
-          <x>70</x>
-          <y>1300</y>
-          <width>753</width>
-          <height>76</height>
-         </rect>
-        </property>
-        <property name="rowCount">
-         <number>2</number>
-        </property>
-        <property name="columnCount">
-         <number>6</number>
-        </property>
-        <attribute name="horizontalHeaderVisible">
-         <bool>false</bool>
-        </attribute>
-        <attribute name="verticalHeaderVisible">
-         <bool>false</bool>
-        </attribute>
-        <row/>
-        <row/>
-        <column/>
-        <column/>
-        <column/>
-        <column/>
-        <column/>
-        <column/>
-        <item row="0" column="0">
-         <property name="text">
-          <string>锚固点坐标X1</string>
-         </property>
-        </item>
-        <item row="0" column="1">
-         <property name="text">
-          <string>锚固点坐标Y1</string>
-         </property>
-        </item>
-        <item row="0" column="2">
-         <property name="text">
-          <string>导线点坐标X2</string>
-         </property>
-        </item>
-        <item row="0" column="3">
-         <property name="text">
-          <string>导线点坐标Y2</string>
-         </property>
-        </item>
-        <item row="0" column="4">
-         <property name="text">
-          <string>钢束弯曲半径R</string>
-         </property>
-        </item>
-        <item row="0" column="5">
-         <property name="text">
-          <string>跨中位置坐标</string>
-         </property>
-        </item>
-        <item row="1" column="0">
-         <property name="text">
-          <string>328</string>
-         </property>
-        </item>
-        <item row="1" column="1">
-         <property name="text">
-          <string>400</string>
-         </property>
-        </item>
-        <item row="1" column="2">
-         <property name="text">
-          <string>3174</string>
-         </property>
-        </item>
-        <item row="1" column="3">
-         <property name="text">
-          <string>100</string>
-         </property>
-        </item>
-        <item row="1" column="4">
-         <property name="text">
-          <string>15000</string>
-         </property>
-        </item>
-        <item row="1" column="5">
-         <property name="text">
-          <string>14330</string>
-         </property>
-        </item>
-       </widget>
-       <widget class="QCommandLinkButton" name="commandLinkButton_6">
-        <property name="geometry">
-         <rect>
-          <x>870</x>
-          <y>1320</y>
-          <width>151</width>
-          <height>41</height>
-         </rect>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">background-color: #aebed8;
-border-radius:5px;</string>
-        </property>
-        <property name="text">
-         <string>绘制钢筋变化图</string>
-        </property>
-       </widget>
        <widget class="QTableWidget" name="tableWidget_189">
         <property name="geometry">
          <rect>
-          <x>70</x>
-          <y>1400</y>
-          <width>1028</width>
+          <x>10</x>
+          <y>1430</y>
+          <width>1027</width>
           <height>188</height>
          </rect>
         </property>
@@ -1378,7 +1271,7 @@ border-radius:5px;</string>
         </item>
         <item row="1" column="7">
          <property name="text">
-          <string>3647.3043</string>
+          <string>6</string>
          </property>
         </item>
         <item row="2" column="0">
@@ -1418,7 +1311,7 @@ border-radius:5px;</string>
         </item>
         <item row="2" column="7">
          <property name="text">
-          <string>3647.3043</string>
+          <string>7</string>
          </property>
         </item>
         <item row="3" column="0">
@@ -1458,7 +1351,7 @@ border-radius:5px;</string>
         </item>
         <item row="3" column="7">
          <property name="text">
-          <string>3647.3043</string>
+          <string>7</string>
          </property>
         </item>
         <item row="4" column="0">
@@ -1498,16 +1391,16 @@ border-radius:5px;</string>
         </item>
         <item row="4" column="7">
          <property name="text">
-          <string>3647.3043</string>
+          <string>7</string>
          </property>
         </item>
        </widget>
        <widget class="QTableWidget" name="tableWidget_46">
         <property name="geometry">
          <rect>
-          <x>70</x>
-          <y>1610</y>
-          <width>902</width>
+          <x>10</x>
+          <y>1300</y>
+          <width>1027</width>
           <height>77</height>
          </rect>
         </property>
@@ -1521,7 +1414,7 @@ border-radius:5px;</string>
          <bool>false</bool>
         </attribute>
         <attribute name="horizontalHeaderDefaultSectionSize">
-         <number>180</number>
+         <number>205</number>
         </attribute>
         <attribute name="verticalHeaderVisible">
          <bool>false</bool>
@@ -1535,7 +1428,7 @@ border-radius:5px;</string>
         <column/>
         <item row="0" column="0">
          <property name="text">
-          <string>公称截面面积</string>
+          <string>公称截面面积(mm^2)</string>
          </property>
         </item>
         <item row="0" column="1">
@@ -1563,12 +1456,37 @@ border-radius:5px;</string>
           </font>
          </property>
         </item>
+        <item row="1" column="0">
+         <property name="text">
+          <string>140</string>
+         </property>
+        </item>
+        <item row="1" column="1">
+         <property name="text">
+          <string>1.95</string>
+         </property>
+        </item>
+        <item row="1" column="2">
+         <property name="text">
+          <string>1860</string>
+         </property>
+        </item>
+        <item row="1" column="3">
+         <property name="text">
+          <string>1260</string>
+         </property>
+        </item>
+        <item row="1" column="4">
+         <property name="text">
+          <string>1395</string>
+         </property>
+        </item>
        </widget>
        <widget class="QCommandLinkButton" name="commandLinkButton_51">
         <property name="geometry">
          <rect>
           <x>450</x>
-          <y>1700</y>
+          <y>1660</y>
           <width>101</width>
           <height>41</height>
          </rect>
@@ -1578,14 +1496,14 @@ border-radius:5px;</string>
 border-radius:5px;</string>
         </property>
         <property name="text">
-         <string>存储</string>
+         <string>设置</string>
         </property>
        </widget>
        <widget class="QLabel" name="label_99">
         <property name="geometry">
          <rect>
-          <x>80</x>
-          <y>970</y>
+          <x>10</x>
+          <y>960</y>
           <width>91</width>
           <height>31</height>
          </rect>
@@ -1597,7 +1515,7 @@ border-radius:5px;</string>
        <widget class="QLabel" name="label_100">
         <property name="geometry">
          <rect>
-          <x>70</x>
+          <x>10</x>
           <y>1770</y>
           <width>111</width>
           <height>31</height>
@@ -1610,7 +1528,7 @@ border-radius:5px;</string>
        <widget class="QTableWidget" name="tableWidget_47">
         <property name="geometry">
          <rect>
-          <x>80</x>
+          <x>10</x>
           <y>1810</y>
           <width>502</width>
           <height>78</height>
@@ -1654,12 +1572,32 @@ border-radius:5px;</string>
           <string>Fsd</string>
          </property>
         </item>
+        <item row="1" column="0">
+         <property name="text">
+          <string>4926</string>
+         </property>
+        </item>
+        <item row="1" column="1">
+         <property name="text">
+          <string>45</string>
+         </property>
+        </item>
+        <item row="1" column="2">
+         <property name="text">
+          <string>22.4</string>
+         </property>
+        </item>
+        <item row="1" column="3">
+         <property name="text">
+          <string>330</string>
+         </property>
+        </item>
        </widget>
        <widget class="QCommandLinkButton" name="commandLinkButton_57">
         <property name="geometry">
          <rect>
-          <x>300</x>
-          <y>1930</y>
+          <x>460</x>
+          <y>1920</y>
           <width>101</width>
           <height>41</height>
          </rect>
@@ -1669,7 +1607,7 @@ border-radius:5px;</string>
 border-radius:5px;</string>
         </property>
         <property name="text">
-         <string>存储</string>
+         <string>设置</string>
         </property>
        </widget>
        <widget class="QLineEdit" name="lineEdit_2">
@@ -1677,9 +1615,12 @@ border-radius:5px;</string>
          <rect>
           <x>950</x>
           <y>650</y>
-          <width>141</width>
+          <width>51</width>
           <height>21</height>
          </rect>
+        </property>
+        <property name="text">
+         <string>1.95</string>
         </property>
        </widget>
        <widget class="QLabel" name="label_101">
@@ -1698,7 +1639,7 @@ border-radius:5px;</string>
        <widget class="QLabel" name="label_105">
         <property name="geometry">
          <rect>
-          <x>80</x>
+          <x>10</x>
           <y>2010</y>
           <width>111</width>
           <height>31</height>
@@ -1711,8 +1652,8 @@ border-radius:5px;</string>
        <widget class="QTableWidget" name="tableWidget_48">
         <property name="geometry">
          <rect>
-          <x>80</x>
-          <y>2050</y>
+          <x>10</x>
+          <y>2040</y>
           <width>377</width>
           <height>77</height>
          </rect>
@@ -1749,11 +1690,26 @@ border-radius:5px;</string>
           <string>箍筋强度Fsv</string>
          </property>
         </item>
+        <item row="1" column="0">
+         <property name="text">
+          <string>2</string>
+         </property>
+        </item>
+        <item row="1" column="1">
+         <property name="text">
+          <string>10</string>
+         </property>
+        </item>
+        <item row="1" column="2">
+         <property name="text">
+          <string>280</string>
+         </property>
+        </item>
        </widget>
        <widget class="QLabel" name="label_106">
         <property name="geometry">
          <rect>
-          <x>80</x>
+          <x>10</x>
           <y>2140</y>
           <width>131</width>
           <height>31</height>
@@ -1766,11 +1722,14 @@ border-radius:5px;</string>
        <widget class="QLineEdit" name="lineEdit_5">
         <property name="geometry">
          <rect>
-          <x>180</x>
+          <x>80</x>
           <y>2180</y>
-          <width>113</width>
+          <width>71</width>
           <height>21</height>
          </rect>
+        </property>
+        <property name="text">
+         <string>8000</string>
         </property>
        </widget>
        <widget class="QLineEdit" name="lineEdit_6">
@@ -1779,9 +1738,9 @@ border-radius:5px;</string>
         </property>
         <property name="geometry">
          <rect>
-          <x>350</x>
+          <x>210</x>
           <y>2180</y>
-          <width>113</width>
+          <width>61</width>
           <height>21</height>
          </rect>
         </property>
@@ -1792,28 +1751,34 @@ border-radius:5px;</string>
        <widget class="QLineEdit" name="lineEdit_13">
         <property name="geometry">
          <rect>
-          <x>180</x>
+          <x>80</x>
           <y>2220</y>
-          <width>113</width>
+          <width>71</width>
           <height>21</height>
          </rect>
+        </property>
+        <property name="text">
+         <string>200</string>
         </property>
        </widget>
        <widget class="QLineEdit" name="lineEdit_14">
         <property name="geometry">
          <rect>
-          <x>350</x>
+          <x>210</x>
           <y>2220</y>
-          <width>113</width>
+          <width>61</width>
           <height>21</height>
          </rect>
+        </property>
+        <property name="text">
+         <string>200</string>
         </property>
        </widget>
        <widget class="QLabel" name="label_107">
         <property name="geometry">
          <rect>
-          <x>300</x>
-          <y>2186</y>
+          <x>160</x>
+          <y>2190</y>
           <width>51</width>
           <height>20</height>
          </rect>
@@ -1825,7 +1790,7 @@ border-radius:5px;</string>
        <widget class="QLabel" name="label_108">
         <property name="geometry">
          <rect>
-          <x>300</x>
+          <x>160</x>
           <y>2230</y>
           <width>51</width>
           <height>21</height>
@@ -1838,7 +1803,7 @@ border-radius:5px;</string>
        <widget class="QLabel" name="label_109">
         <property name="geometry">
          <rect>
-          <x>115</x>
+          <x>10</x>
           <y>2180</y>
           <width>21</width>
           <height>21</height>
@@ -1851,7 +1816,7 @@ border-radius:5px;</string>
        <widget class="QLabel" name="label_110">
         <property name="geometry">
          <rect>
-          <x>130</x>
+          <x>30</x>
           <y>2190</y>
           <width>51</width>
           <height>20</height>
@@ -1864,7 +1829,7 @@ border-radius:5px;</string>
        <widget class="QLabel" name="label_111">
         <property name="geometry">
          <rect>
-          <x>100</x>
+          <x>0</x>
           <y>2220</y>
           <width>41</width>
           <height>16</height>
@@ -1877,8 +1842,8 @@ border-radius:5px;</string>
        <widget class="QCommandLinkButton" name="commandLinkButton_58">
         <property name="geometry">
          <rect>
-          <x>240</x>
-          <y>2270</y>
+          <x>320</x>
+          <y>2190</y>
           <width>101</width>
           <height>41</height>
          </rect>
@@ -1888,7 +1853,33 @@ border-radius:5px;</string>
 border-radius:5px;</string>
         </property>
         <property name="text">
-         <string>存储</string>
+         <string>设置</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_116">
+        <property name="geometry">
+         <rect>
+          <x>30</x>
+          <y>2230</y>
+          <width>51</width>
+          <height>20</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;¯¯¯¯¯¯&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_119">
+        <property name="geometry">
+         <rect>
+          <x>1010</x>
+          <y>650</y>
+          <width>72</width>
+          <height>21</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>10^5</string>
         </property>
        </widget>
       </widget>
@@ -2878,7 +2869,7 @@ border:0px</string>
        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;支点截面横向分布计算&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="page_9">
        <widget class="QScrollArea" name="scrollArea_3">
@@ -3037,170 +3028,11 @@ border:0px</string>
            </property>
           </item>
          </widget>
-         <widget class="QCommandLinkButton" name="commandLinkButton_4">
-          <property name="geometry">
-           <rect>
-            <x>510</x>
-            <y>330</y>
-            <width>81</width>
-            <height>41</height>
-           </rect>
-          </property>
-          <property name="styleSheet">
-           <string notr="true">background-color: #aebed8;
-border-radius:5px;</string>
-          </property>
-          <property name="text">
-           <string>计算</string>
-          </property>
-         </widget>
-         <widget class="QComboBox" name="comboBox_2">
-          <property name="geometry">
-           <rect>
-            <x>20</x>
-            <y>390</y>
-            <width>161</width>
-            <height>41</height>
-           </rect>
-          </property>
-          <property name="styleSheet">
-           <string notr="true">border-radius:4px;
-background-color:rgb(226, 216, 248);</string>
-          </property>
-          <item>
-           <property name="text">
-            <string>一期恒载内力</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>二期恒载内力</string>
-           </property>
-          </item>
-         </widget>
-         <widget class="QTableWidget" name="tableWidget_15">
-          <property name="geometry">
-           <rect>
-            <x>20</x>
-            <y>450</y>
-            <width>752</width>
-            <height>76</height>
-           </rect>
-          </property>
-          <property name="rowCount">
-           <number>2</number>
-          </property>
-          <property name="columnCount">
-           <number>5</number>
-          </property>
-          <attribute name="horizontalHeaderVisible">
-           <bool>false</bool>
-          </attribute>
-          <attribute name="horizontalHeaderDefaultSectionSize">
-           <number>150</number>
-          </attribute>
-          <attribute name="verticalHeaderVisible">
-           <bool>false</bool>
-          </attribute>
-          <attribute name="verticalHeaderHighlightSections">
-           <bool>false</bool>
-          </attribute>
-          <row/>
-          <row/>
-          <column/>
-          <column/>
-          <column/>
-          <column/>
-          <column/>
-          <item row="0" column="0">
-           <property name="text">
-            <string>截面位置(手动输入)</string>
-           </property>
-          </item>
-          <item row="0" column="1">
-           <property name="text">
-            <string>边主梁剪力(KN)</string>
-           </property>
-          </item>
-          <item row="0" column="2">
-           <property name="text">
-            <string>边主梁弯矩(KN.M)</string>
-           </property>
-          </item>
-          <item row="0" column="3">
-           <property name="text">
-            <string>中主梁剪力(KN)</string>
-           </property>
-          </item>
-          <item row="0" column="4">
-           <property name="text">
-            <string>中主梁弯矩(KN.M)</string>
-           </property>
-          </item>
-          <item row="1" column="0">
-           <property name="text">
-            <string/>
-           </property>
-          </item>
-         </widget>
-         <widget class="QTableWidget" name="tableWidget_21">
-          <property name="geometry">
-           <rect>
-            <x>840</x>
-            <y>450</y>
-            <width>252</width>
-            <height>76</height>
-           </rect>
-          </property>
-          <property name="rowCount">
-           <number>2</number>
-          </property>
-          <property name="columnCount">
-           <number>2</number>
-          </property>
-          <attribute name="horizontalHeaderVisible">
-           <bool>false</bool>
-          </attribute>
-          <attribute name="verticalHeaderVisible">
-           <bool>false</bool>
-          </attribute>
-          <row/>
-          <row/>
-          <column/>
-          <column/>
-          <item row="0" column="0">
-           <property name="text">
-            <string>三期剪力(KN)</string>
-           </property>
-          </item>
-          <item row="0" column="1">
-           <property name="text">
-            <string>三期弯矩(KN.m)</string>
-           </property>
-          </item>
-         </widget>
-         <widget class="QCommandLinkButton" name="commandLinkButton_5">
-          <property name="geometry">
-           <rect>
-            <x>570</x>
-            <y>620</y>
-            <width>81</width>
-            <height>41</height>
-           </rect>
-          </property>
-          <property name="styleSheet">
-           <string notr="true">background-color: #aebed8;
-border-radius:5px;</string>
-          </property>
-          <property name="text">
-           <string>计算</string>
-          </property>
-         </widget>
          <widget class="QLabel" name="label_39">
           <property name="geometry">
            <rect>
-            <x>460</x>
-            <y>710</y>
+            <x>370</x>
+            <y>390</y>
             <width>311</width>
             <height>61</height>
            </rect>
@@ -3212,9 +3044,9 @@ border-radius:5px;</string>
          <widget class="XxwCustomPlot" name="widget_7" native="true">
           <property name="geometry">
            <rect>
-            <x>110</x>
-            <y>790</y>
-            <width>1161</width>
+            <x>30</x>
+            <y>480</y>
+            <width>1091</width>
             <height>261</height>
            </rect>
           </property>
@@ -3222,9 +3054,9 @@ border-radius:5px;</string>
          <widget class="XxwCustomPlot" name="widget_8" native="true">
           <property name="geometry">
            <rect>
-            <x>110</x>
-            <y>1080</y>
-            <width>1161</width>
+            <x>30</x>
+            <y>760</y>
+            <width>1091</width>
             <height>331</height>
            </rect>
           </property>
@@ -3232,8 +3064,8 @@ border-radius:5px;</string>
          <widget class="QComboBox" name="comboBox_7">
           <property name="geometry">
            <rect>
-            <x>780</x>
-            <y>721</y>
+            <x>670</x>
+            <y>400</y>
             <width>87</width>
             <height>31</height>
            </rect>
@@ -3269,7 +3101,7 @@ border-radius:5px;</string>
          <property name="geometry">
           <rect>
            <x>0</x>
-           <y>-24</y>
+           <y>0</y>
            <width>1188</width>
            <height>3000</height>
           </rect>
@@ -3477,19 +3309,6 @@ border-radius:5px;</string>
            <number>1</number>
           </property>
          </widget>
-         <widget class="QPushButton" name="pushButton_4">
-          <property name="geometry">
-           <rect>
-            <x>240</x>
-            <y>580</y>
-            <width>93</width>
-            <height>28</height>
-           </rect>
-          </property>
-          <property name="text">
-           <string>计算</string>
-          </property>
-         </widget>
          <widget class="QLabel" name="label_21">
           <property name="geometry">
            <rect>
@@ -3576,7 +3395,7 @@ background-color:#a8a8a8;</string>
          <property name="geometry">
           <rect>
            <x>0</x>
-           <y>-85</y>
+           <y>0</y>
            <width>1188</width>
            <height>3000</height>
           </rect>
@@ -4074,7 +3893,7 @@ background-color:#a8a8a8;</string>
         <x>0</x>
         <y>0</y>
         <width>1351</width>
-        <height>941</height>
+        <height>920</height>
        </rect>
       </property>
       <property name="widgetResizable">
@@ -4084,15 +3903,21 @@ background-color:#a8a8a8;</string>
        <property name="geometry">
         <rect>
          <x>0</x>
-         <y>0</y>
+         <y>-91</y>
          <width>1328</width>
-         <height>3000</height>
+         <height>4000</height>
         </rect>
+       </property>
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Preferred" vsizetype="Ignored">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
        </property>
        <property name="minimumSize">
         <size>
          <width>0</width>
-         <height>3000</height>
+         <height>4000</height>
         </size>
        </property>
        <widget class="QPushButton" name="pushButton">
@@ -4219,7 +4044,7 @@ background-color:#a8a8a8;</string>
        <widget class="QLabel" name="label_114">
         <property name="geometry">
          <rect>
-          <x>590</x>
+          <x>580</x>
           <y>1330</y>
           <width>211</width>
           <height>21</height>
@@ -4233,7 +4058,7 @@ background-color:#a8a8a8;</string>
         <property name="geometry">
          <rect>
           <x>80</x>
-          <y>1440</y>
+          <y>1370</y>
           <width>1141</width>
           <height>321</height>
          </rect>
@@ -4242,8 +4067,8 @@ background-color:#a8a8a8;</string>
        <widget class="QLabel" name="label_115">
         <property name="geometry">
          <rect>
-          <x>580</x>
-          <y>1810</y>
+          <x>570</x>
+          <y>2180</y>
           <width>211</width>
           <height>21</height>
          </rect>
@@ -4255,8 +4080,77 @@ background-color:#a8a8a8;</string>
        <widget class="XxwCustomPlot" name="widget_26" native="true">
         <property name="geometry">
          <rect>
-          <x>70</x>
-          <y>1930</y>
+          <x>90</x>
+          <y>2210</y>
+          <width>1151</width>
+          <height>361</height>
+         </rect>
+        </property>
+       </widget>
+       <widget class="XxwCustomPlot" name="widget_9" native="true">
+        <property name="geometry">
+         <rect>
+          <x>90</x>
+          <y>1769</y>
+          <width>1131</width>
+          <height>381</height>
+         </rect>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_120">
+        <property name="geometry">
+         <rect>
+          <x>560</x>
+          <y>1720</y>
+          <width>221</width>
+          <height>21</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:12pt; font-weight:600; color:#55007f;&quot;&gt;预应力钢束拉应力&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_121">
+        <property name="geometry">
+         <rect>
+          <x>570</x>
+          <y>2600</y>
+          <width>211</width>
+          <height>21</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:12pt; font-weight:600; color:#55007f;&quot;&gt;正截面抗裂验算&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
+       </widget>
+       <widget class="XxwCustomPlot" name="widget_10" native="true">
+        <property name="geometry">
+         <rect>
+          <x>90</x>
+          <y>2630</y>
+          <width>1151</width>
+          <height>381</height>
+         </rect>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_122">
+        <property name="geometry">
+         <rect>
+          <x>570</x>
+          <y>3060</y>
+          <width>211</width>
+          <height>31</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:12pt; font-weight:600; color:#55007f;&quot;&gt;斜截面抗裂验算&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
+       </widget>
+       <widget class="XxwCustomPlot" name="widget_11" native="true">
+        <property name="geometry">
+         <rect>
+          <x>90</x>
+          <y>3120</y>
           <width>1151</width>
           <height>361</height>
          </rect>
@@ -4273,9 +4167,9 @@ background-color:#a8a8a8;</string>
       <property name="geometry">
        <rect>
         <x>0</x>
-        <y>0</y>
-        <width>1351</width>
-        <height>941</height>
+        <y>-60</y>
+        <width>1341</width>
+        <height>951</height>
        </rect>
       </property>
       <property name="verticalScrollBarPolicy">
@@ -4291,8 +4185,8 @@ background-color:#a8a8a8;</string>
        <property name="geometry">
         <rect>
          <x>0</x>
-         <y>-678</y>
-         <width>1328</width>
+         <y>-488</y>
+         <width>1318</width>
          <height>3000</height>
         </rect>
        </property>
@@ -4306,7 +4200,7 @@ background-color:#a8a8a8;</string>
         <property name="geometry">
          <rect>
           <x>20</x>
-          <y>60</y>
+          <y>90</y>
           <width>252</width>
           <height>76</height>
          </rect>
@@ -4439,7 +4333,7 @@ background-color:#a8a8a8;</string>
         <property name="geometry">
          <rect>
           <x>310</x>
-          <y>60</y>
+          <y>90</y>
           <width>128</width>
           <height>76</height>
          </rect>
@@ -4551,67 +4445,11 @@ border-radius:5px;</string>
          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600; color:#55007f;&quot;&gt;各阶段几何特征计算&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
         </property>
        </widget>
-       <widget class="QTableWidget" name="tableWidget_5">
+       <widget class="QComboBox" name="comboBox_34">
         <property name="geometry">
          <rect>
           <x>20</x>
           <y>480</y>
-          <width>431</width>
-          <height>76</height>
-         </rect>
-        </property>
-        <property name="rowCount">
-         <number>2</number>
-        </property>
-        <property name="columnCount">
-         <number>2</number>
-        </property>
-        <attribute name="horizontalHeaderVisible">
-         <bool>false</bool>
-        </attribute>
-        <attribute name="horizontalHeaderDefaultSectionSize">
-         <number>210</number>
-        </attribute>
-        <attribute name="verticalHeaderVisible">
-         <bool>false</bool>
-        </attribute>
-        <row/>
-        <row/>
-        <column/>
-        <column/>
-        <item row="0" column="0">
-         <property name="text">
-          <string>非预应力钢筋换算面积</string>
-         </property>
-        </item>
-        <item row="0" column="1">
-         <property name="text">
-          <string>非预应力钢筋重心位置</string>
-         </property>
-        </item>
-       </widget>
-       <widget class="QPushButton" name="pushButton_2">
-        <property name="geometry">
-         <rect>
-          <x>170</x>
-          <y>590</y>
-          <width>71</width>
-          <height>41</height>
-         </rect>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">background-color: #aebed8;
-border-radius:5px;</string>
-        </property>
-        <property name="text">
-         <string>存储</string>
-        </property>
-       </widget>
-       <widget class="QComboBox" name="comboBox_34">
-        <property name="geometry">
-         <rect>
-          <x>30</x>
-          <y>720</y>
           <width>91</width>
           <height>31</height>
          </rect>
@@ -4630,8 +4468,8 @@ border-radius:5px;</string>
        <widget class="QTableWidget" name="tableWidget_191">
         <property name="geometry">
          <rect>
-          <x>30</x>
-          <y>760</y>
+          <x>20</x>
+          <y>520</y>
           <width>803</width>
           <height>76</height>
          </rect>
@@ -4687,8 +4525,8 @@ border-radius:5px;</string>
        <widget class="QLineEdit" name="lineEdit">
         <property name="geometry">
          <rect>
-          <x>230</x>
-          <y>720</y>
+          <x>220</x>
+          <y>480</y>
           <width>91</width>
           <height>31</height>
          </rect>
@@ -4697,8 +4535,8 @@ border-radius:5px;</string>
        <widget class="QLabel" name="label_5">
         <property name="geometry">
          <rect>
-          <x>230</x>
-          <y>700</y>
+          <x>220</x>
+          <y>460</y>
           <width>101</width>
           <height>16</height>
          </rect>
@@ -4710,8 +4548,8 @@ border-radius:5px;</string>
        <widget class="QComboBox" name="comboBox_5">
         <property name="geometry">
          <rect>
-          <x>130</x>
-          <y>720</y>
+          <x>120</x>
+          <y>480</y>
           <width>91</width>
           <height>31</height>
          </rect>
@@ -4735,8 +4573,8 @@ border-radius:5px;</string>
        <widget class="QTextBrowser" name="textBrowser_2">
         <property name="geometry">
          <rect>
-          <x>1010</x>
-          <y>660</y>
+          <x>1060</x>
+          <y>440</y>
           <width>201</width>
           <height>191</height>
          </rect>
@@ -4755,24 +4593,220 @@ p, li { white-space: pre-wrap; }
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
         </property>
        </widget>
-       <widget class="QLabel" name="label_6">
+       <widget class="QLineEdit" name="lineEdit_8">
         <property name="geometry">
          <rect>
-          <x>80</x>
-          <y>1750</y>
-          <width>121</width>
-          <height>31</height>
+          <x>330</x>
+          <y>700</y>
+          <width>81</width>
+          <height>21</height>
          </rect>
         </property>
         <property name="text">
-         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:12pt; font-weight:600; color:#55007f;&quot;&gt;预应力损失&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         <string>1.768</string>
+        </property>
+       </widget>
+       <widget class="QTextBrowser" name="textBrowser">
+        <property name="geometry">
+         <rect>
+          <x>1060</x>
+          <y>680</y>
+          <width>201</width>
+          <height>241</height>
+         </rect>
+        </property>
+        <property name="html">
+         <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'SimSun'; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;σl1&lt;/span&gt;—截面摩擦应力损失.&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;σl2&lt;/span&gt;—锚具变形损失.&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;σl4&lt;/span&gt;—分批张拉引起的应力损失.&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;σl5&lt;/span&gt;—钢筋松弛引起的应力损失.&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;σl6&lt;/span&gt;—混凝土收缩徐变引起的应力损失.&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;σpΙ&lt;/span&gt;—欲加力阶段有效预应力&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;σpΙΙ&lt;/span&gt;—使用阶段有效预应力&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_33">
+        <property name="geometry">
+         <rect>
+          <x>130</x>
+          <y>670</y>
+          <width>81</width>
+          <height>21</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600; color:#00ff00;&quot;&gt;主梁类别&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
+       </widget>
+       <widget class="QComboBox" name="comboBox_6">
+        <property name="geometry">
+         <rect>
+          <x>130</x>
+          <y>700</y>
+          <width>87</width>
+          <height>22</height>
+         </rect>
+        </property>
+        <item>
+         <property name="text">
+          <string>边梁</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>中梁</string>
+         </property>
+        </item>
+       </widget>
+       <widget class="QLineEdit" name="lineEdit_7">
+        <property name="geometry">
+         <rect>
+          <x>230</x>
+          <y>700</y>
+          <width>81</width>
+          <height>21</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>2.37</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_34">
+        <property name="geometry">
+         <rect>
+          <x>230</x>
+          <y>670</y>
+          <width>81</width>
+          <height>20</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600; color:#0000ff;&quot;&gt;φ(tu,t0)&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_7">
+        <property name="geometry">
+         <rect>
+          <x>20</x>
+          <y>670</y>
+          <width>81</width>
+          <height>21</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600; color:#00ff00;&quot;&gt;钢束编号&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_37">
+        <property name="geometry">
+         <rect>
+          <x>430</x>
+          <y>670</y>
+          <width>81</width>
+          <height>20</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600; color:#0000ff;&quot;&gt;ξ(tu,t0)&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
+       </widget>
+       <widget class="QSpinBox" name="spinBox_3">
+        <property name="geometry">
+         <rect>
+          <x>560</x>
+          <y>700</y>
+          <width>61</width>
+          <height>22</height>
+         </rect>
+        </property>
+        <property name="minimum">
+         <number>1</number>
+        </property>
+        <property name="maximum">
+         <number>4</number>
+        </property>
+        <property name="value">
+         <number>2</number>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_25">
+        <property name="geometry">
+         <rect>
+          <x>510</x>
+          <y>700</y>
+          <width>31</width>
+          <height>20</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600; color:#00557f;&quot;&gt;10&lt;/span&gt;&lt;span style=&quot; font-weight:600; color:#00557f; vertical-align:super;&quot;&gt;-4&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
+       </widget>
+       <widget class="QLineEdit" name="lineEdit_9">
+        <property name="geometry">
+         <rect>
+          <x>430</x>
+          <y>700</y>
+          <width>81</width>
+          <height>21</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>3.57</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_35">
+        <property name="geometry">
+         <rect>
+          <x>330</x>
+          <y>670</y>
+          <width>91</width>
+          <height>20</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600; color:#0000ff;&quot;&gt;φ(tu,t0')&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
+       </widget>
+       <widget class="QSpinBox" name="spinBox_13">
+        <property name="geometry">
+         <rect>
+          <x>20</x>
+          <y>880</y>
+          <width>91</width>
+          <height>21</height>
+         </rect>
+        </property>
+        <property name="minimum">
+         <number>1</number>
+        </property>
+        <property name="maximum">
+         <number>3500</number>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_36">
+        <property name="geometry">
+         <rect>
+          <x>560</x>
+          <y>670</y>
+          <width>71</width>
+          <height>21</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600; color:#00ff00;&quot;&gt;张拉批数&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
         </property>
        </widget>
        <widget class="QComboBox" name="comboBox">
         <property name="geometry">
          <rect>
-          <x>80</x>
-          <y>1830</y>
+          <x>20</x>
+          <y>700</y>
           <width>71</width>
           <height>22</height>
          </rect>
@@ -4818,24 +4852,24 @@ p, li { white-space: pre-wrap; }
          </property>
         </item>
        </widget>
-       <widget class="QLabel" name="label_7">
+       <widget class="QLabel" name="label_6">
         <property name="geometry">
          <rect>
-          <x>80</x>
-          <y>1800</y>
-          <width>81</width>
-          <height>21</height>
+          <x>20</x>
+          <y>630</y>
+          <width>121</width>
+          <height>31</height>
          </rect>
         </property>
         <property name="text">
-         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600; color:#00ff00;&quot;&gt;钢束编号&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:12pt; font-weight:600; color:#55007f;&quot;&gt;预应力损失&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
         </property>
        </widget>
        <widget class="QTableWidget" name="tableWidget_24">
         <property name="geometry">
          <rect>
-          <x>80</x>
-          <y>1870</y>
+          <x>20</x>
+          <y>730</y>
           <width>1003</width>
           <height>114</height>
          </rect>
@@ -4994,215 +5028,12 @@ p, li { white-space: pre-wrap; }
          </property>
         </item>
        </widget>
-       <widget class="QTextBrowser" name="textBrowser">
-        <property name="geometry">
-         <rect>
-          <x>1120</x>
-          <y>1710</y>
-          <width>171</width>
-          <height>271</height>
-         </rect>
-        </property>
-        <property name="html">
-         <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'SimSun'; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;σl1&lt;/span&gt;—截面摩擦应力损失.&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;σl2&lt;/span&gt;—锚具变形损失.&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;σl4&lt;/span&gt;—分批张拉引起的应力损失.&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;σl5&lt;/span&gt;—钢筋松弛引起的应力损失.&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;σl6&lt;/span&gt;—混凝土收缩徐变引起的应力损失.&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;σpΙ&lt;/span&gt;—欲加力阶段有效预应力&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;σpΙΙ&lt;/span&gt;—使用阶段有效预应力&lt;/p&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-        </property>
-       </widget>
-       <widget class="QComboBox" name="comboBox_6">
-        <property name="geometry">
-         <rect>
-          <x>180</x>
-          <y>1830</y>
-          <width>87</width>
-          <height>22</height>
-         </rect>
-        </property>
-        <item>
-         <property name="text">
-          <string>边梁</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>中梁</string>
-         </property>
-        </item>
-       </widget>
-       <widget class="QLabel" name="label_33">
-        <property name="geometry">
-         <rect>
-          <x>180</x>
-          <y>1800</y>
-          <width>81</width>
-          <height>21</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600; color:#00ff00;&quot;&gt;主梁类别&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-        </property>
-       </widget>
-       <widget class="QLineEdit" name="lineEdit_7">
-        <property name="geometry">
-         <rect>
-          <x>280</x>
-          <y>1830</y>
-          <width>81</width>
-          <height>21</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>2.37</string>
-        </property>
-       </widget>
-       <widget class="QLineEdit" name="lineEdit_8">
-        <property name="geometry">
-         <rect>
-          <x>370</x>
-          <y>1830</y>
-          <width>81</width>
-          <height>21</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>1.768</string>
-        </property>
-       </widget>
-       <widget class="QLabel" name="label_34">
-        <property name="geometry">
-         <rect>
-          <x>280</x>
-          <y>1800</y>
-          <width>81</width>
-          <height>20</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600; color:#0000ff;&quot;&gt;φ(tu,t0)&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-        </property>
-       </widget>
-       <widget class="QLabel" name="label_35">
-        <property name="geometry">
-         <rect>
-          <x>370</x>
-          <y>1800</y>
-          <width>91</width>
-          <height>20</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600; color:#0000ff;&quot;&gt;φ(tu,t0')&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-        </property>
-       </widget>
-       <widget class="QLabel" name="label_36">
-        <property name="geometry">
-         <rect>
-          <x>590</x>
-          <y>1800</y>
-          <width>71</width>
-          <height>21</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600; color:#00ff00;&quot;&gt;张拉批数&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-        </property>
-       </widget>
-       <widget class="QSpinBox" name="spinBox_3">
-        <property name="geometry">
-         <rect>
-          <x>590</x>
-          <y>1830</y>
-          <width>61</width>
-          <height>22</height>
-         </rect>
-        </property>
-        <property name="minimum">
-         <number>1</number>
-        </property>
-        <property name="maximum">
-         <number>4</number>
-        </property>
-        <property name="value">
-         <number>2</number>
-        </property>
-       </widget>
-       <widget class="QLineEdit" name="lineEdit_9">
-        <property name="geometry">
-         <rect>
-          <x>460</x>
-          <y>1830</y>
-          <width>81</width>
-          <height>21</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>3.57</string>
-        </property>
-       </widget>
-       <widget class="QLabel" name="label_37">
-        <property name="geometry">
-         <rect>
-          <x>460</x>
-          <y>1800</y>
-          <width>81</width>
-          <height>16</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600; color:#0000ff;&quot;&gt;ξ(tu,t0)&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-        </property>
-       </widget>
-       <widget class="XxwCustomPlot" name="widget_4" native="true">
-        <property name="geometry">
-         <rect>
-          <x>70</x>
-          <y>2190</y>
-          <width>1091</width>
-          <height>351</height>
-         </rect>
-        </property>
-       </widget>
-       <widget class="QLabel" name="label_25">
-        <property name="geometry">
-         <rect>
-          <x>550</x>
-          <y>1830</y>
-          <width>31</width>
-          <height>20</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600; color:#00557f;&quot;&gt;10&lt;/span&gt;&lt;span style=&quot; font-weight:600; color:#00557f; vertical-align:super;&quot;&gt;-4&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-        </property>
-       </widget>
-       <widget class="QLabel" name="label_27">
-        <property name="geometry">
-         <rect>
-          <x>950</x>
-          <y>2020</y>
-          <width>31</width>
-          <height>20</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; font-weight:600; color:#00007f;&quot;&gt; mm&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-        </property>
-       </widget>
        <widget class="QSlider" name="horizontalSlider_5">
         <property name="geometry">
          <rect>
-          <x>420</x>
-          <y>2020</y>
-          <width>511</width>
+          <x>120</x>
+          <y>880</y>
+          <width>901</width>
           <height>22</height>
          </rect>
         </property>
@@ -5219,27 +5050,37 @@ p, li { white-space: pre-wrap; }
          <enum>QSlider::NoTicks</enum>
         </property>
        </widget>
-       <widget class="QSpinBox" name="spinBox_13">
+       <widget class="QLabel" name="label_27">
         <property name="geometry">
          <rect>
-          <x>320</x>
-          <y>2010</y>
-          <width>81</width>
+          <x>1030</x>
+          <y>880</y>
+          <width>31</width>
+          <height>20</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; font-weight:600; color:#00007f;&quot;&gt; mm&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_98">
+        <property name="geometry">
+         <rect>
+          <x>610</x>
+          <y>1600</y>
+          <width>201</width>
           <height>31</height>
          </rect>
         </property>
-        <property name="minimum">
-         <number>1</number>
-        </property>
-        <property name="maximum">
-         <number>3500</number>
+        <property name="text">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:12pt; font-weight:600; color:#55aa00;&quot;&gt;预应力损失图像绘制&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
         </property>
        </widget>
        <widget class="QLabel" name="label_97">
         <property name="geometry">
          <rect>
-          <x>540</x>
-          <y>2140</y>
+          <x>600</x>
+          <y>1170</y>
           <width>201</width>
           <height>31</height>
          </rect>
@@ -5251,25 +5092,817 @@ p, li { white-space: pre-wrap; }
        <widget class="XxwCustomPlot" name="widget_21" native="true">
         <property name="geometry">
          <rect>
-          <x>70</x>
-          <y>2630</y>
+          <x>120</x>
+          <y>1640</y>
           <width>1091</width>
           <height>351</height>
          </rect>
         </property>
        </widget>
-       <widget class="QLabel" name="label_98">
+       <widget class="XxwCustomPlot" name="widget_4" native="true">
         <property name="geometry">
          <rect>
-          <x>540</x>
-          <y>2580</y>
-          <width>201</width>
+          <x>120</x>
+          <y>1220</y>
+          <width>1091</width>
+          <height>351</height>
+         </rect>
+        </property>
+       </widget>
+       <widget class="QComboBox" name="comboBox_2">
+        <property name="geometry">
+         <rect>
+          <x>20</x>
+          <y>51</y>
+          <width>87</width>
+          <height>31</height>
+         </rect>
+        </property>
+        <item>
+         <property name="text">
+          <string>边梁</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>中梁</string>
+         </property>
+        </item>
+       </widget>
+       <widget class="QComboBox" name="comboBox_26">
+        <property name="geometry">
+         <rect>
+          <x>430</x>
+          <y>240</y>
+          <width>87</width>
+          <height>31</height>
+         </rect>
+        </property>
+        <item>
+         <property name="text">
+          <string>边梁</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>中梁</string>
+         </property>
+        </item>
+       </widget>
+       <widget class="QLabel" name="label_117">
+        <property name="geometry">
+         <rect>
+          <x>620</x>
+          <y>2050</y>
+          <width>101</width>
           <height>31</height>
          </rect>
         </property>
         <property name="text">
-         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:12pt; font-weight:600; color:#55aa00;&quot;&gt;预应力损失图像绘制&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:12pt; font-weight:600; color:#55aa00;&quot;&gt;挠度计算&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
         </property>
+       </widget>
+       <widget class="QTreeWidget" name="treeWidget">
+        <property name="geometry">
+         <rect>
+          <x>120</x>
+          <y>2100</y>
+          <width>1091</width>
+          <height>331</height>
+         </rect>
+        </property>
+        <column>
+         <property name="text">
+          <string>跨中挠度计算结果</string>
+         </property>
+        </column>
+        <item>
+         <property name="text">
+          <string>可变荷载作用引起的挠度</string>
+         </property>
+         <item>
+          <property name="text">
+           <string>跨中截面挠度</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>考虑长期效应的跨中截面挠度</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>考虑长期效应一期二期恒载引起的挠度</string>
+          </property>
+         </item>
+        </item>
+        <item>
+         <property name="text">
+          <string>预加力引起的上拱值</string>
+         </property>
+         <item>
+          <property name="text">
+           <string>跨中挠度上拱值</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>考虑长期作用</string>
+          </property>
+         </item>
+        </item>
+        <item>
+         <property name="text">
+          <string>预拱度设置</string>
+         </property>
+         <item>
+          <property name="text">
+           <string>预加力和荷载共同作用下的考虑长期作用挠度值</string>
+          </property>
+         </item>
+        </item>
+        <item>
+         <property name="text">
+          <string/>
+         </property>
+        </item>
+       </widget>
+       <widget class="QPushButton" name="pushButton_2">
+        <property name="geometry">
+         <rect>
+          <x>870</x>
+          <y>2050</y>
+          <width>93</width>
+          <height>28</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>调试</string>
+        </property>
+       </widget>
+       <widget class="QSpinBox" name="spinBox_17">
+        <property name="geometry">
+         <rect>
+          <x>780</x>
+          <y>2060</y>
+          <width>51</width>
+          <height>21</height>
+         </rect>
+        </property>
+        <property name="minimum">
+         <number>1</number>
+        </property>
+        <property name="maximum">
+         <number>4</number>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_118">
+        <property name="geometry">
+         <rect>
+          <x>731</x>
+          <y>2060</y>
+          <width>51</width>
+          <height>20</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>梁 号:</string>
+        </property>
+       </widget>
+      </widget>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="tab_9">
+     <attribute name="title">
+      <string>下部结构 </string>
+     </attribute>
+     <widget class="QScrollArea" name="scrollArea_5">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>1331</width>
+        <height>891</height>
+       </rect>
+      </property>
+      <property name="minimumSize">
+       <size>
+        <width>0</width>
+        <height>800</height>
+       </size>
+      </property>
+      <property name="widgetResizable">
+       <bool>true</bool>
+      </property>
+      <widget class="QWidget" name="scrollAreaWidgetContents_5">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>-1430</y>
+         <width>1308</width>
+         <height>4000</height>
+        </rect>
+       </property>
+       <property name="minimumSize">
+        <size>
+         <width>0</width>
+         <height>4000</height>
+        </size>
+       </property>
+       <widget class="QLabel" name="label_45">
+        <property name="geometry">
+         <rect>
+          <x>320</x>
+          <y>60</y>
+          <width>801</width>
+          <height>501</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="pixmap">
+         <pixmap resource="resource.qrc">:/images/Cooping.png</pixmap>
+        </property>
+        <property name="scaledContents">
+         <bool>true</bool>
+        </property>
+       </widget>
+       <widget class="XxwCustomPlot" name="widget_12" native="true">
+        <property name="geometry">
+         <rect>
+          <x>210</x>
+          <y>930</y>
+          <width>1031</width>
+          <height>361</height>
+         </rect>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_46">
+        <property name="geometry">
+         <rect>
+          <x>620</x>
+          <y>880</y>
+          <width>241</width>
+          <height>31</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; font-weight:600; color:#55007f;&quot;&gt;上部结构恒载产生的内力图&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_47">
+        <property name="geometry">
+         <rect>
+          <x>470</x>
+          <y>1890</y>
+          <width>271</width>
+          <height>31</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; font-weight:600; color:#55007f;&quot;&gt;活载产生的内力和作用效应组合&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
+       </widget>
+       <widget class="XxwCustomPlot" name="widget_13" native="true">
+        <property name="geometry">
+         <rect>
+          <x>120</x>
+          <y>1940</y>
+          <width>1111</width>
+          <height>391</height>
+         </rect>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_48">
+        <property name="geometry">
+         <rect>
+          <x>610</x>
+          <y>1320</y>
+          <width>171</width>
+          <height>31</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; font-weight:600; color:#55007f;&quot;&gt;盖梁自重恒载内力图&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
+       </widget>
+       <widget class="XxwCustomPlot" name="widget_14" native="true">
+        <property name="geometry">
+         <rect>
+          <x>120</x>
+          <y>1390</y>
+          <width>1111</width>
+          <height>451</height>
+         </rect>
+        </property>
+       </widget>
+       <widget class="QTableWidget" name="tableWidget_17">
+        <property name="geometry">
+         <rect>
+          <x>120</x>
+          <y>2680</y>
+          <width>503</width>
+          <height>77</height>
+         </rect>
+        </property>
+        <property name="rowCount">
+         <number>2</number>
+        </property>
+        <property name="columnCount">
+         <number>4</number>
+        </property>
+        <attribute name="horizontalHeaderVisible">
+         <bool>false</bool>
+        </attribute>
+        <attribute name="verticalHeaderVisible">
+         <bool>false</bool>
+        </attribute>
+        <row/>
+        <row/>
+        <column/>
+        <column/>
+        <column/>
+        <column/>
+        <item row="0" column="0">
+         <property name="text">
+          <string>弯矩最大值</string>
+         </property>
+        </item>
+        <item row="0" column="1">
+         <property name="text">
+          <string>弯矩最小值</string>
+         </property>
+        </item>
+        <item row="0" column="2">
+         <property name="text">
+          <string>剪力最大值</string>
+         </property>
+        </item>
+        <item row="0" column="3">
+         <property name="text">
+          <string>剪力最小值</string>
+         </property>
+        </item>
+       </widget>
+       <widget class="QLabel" name="label_49">
+        <property name="geometry">
+         <rect>
+          <x>560</x>
+          <y>2340</y>
+          <width>251</width>
+          <height>31</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:12pt; font-weight:600; color:#55007f;&quot;&gt;指定截面处的内力组合值&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
+       </widget>
+       <widget class="QTableWidget" name="tableWidget_21">
+        <property name="geometry">
+         <rect>
+          <x>120</x>
+          <y>2390</y>
+          <width>302</width>
+          <height>77</height>
+         </rect>
+        </property>
+        <property name="rowCount">
+         <number>2</number>
+        </property>
+        <property name="columnCount">
+         <number>2</number>
+        </property>
+        <attribute name="horizontalHeaderVisible">
+         <bool>false</bool>
+        </attribute>
+        <attribute name="horizontalHeaderDefaultSectionSize">
+         <number>150</number>
+        </attribute>
+        <attribute name="horizontalHeaderHighlightSections">
+         <bool>true</bool>
+        </attribute>
+        <attribute name="horizontalHeaderMinimumSectionSize">
+         <number>70</number>
+        </attribute>
+        <attribute name="verticalHeaderVisible">
+         <bool>false</bool>
+        </attribute>
+        <row/>
+        <row/>
+        <column/>
+        <column/>
+        <item row="0" column="0">
+         <property name="text">
+          <string>弯矩永久作用效应值</string>
+         </property>
+        </item>
+        <item row="0" column="1">
+         <property name="text">
+          <string>剪力永久作用效应值</string>
+         </property>
+        </item>
+       </widget>
+       <widget class="QTableWidget" name="tableWidget_22">
+        <property name="geometry">
+         <rect>
+          <x>120</x>
+          <y>2520</y>
+          <width>503</width>
+          <height>76</height>
+         </rect>
+        </property>
+        <property name="rowCount">
+         <number>2</number>
+        </property>
+        <property name="columnCount">
+         <number>4</number>
+        </property>
+        <attribute name="horizontalHeaderVisible">
+         <bool>false</bool>
+        </attribute>
+        <attribute name="verticalHeaderVisible">
+         <bool>false</bool>
+        </attribute>
+        <row/>
+        <row/>
+        <column/>
+        <column/>
+        <column/>
+        <column/>
+        <item row="0" column="0">
+         <property name="text">
+          <string>弯矩最大值</string>
+         </property>
+        </item>
+        <item row="0" column="1">
+         <property name="text">
+          <string>弯矩最小值</string>
+         </property>
+        </item>
+        <item row="0" column="2">
+         <property name="text">
+          <string>剪力最大值</string>
+         </property>
+        </item>
+        <item row="0" column="3">
+         <property name="text">
+          <string>剪力最小值</string>
+         </property>
+        </item>
+       </widget>
+       <widget class="QLabel" name="label_50">
+        <property name="geometry">
+         <rect>
+          <x>120</x>
+          <y>2490</y>
+          <width>161</width>
+          <height>16</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>汽车活载不计冲击系数</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_51">
+        <property name="geometry">
+         <rect>
+          <x>120</x>
+          <y>2610</y>
+          <width>151</width>
+          <height>16</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>作用效应组合</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_52">
+        <property name="geometry">
+         <rect>
+          <x>120</x>
+          <y>2370</y>
+          <width>72</width>
+          <height>15</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>恒载值</string>
+        </property>
+       </widget>
+       <widget class="QComboBox" name="comboBox_9">
+        <property name="geometry">
+         <rect>
+          <x>120</x>
+          <y>2640</y>
+          <width>121</width>
+          <height>31</height>
+         </rect>
+        </property>
+        <item>
+         <property name="text">
+          <string>基本组合</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>频遇组合</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>准永久组合</string>
+         </property>
+        </item>
+       </widget>
+       <widget class="QSpinBox" name="spinBox_15">
+        <property name="geometry">
+         <rect>
+          <x>120</x>
+          <y>2770</y>
+          <width>91</width>
+          <height>21</height>
+         </rect>
+        </property>
+        <property name="minimum">
+         <number>1</number>
+        </property>
+        <property name="maximum">
+         <number>10400</number>
+        </property>
+       </widget>
+       <widget class="QSlider" name="horizontalSlider_7">
+        <property name="geometry">
+         <rect>
+          <x>220</x>
+          <y>2770</y>
+          <width>361</width>
+          <height>22</height>
+         </rect>
+        </property>
+        <property name="maximum">
+         <number>10400</number>
+        </property>
+        <property name="singleStep">
+         <number>1</number>
+        </property>
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="tickPosition">
+         <enum>QSlider::NoTicks</enum>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_66">
+        <property name="geometry">
+         <rect>
+          <x>590</x>
+          <y>2770</y>
+          <width>31</width>
+          <height>20</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; font-weight:600; color:#00007f;&quot;&gt; mm&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_42">
+        <property name="geometry">
+         <rect>
+          <x>220</x>
+          <y>610</y>
+          <width>141</width>
+          <height>31</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:12pt; font-weight:600; color:#55007f;&quot;&gt;尺寸拟定&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
+       </widget>
+       <widget class="QTableWidget" name="tableWidget_5">
+        <property name="geometry">
+         <rect>
+          <x>210</x>
+          <y>710</y>
+          <width>1011</width>
+          <height>81</height>
+         </rect>
+        </property>
+        <property name="rowCount">
+         <number>2</number>
+        </property>
+        <property name="columnCount">
+         <number>8</number>
+        </property>
+        <attribute name="horizontalHeaderVisible">
+         <bool>false</bool>
+        </attribute>
+        <attribute name="verticalHeaderVisible">
+         <bool>false</bool>
+        </attribute>
+        <row/>
+        <row/>
+        <column/>
+        <column/>
+        <column/>
+        <column/>
+        <column/>
+        <column/>
+        <column/>
+        <column/>
+        <item row="0" column="0">
+         <property name="text">
+          <string>l1</string>
+         </property>
+        </item>
+        <item row="0" column="1">
+         <property name="text">
+          <string>l2</string>
+         </property>
+        </item>
+        <item row="0" column="2">
+         <property name="text">
+          <string>l3</string>
+         </property>
+        </item>
+        <item row="0" column="3">
+         <property name="text">
+          <string>D</string>
+         </property>
+        </item>
+        <item row="0" column="4">
+         <property name="text">
+          <string>d</string>
+         </property>
+        </item>
+        <item row="0" column="5">
+         <property name="text">
+          <string>h0</string>
+         </property>
+        </item>
+        <item row="0" column="6">
+         <property name="text">
+          <string>bh</string>
+         </property>
+        </item>
+        <item row="0" column="7">
+         <property name="text">
+          <string>a</string>
+         </property>
+        </item>
+        <item row="1" column="0">
+         <property name="text">
+          <string/>
+         </property>
+        </item>
+       </widget>
+       <widget class="QTableWidget" name="tableWidget_15">
+        <property name="geometry">
+         <rect>
+          <x>120</x>
+          <y>2830</y>
+          <width>302</width>
+          <height>76</height>
+         </rect>
+        </property>
+        <property name="rowCount">
+         <number>2</number>
+        </property>
+        <property name="columnCount">
+         <number>2</number>
+        </property>
+        <attribute name="horizontalHeaderVisible">
+         <bool>false</bool>
+        </attribute>
+        <attribute name="horizontalHeaderDefaultSectionSize">
+         <number>150</number>
+        </attribute>
+        <attribute name="verticalHeaderVisible">
+         <bool>false</bool>
+        </attribute>
+        <attribute name="verticalHeaderHighlightSections">
+         <bool>true</bool>
+        </attribute>
+        <row/>
+        <row/>
+        <column/>
+        <column/>
+        <item row="0" column="0">
+         <property name="text">
+          <string>正弯矩产生裂缝</string>
+         </property>
+        </item>
+        <item row="0" column="1">
+         <property name="text">
+          <string>负弯矩产生裂缝</string>
+         </property>
+        </item>
+       </widget>
+       <widget class="QSpinBox" name="spinBox_19">
+        <property name="geometry">
+         <rect>
+          <x>120</x>
+          <y>2930</y>
+          <width>91</width>
+          <height>21</height>
+         </rect>
+        </property>
+        <property name="minimum">
+         <number>1</number>
+        </property>
+        <property name="maximum">
+         <number>10400</number>
+        </property>
+       </widget>
+       <widget class="QSlider" name="horizontalSlider_8">
+        <property name="geometry">
+         <rect>
+          <x>220</x>
+          <y>2930</y>
+          <width>361</width>
+          <height>22</height>
+         </rect>
+        </property>
+        <property name="maximum">
+         <number>10400</number>
+        </property>
+        <property name="singleStep">
+         <number>1</number>
+        </property>
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="tickPosition">
+         <enum>QSlider::NoTicks</enum>
+        </property>
+       </widget>
+       <widget class="XxwCustomPlot" name="widget_16" native="true">
+        <property name="geometry">
+         <rect>
+          <x>120</x>
+          <y>2980</y>
+          <width>1091</width>
+          <height>351</height>
+         </rect>
+        </property>
+       </widget>
+       <widget class="QDialogButtonBox" name="buttonBox">
+        <property name="geometry">
+         <rect>
+          <x>610</x>
+          <y>820</y>
+          <width>193</width>
+          <height>28</height>
+         </rect>
+        </property>
+        <property name="standardButtons">
+         <set>QDialogButtonBox::Cancel|QDialogButtonBox::Save</set>
+        </property>
+       </widget>
+       <widget class="QComboBox" name="comboBox_15">
+        <property name="geometry">
+         <rect>
+          <x>810</x>
+          <y>1890</y>
+          <width>71</width>
+          <height>31</height>
+         </rect>
+        </property>
+        <item>
+         <property name="text">
+          <string>弯矩</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>剪力</string>
+         </property>
+        </item>
+       </widget>
+       <widget class="QComboBox" name="comboBox_14">
+        <property name="geometry">
+         <rect>
+          <x>910</x>
+          <y>1890</y>
+          <width>101</width>
+          <height>31</height>
+         </rect>
+        </property>
+        <item>
+         <property name="text">
+          <string>基本组合</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>频遇组合</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>准永久组合</string>
+         </property>
+        </item>
        </widget>
       </widget>
      </widget>
@@ -5281,7 +5914,7 @@ p, li { white-space: pre-wrap; }
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1360</width>
+     <width>1343</width>
      <height>26</height>
     </rect>
    </property>
@@ -5374,34 +6007,66 @@ p, li { white-space: pre-wrap; }
    </hints>
   </connection>
   <connection>
-   <sender>horizontalSlider_5</sender>
-   <signal>valueChanged(int)</signal>
-   <receiver>spinBox_13</receiver>
-   <slot>setValue(int)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>448</x>
-     <y>503</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>163</x>
-     <y>498</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
    <sender>spinBox_13</sender>
    <signal>valueChanged(int)</signal>
    <receiver>horizontalSlider_5</receiver>
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>163</x>
-     <y>498</y>
+     <x>68</x>
+     <y>335</y>
     </hint>
     <hint type="destinationlabel">
-     <x>448</x>
-     <y>503</y>
+     <x>573</x>
+     <y>335</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>horizontalSlider_5</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>spinBox_13</receiver>
+   <slot>setValue(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>573</x>
+     <y>335</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>68</x>
+     <y>335</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>spinBox_15</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>horizontalSlider_7</receiver>
+   <slot>setValue(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>228</x>
+     <y>670</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>473</x>
+     <y>670</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>horizontalSlider_7</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>spinBox_15</receiver>
+   <slot>setValue(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>473</x>
+     <y>670</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>228</x>
+     <y>670</y>
     </hint>
    </hints>
   </connection>

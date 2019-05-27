@@ -30,26 +30,26 @@ half_box_girder::half_box_girder(float vh, float vd1, float vd2, float vd3, floa
 	trangle7 = Triangle(b6, h6, (d3 + h6 / 3));
 
 
-};
+}
 float half_box_girder::getAreaSum() {
 	return rec1.Area + rec2.Area + rec3.Area + trangle1.Area + trangle2.Area + trangle3.Area + trangle4.Area + trangle5.Area + trangle6.Area + trangle7.Area;
-};
+}
 float half_box_girder::getSMOASum(float yc) {
 	return rec1.getSMOA(yc) + rec2.getSMOA(yc) + rec3.getSMOA(yc) + trangle1.getSMOA(yc) + trangle2.getSMOA(yc) + trangle3.getSMOA(yc) + trangle4.getSMOA(yc)
 		+ trangle5.getSMOA(yc) + trangle6.getSMOA(yc) + trangle7.getSMOA(yc);
-};
+}
 float half_box_girder::getStaticMomentSum() {
 	return rec1.getStaticMoment() + rec2.getStaticMoment() + rec3.getStaticMoment() + trangle1.getStaticMoment() + trangle2.getStaticMoment()
 		+ trangle3.getStaticMoment() + trangle4.getStaticMoment() + trangle5.getStaticMoment() + trangle6.getStaticMoment() + trangle7.getStaticMoment();
-};
+}
 float half_box_girder::getCentroidHeight() {
 	return getStaticMomentSum() / getAreaSum();
-};
+}
 small_box_girder::small_box_girder(half_box_girder vleft, half_box_girder vright) {
 	left = vleft;
 	right = vright;
 
-};
+}
 float small_box_girder::SmoaSlove(float yc) {
 	return left.getSMOASum(yc) + right.getSMOASum(yc);
 }
@@ -61,16 +61,16 @@ float small_box_girder::StaticMomentSolve() {
 }
 float small_box_girder::AreaSolve() {
 	return (left.getAreaSum() + right.getAreaSum());
-};
+}
 float small_box_girder::SolveKs() {
 	return SmoaSlove(CentroidHeightSolve()) / (AreaSolve()*(left.h - CentroidHeightSolve()));
-};
+}
 float small_box_girder::SolveKx() {
 	return SmoaSlove(CentroidHeightSolve()) / (AreaSolve()*(CentroidHeightSolve()));
-};
+}
 float small_box_girder::getRho() {
 	return (SolveKs() + SolveKx()) / left.h;
-};
+}
 bool small_box_girder::isValid() {
 	return getRho() > 0.5;
 }
@@ -190,7 +190,7 @@ float small_box_girder::torsionalMomentInertiaSolve() {
 
 	return bt3c1 + bt3c2 + 4 * pow(area, 2) / btSum;
 
-};
+}
 float * half_box_girder::getMidleLineS() {
 	float *a = new float[4];
 	a[0] = b2 + d3 / (2 * p) - d2 / 2 * sqrt(1 + pow((1 / p), 2));
@@ -345,7 +345,7 @@ int OrdinaryBrigeSection::getLeftBeamId(float s)
     }
     return l;
 }
-
+//横隔梁
 float OrdinaryBrigeSection::get_R(int i,float e)
 {   //i 梁号 从1开始;
     field_making_girder_beam calbeam=(i==bean_nums|i==1)? side_main_bean:mid_main_bean;
@@ -362,6 +362,8 @@ float OrdinaryBrigeSection::get_R(int i, int j)
 { //梁号以一开始下标一表示求解的梁,下标2表示力的作用梁号;
     return get_R(i ,aid[j-1]);
 }
+
+
 
 vector<float> OrdinaryBrigeSection::getVr_At(float s)
 {//s截面位置;
@@ -424,6 +426,7 @@ vector<float> OrdinaryBrigeSection::getMr_At(float s,bool symb)
      return res;
 }
 
+
 float OrdinaryBrigeSection::cross_bending(float s, bool symb)
 { float temp=0;
   vector<float> M=getMr_At(s,symb);
@@ -476,6 +479,158 @@ void OrdinaryBrigeSection::cross_storge()
 
 }
 
+float OrdinaryBrigeSection::get_e_value(int VehicleNum)
+{       vector<float> e=getEccentricDistances(VehicleNum);
+        float esum=0;
+            for(int i=0;i<e.size();i++){
+                 esum+=e[i];
+
+            }
+
+
+return 0.5*total_span-esum/e.size();
+
+}
+
+float OrdinaryBrigeSection::PartialLoadMcq(int beamId, int VehicleNum)
+{ //偏压法求下部结构横向分布系数;
+
+    float e=get_e_value(VehicleNum);
+   float mcq=getPerTireLoad(beamId,e)*CoefficientloadArrange[VehicleNum - 1]*VehicleNum;
+   return mcq;
+
+
+}
+
+
+vector<float> OrdinaryBrigeSection::getCenterLoadArrange(int VehicleNum)
+{
+
+    if (VehicleNum>getMaximumVehicle()){
+    qDebug()<<"布载系数超出最大布载值";
+
+    }
+
+vector<float> res;
+res=E_val_bulder(false,VehicleNum);
+
+/*if(VehicleNum==1){
+    res.push_back(total_span/2-0.9);
+      res.push_back(total_span/2+0.9);
+}
+if(VehicleNum==2){
+    res.push_back(total_span/2-0.65);
+      res.push_back(total_span/2+0.65);
+       res.push_back(res[0]-1.8);
+        res.push_back(res[1]+1.8);
+
+}
+if(VehicleNum==3){
+    res.push_back(total_span/2-0.9);
+      res.push_back(total_span/2+0.9);
+       res.push_back(res[0]-1.3);
+        res.push_back(res[0]-1.3-1.8);
+        res.push_back(res[1]+1.3);
+         res.push_back(res[1]+1.3+1.8);
+}*/
+
+return res;
+
+
+}
+
+float OrdinaryBrigeSection::getCenterLoadMcq(int beamId, int VehicleNum)
+{        BasicInterpolationTable valSolver;
+         //fsm3==fsm5;
+    vector<float> val;
+    val.push_back(0);
+    val.push_back(fsm.s1);
+    val.push_back(fsm.s1+fsm.s2);
+    val.push_back(fsm.s1+fsm.s2+fsm.s3);
+    val.push_back(fsm.s1+fsm.s2+fsm.s3+fsm.s4);
+    val.push_back(fsm.s1+fsm.s2+fsm.s3+fsm.s4+fsm.s5);
+        val.push_back(fsm.s1+fsm.s2+fsm.s3+2*fsm.s4+fsm.s5);
+        val.push_back(fsm.s1+fsm.s2+2*fsm.s3+2*fsm.s4+fsm.s5);
+         val.push_back(fsm.s1+2*fsm.s2+2*fsm.s3+2*fsm.s4+fsm.s5);
+         val.push_back(total_span);
+         if(beamId>bean_nums|beamId<1){
+         qDebug()<<"非法计算请求!";
+         }
+              if( beamId==1){
+             float c[4]={val[0],val[2],val[3],val[9]};
+             float d[4]={1,1,0,0};
+             valSolver.update(c,d,4);
+
+
+              }else{
+
+                  if(beamId==bean_nums){
+                      float c[4]={val[0],total_span- val[3],total_span- val[2],val[9]};
+                    float d[4]={0,0,1,1};
+                    valSolver.update(c,d,4);
+
+                  }
+                  else
+                  { float gap=fsm.s3+fsm.s4;
+                      float offset=(beamId-2)*gap;
+                      float c[6]={val[0],val[2]+offset,val[3]+offset,val[4]+offset,val[5]+offset,val[9]+offset};
+                        float d[6]={0,0,1,1,0,0};
+                      valSolver.update(c,d,6);
+
+                  }
+
+
+              }
+
+
+
+
+         float result=0;
+
+        vector<float> evals=getCenterLoadArrange(VehicleNum);
+        for(int i=0;i<evals.size();i++){
+
+            float test=valSolver.Interpolat(evals[i]);;
+
+            result+=valSolver.Interpolat(evals[i]);
+
+        }
+        return 0.5*result*CoefficientloadArrange[VehicleNum - 1];
+
+}
+
+vector<float> OrdinaryBrigeSection::E_val_bulder(bool Type, int VehicleNum)
+{
+    //type true 偏载;false 中载;
+        int esum=VehicleNum*2;
+        vector<float> eval;
+        vector<float> res;
+        float offset;//偏移值
+
+        for(int i=1;i<=esum;i++){
+            int tgap=i/2;
+            int cgap=(i-1)/2;
+            eval.push_back(1.8*tgap+cgap*1.3);
+
+        }
+
+        if(Type){
+          //偏载
+          offset=stoneWidth+0.5;
+
+        }else{
+            //中载
+             float symtl=(eval[0]+eval[eval.size()-1])/2;//对称线位置
+            offset=total_span/2-symtl;
+
+        }
+        for(int i=0;i<eval.size();i++){
+            res.push_back(eval[i]+offset);
+        }
+        return res;
+
+}
+
 vector<float> OrdinaryBrigeSection::get_Poq(int corss_bean_num)
 {
     vector<float> res;
@@ -487,4 +642,592 @@ vector<float> OrdinaryBrigeSection::get_Poq(int corss_bean_num)
 
 return res;
 }
+
+
+void Coping::focePointInit()
+{    LcaVal.clear();
+    for(int i=0;i<beamLca.size();i++){
+
+        LcaVal.push_back(beamLca[i]-Zx/2);
+         LcaVal.push_back(beamLca[i]+Zx/2);
+    }
+}
+
+float Coping::getHeightSum()
+{
+    float G=(2*SideBeamLoad+(beamNum-2)*MidBeamLoad)*Lc;
+    return G;
+
+}
+
+vector<float> Coping::getSupReaction()
+{
+    vector<float> res;
+    res.push_back(SideBeamLoad*Lc*0.5);
+    res.push_back(MidBeamLoad*Lc*0.5);
+    return res;
+}
+
+float Coping::getCodeByX(float x)
+{
+    float c[4]={0,l1-d*0.5-bt,l-(l1-d*0.5-bt),l};
+    float d[4]={dt,h0,h0,dt};
+     BasicInterpolationTable dSolver= BasicInterpolationTable(c,d,4);
+     float hd=dSolver.Interpolat(x);
+     return hd*bh*25;
+
+
+}
+
+float Coping::getSideCodeByX()
+{
+    return dt*bh*25;//个人认为不计入上部比较精确;
+}
+
+float Coping::getGh()
+{ float g=getCodeByX(l/2);
+  float ge=getCodeByX(0);
+  return g*(l2+d+2*bt)+(g+ge)*0.5*(l1-0.5*d-bt)*2;
+  //返回盖梁总重;
+
+}
+
+float Coping::CoopingBendingSolve(float x)
+{  x=x<l/2? x:l-x;
+    if(x<(l1-0.5*d-bt)){
+      // 如果所求截面在变化段;
+        float ge=getCodeByX(0);
+         float g1=getCodeByX(x);
+         float bending=ge*pow(x,2)*0.5+(g1-ge)*0.5*x*x/3;
+         return -bending;
+
+    }else{
+      //如果截面已经超出变化段则需要分成两段考虑;
+        float xe=l1-0.5*d-bt;
+       float ge=getCodeByX(0);
+        float g1=getCodeByX(xe);
+        float bending1=ge*xe*(x-xe/2)+(g1-ge)*xe*0.5*(x-2*xe/3);
+        float mtd=x-xe;
+        float bending2=g1*mtd*mtd/2;
+        if(x<l1){
+
+             return -(bending1+bending2);
+
+
+        }else{
+            return getGh()/2*(x-l1)-(bending1+bending2);
+
+
+        }
+
+    }
+
+
+}
+
+float Coping::CoopingSfSolve(float x)
+{    //只对半盖梁跨长进行计算;
+    //以米为计算单位
+    float flag=x<=l/2? 1:-1;;
+    x=x<l/2? x:l-x;
+   if(x<(l1-0.5*d-bt))
+   {
+       // 如果所求截面在变化段;
+       float ge=getCodeByX(0);
+        float g1=getCodeByX(x);
+        return -(ge+g1)*x*0.5*flag;
+
+   }else
+   {
+     //如果截面已经超出变化段则需要分成两段考虑;
+       float xe=l1-0.5*d-bt;
+       float ge=getCodeByX(0);
+       float g1=getCodeByX(xe);
+       float mdt=x-xe;
+           if(x<l1){
+               //判断在支座1的左边还是右边----左边;
+
+           return -((ge+g1)*xe*0.5-g1*mdt)*flag;
+
+
+
+           }else
+           {
+               //右边----
+               return (getGh()/2-(ge+g1)*xe*0.5-g1*mdt)*flag;
+
+           }
+
+
+
+
+   }
+
+
+}
+
+vector<float> Coping::getBeamLoadReaction()
+{
+    vector<float> res;
+    vector<float> foces;
+    vector<float> p=getSupReaction();//边梁和中梁产生的荷载
+    float R1;
+    float R2;
+    float lca2=l-l3;
+    float M_Sum=0;
+    for(int i=0;i<beamNum;i++){
+        foces.push_back(p[1]);
+    }
+    foces[0]=p[0];foces[foces.size()-1]=p[0];
+    for(int i=0;i<beamNum;i++){
+
+       M_Sum+=foces[i]*(lca2-beamLca[i]);
+    }
+    R1=2*M_Sum/l2;
+    R2=getHeightSum()-R1;
+    res.push_back(R1);
+    res.push_back(R2);
+    return res;
+
+}
+
+float Coping::CoopingTopBending(float x)
+{   x=x<l/2? x:l-x;
+    vector<float> p=getSupReaction();
+    float MSum=0;
+     vector<float> foces;
+        for(int i=0;i<beamNum*2;i++){
+            foces.push_back(p[1]);
+        }
+        foces[0]=p[0];foces[1]=p[0];foces[foces.size()-2]=p[0];foces[foces.size()-1]=p[0];
+
+
+      for(int i=0;i<LcaVal.size();i++){
+          if(LcaVal[i]<x){
+              MSum-=(x-LcaVal[i])*foces[i];
+
+          }
+
+      }
+          if(x>l1){
+            MSum+=getBeamLoadReaction()[0]*(x-l1);
+          }
+
+return MSum;
+}
+
+float Coping::CoopingTopSf(float x)
+{
+        vector<float> p=getSupReaction();
+        float SfSUm=0;
+         vector<float> foces;
+            for(int i=0;i<beamNum*2;i++){
+                foces.push_back(p[1]);
+            }
+                 foces[0]=p[0];foces[1]=p[0];foces[foces.size()-2]=p[0];foces[foces.size()-1]=p[0];
+            for(int i=0;i<LcaVal.size();i++){
+                if(LcaVal[i]<x){
+                    SfSUm-=foces[i];
+                }
+
+            }
+                if(x>l1){
+                   SfSUm+= getBeamLoadReaction()[0];
+                }
+                if(x>l1+l2){
+
+                   SfSUm+= getBeamLoadReaction()[1];
+                }
+                return SfSUm;
+}
+
+float Coping::CoopingBendingSum(float x)
+{
+    return CoopingBendingSolve(x)+CoopingTopBending(x);
+
+}
+
+float Coping::CoopingSfSum(float x)
+{
+    return CoopingSfSolve(x)+CoopingTopSf(x);
+}
+
+vector<float> Coping::getSupReactionSum()
+{
+    vector<float> res;
+     vector<float> a=getSupReaction();;
+    vector<float> b=getBeamLoadReaction();
+    res.push_back(a[0]+b[0]);
+    res.push_back(a[1]+b[1]);
+    return res;
+
+
+}
+
+float Coping::getRQi(bool loadType,bool SolveType, int VehicleNum, int beamId)
+{   //loadTye true视为单孔布载,否则视为双控布载;
+    //SolveType true表示杠杆法 ,否则表示修正偏压法;
+    float vmc=demobs.vmcffe();
+    float Rq1=vmc*(1.2*demobs.pk+demobs.qk*Lj*0.5);
+     float Rq2=vmc*(1.2*demobs.pk+demobs.qk*(Lj+(Lc-Lj)));
+     float RCal;
+     if(loadType){
+         RCal=Rq1;
+
+     }else{
+       RCal=Rq2;
+
+     }
+     if(SolveType){
+         return 0.5*RCal*demobs.getCenterLoadMcq(beamId,VehicleNum);
+
+     }else{
+         return 0.5*RCal*demobs.PartialLoadMcq(beamId,VehicleNum);
+
+
+     }
+
+}
+
+vector<float> Coping::getReactions(bool loadType, bool SolveType,int VehicleNum)
+{   //loadTye true视为单孔布载,否则视为双控布载;
+    //SolveType true表示杠杆法 ,否则表示修正偏压法;
+    vector<float> res;
+    for(int i=1;i<=beamNum;i++){
+        res.push_back(getRQi(loadType,SolveType,VehicleNum,i));
+         res.push_back(getRQi(loadType,SolveType,VehicleNum,i));
+    }
+    return res;
+
+}//活载产生的各支座力数组
+
+vector<float> Coping::getLiveReaction(bool loadType, bool SolveType, int VehicleNum)
+{ vector<float> sups=getReactions(loadType,SolveType,VehicleNum);
+   vector<float> res;
+    float R1,R2;
+    float M=0;
+    float supsum=0;
+    for(int i=0;i<sups.size();i++){
+        supsum+=sups[i];
+       M+=sups[i]*(LcaVal[i]-l1);
+    }
+    R2=M/l2;
+    R1=supsum-R2;
+    res.push_back(R1);
+    res.push_back(R2);
+
+    return res;
+}
+
+float Coping::getLiveLoadBending(bool SolveType, int VehicleNum, float x)
+{ bool loadType=false;
+  float BendingSum=0;
+  vector<float> sup=getLiveReaction(loadType,SolveType,VehicleNum);
+  vector<float> foces=getReactions(loadType,SolveType,VehicleNum);
+  for(int i=0;i<LcaVal.size();i++){
+      if(LcaVal[i]<x){
+        BendingSum-=(x-LcaVal[i])*foces[i];
+
+      }
+  }
+  if(x>l1){
+
+      BendingSum+=(x-l1)*sup[0];
+
+
+  }
+  return BendingSum;
+
+}
+
+float Coping::getLiveLoadSf(bool SolveType, int VehicleNum, float x)
+{   bool loadType=false;
+    float SfSum=0;
+    vector<float> sup=getLiveReaction(loadType,SolveType,VehicleNum);
+    vector<float> foces=getReactions(loadType,SolveType,VehicleNum);
+    for(int i=0;i<LcaVal.size();i++){
+        if(LcaVal[i]<x){
+
+            SfSum-=foces[i];
+        }
+    }
+    if(x>l1){
+
+        SfSum+=sup[0];
+    }
+    return SfSum;
+
+}
+
+vector<float> Coping::getLiveLoadFoces(bool SolveType, int VehicleNum, float x)
+{
+    bool loadType=false;
+       float SfSum=0;
+       float bendingSum=0;
+       vector<float> sup;
+       vector<float> foces=getReactions(loadType,SolveType,VehicleNum);
+       for(int i=0;i<LcaVal.size();i++){
+           bendingSum+=InnerFoceSolve(LcaVal[i],foces[i],x)[0];
+           SfSum+=InnerFoceSolve(LcaVal[i],foces[i],x)[1];
+
+       }
+       if(x>l1){
+           sup=getLiveReaction(loadType,SolveType,VehicleNum);
+           bendingSum+=InnerFoceSolve(l1,-sup[0],x)[0];
+           SfSum+=InnerFoceSolve(l1,-sup[0],x)[1];
+
+       }
+       if(x>l1+l2){
+           bendingSum+=InnerFoceSolve(l1+l2,-sup[1],x)[0];
+           SfSum+=InnerFoceSolve(l1+l2,-sup[1],x)[1];
+
+       }
+       vector<float> res;
+       res.push_back(bendingSum);
+       res.push_back(SfSum);
+       return res;
+
+}
+
+vector<float> Coping::InnerFoceSolve(float Xp, float p, float X)
+{ vector<float> res;
+    if(Xp<X){
+        res.push_back((Xp-X)*p);
+        res.push_back(-p);
+    }else{
+        res.push_back(0);
+        res.push_back(0);
+
+    }
+return res;
+}
+
+vector<float> Coping::getInnerFoceAt(float X){
+   // Flag 标记 true计算上部结构恒载产生内力
+  //false 计算上部结构活载产生内力
+    vector<float> res;
+    float bending=0;
+    float Sf=0;
+    vector<float> foces1=getBearLoad1();//梁自重对各支座产生的压力(从左到右)
+   for(int i=0;i<foces1.size();i++){
+       vector<float> temp=InnerFoceSolve(LcaVal[i],foces1[i],X);
+        bending+=temp[0];
+        Sf+=temp[1];
+   }
+   if(X>l1){
+       vector<float> temp=InnerFoceSolve(l1,-getBeamLoadReaction()[0],X);
+        bending+=temp[0];
+        Sf+=temp[1];
+
+   }
+   if(X>l1+l2){
+       vector<float> temp=InnerFoceSolve(l1+l2,-getBeamLoadReaction()[1],X);
+        bending+=temp[0];
+        Sf+=temp[1];
+
+   }
+   res.push_back(bending);
+   res.push_back(Sf);
+    return res;
+
+}
+
+vector<float> Coping::getBearLoad1()
+{   vector<float> foces1;
+    vector<float> p=getSupReaction();
+        for(int i=0;i<beamNum*2;i++){
+            foces1.push_back(p[1]);
+        }
+        foces1[0]=p[0];foces1[1]=p[0];foces1[foces1.size()-2]=p[0];foces1[foces1.size()-1]=p[0];
+        return foces1;
+}
+
+vector<float> Coping::getExtremumfoces(float x)
+{
+    float M_max,M_min,Sf_Max,Sf_min;
+    vector<float> M,Sf;
+    for(int i=1;i<=3;i++){
+    vector<float> temp=getLiveLoadFoces(false,i, x);
+    M.push_back(temp[0]);
+    Sf.push_back(temp[1]);
+    temp=getLiveLoadFoces(true,i, x);
+    M.push_back(temp[0]);
+    Sf.push_back(temp[1]);
+
+
+    }
+    M_max=M[0],M_min=M[0],Sf_Max=Sf[0],Sf_min=Sf[0];
+    for(int i=0;i<M.size();i++){
+        M_max=M_max>M[i]? M_max:M[i];
+        M_min=M_min<M[i]? M_min:M[i];
+        Sf_Max= Sf_Max>Sf[i]? Sf_Max:Sf[i];
+         Sf_min= Sf_min<Sf[i]? Sf_min:Sf[i];
+
+    }
+    vector<float> res;
+    res.push_back(M_max);
+     res.push_back(M_min);
+     res.push_back( Sf_Max);
+    res.push_back(Sf_min);
+    return res;
+}
+
+vector<float> Coping::getCombinSud(float x)
+{
+    vector<float> liveLoad=getExtremumfoces( x);
+    vector<float> res;
+    float bending=CoopingBendingSum( x);
+    float Sf=CoopingTopSf(x);
+    res.push_back(ultimateLimitSta( bending,liveLoad[0]*demobs.vmcffe()));
+    res.push_back(ultimateLimitSta( bending,liveLoad[1]*demobs.vmcffe()));
+    res.push_back(ultimateLimitSta( Sf,liveLoad[2]*demobs.vmcffe()));
+    res.push_back(ultimateLimitSta(Sf,liveLoad[3]*demobs.vmcffe()));
+    return res;
+
+}
+
+vector<float> Coping::getCombinSfd(float x)
+{
+    vector<float> liveLoad=getExtremumfoces( x);
+    vector<float> res;
+    float bending=CoopingBendingSum( x);
+    float Sf=CoopingTopSf(x);
+
+        res.push_back(sfd( bending,liveLoad[0]));
+        res.push_back(sfd( bending,liveLoad[1]));
+        res.push_back(sfd( Sf,liveLoad[2]));
+        res.push_back(sfd(Sf,liveLoad[3]));
+
+
+    return res;
+}
+
+vector<float> Coping::getCombinSqd(float x)
+{
+    vector<float> liveLoad=getExtremumfoces( x);
+    vector<float> res;
+    float bending=CoopingBendingSum( x);
+    float Sf=CoopingTopSf(x);
+    res.push_back(sqd( bending,liveLoad[0]));
+    res.push_back(sqd( bending,liveLoad[1]));
+    res.push_back(sqd( Sf,liveLoad[2]));
+    res.push_back(sqd(Sf,liveLoad[3]));
+    return res;
+}
+
+bool Coping::getMembersType()
+{
+  float ln=l2-0.8*d;
+  float ltemp=1.15*ln<l2? 1.15*ln:l2;
+  return 2<ltemp/h0<=5;
+}
+
+vector<float> Coping::getMinNM()
+{ float startflag=0;
+    float gap=l/200;
+    float Min_M=0;
+    vector<float> res;
+    while(startflag<l/2){
+        float temp=getCombinSud(startflag)[1];
+        Min_M=Min_M<temp? Min_M:temp;
+        startflag+=gap;
+
+    }
+    res.push_back(Min_M);
+    res.push_back(startflag-gap);
+    return res;
+}
+
+vector<float>  Coping::getAs(float as)
+{ //as以毫米为单位
+    float M_Max=getCombinSud(l/2)[0];//跨中极限组合内力值
+    float M_Min=fabs(getMinNM()[0]);
+    float param1,param2,param3,param4;
+     float x1=0,x2=0;
+    if(getMembersType()){
+        float h1=h0*1e3-as;
+     param1=0.5*myfcd*bh*1e3;
+     param2=-myfcd*bh*h1*1e3;
+     param3=M_Max*1e6;
+     param4=M_Min*1e6;
+     vector<float> root1;
+     vector<float> root2;
+
+     float temp=pow(param2,2)-4*param1*param3;
+     float temp1=pow(param2,2)-4*param1*param4;
+     if(temp>=0){
+         root1.push_back((-param2+sqrt(temp))/(2*param1));
+         root1.push_back((-param2-sqrt(temp))/(2*param1));
+         x1=0<root1[0]<1e3*h0?  root1[0]:x1;
+         x1=0<root1[1]<1e3*h0? root1[1]:x1;
+
+
+     }else{qDebug()<<"1无解的方程!";}
+     if(temp1>0){
+         root2.push_back((-param2+sqrt(temp1))/(2*param1));
+         root2.push_back((-param2-sqrt(temp1))/(2*param1));
+         x2=0<root2[0]<1e3*h0?  root2[0]:x2;
+         x2=0<root2[1]<1e3*h0? root2[1]:x2;
+
+     }else{
+         qDebug()<<"2无解的方程!";}
+
+    }else{
+
+
+
+    }
+  vector<float> res;
+  res.push_back(myfcd*bh*1e3*x1/myfsd);
+  res.push_back(myfcd*bh*1e3*x2/myfsd);
+
+  return res;
+}
+
+float Coping::P_CrackSolve(float x)
+{   float P_C2,P_C3,sigma_ss;
+     float Wfk;
+    if(getMembersType()){
+        float ln=l2-0.8*d;
+        float ltemp=1.15*ln<l2? 1.15*ln:l2;
+        float Ms=getCombinSfd(x)[0];
+        P_C2=1+0.5*getCombinSqd(x)[0]/Ms;
+        P_C3=(0.4*ltemp/h0+1)/3;
+        sigma_ss=1e6*Ms/(0.87*myAs*(h0*1e3-myas));
+        float rho=getRho(myAs,myas);
+        Wfk=C1*P_C2*P_C3*sigma_ss/Es*((30+steel_d1)/(0.28+10*rho));
+
+
+    }
+
+    return Wfk;
+}
+
+float Coping::N_CrackSolve(float x)
+{
+float P_C2,P_C3,sigma_ss;
+         float Wfk;
+        if(getMembersType()){
+            float ln=l2-0.8*d;
+            float ltemp=1.15*ln<l2? 1.15*ln:l2;
+            float Ms=fabs(getCombinSfd(x)[1]);
+            P_C2=1+0.5*fabs(getCombinSqd(x)[1])/Ms;
+            P_C3=(0.4*ltemp/h0+1)/3;
+            sigma_ss=1e6*Ms/(0.87*myAs2*(h0*1e3-myas1));
+            float rho=getRho(myAs2,myas1);
+            Wfk=C1*P_C2*P_C3*sigma_ss/Es*((30+steel_d2)/(0.28+10*rho));
+
+
+        }
+
+        return Wfk;
+}
+
+float Coping::getRho(float mAs,float mas)
+{
+    return mAs/(bh*1e3*(h0*1e3-mas));
+
+}
+
+
 

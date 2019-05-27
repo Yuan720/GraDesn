@@ -62,6 +62,10 @@ public:
     void draw_deadLoadFoce(bool beamtype,bool foceType);
     void deadLoadRequest();
     void getCombinLoadFoce();
+    vector<float> getdeflecation(int beamId);
+    void deflectionRender(int beamId);
+    void draw_CoopingCombinaM();
+    void draw_CoopingCombinaSf();
 signals:
     void task_1_send(QVariant v,bool taskType);
     void task_2_send(QVariant v,QVariant w,bool taskType);
@@ -87,19 +91,16 @@ private slots:
     void mcqRender(QVariant v,QString tbName);
     void on_listWidget_currentRowChanged(int currentRow);
     void on_commandLinkButton_clicked();
-    void on_commandLinkButton_4_clicked();
+
     void on_listWidget_2_currentRowChanged(int currentRow);
     void on_commandLinkButton_2_clicked();
     void on_checkBox_3_stateChanged(int arg1);
-    void on_commandLinkButton_5_clicked();
-    void on_pushButton_4_clicked();
     void on_spinBox_2_valueChanged(int arg1);
     void on_comboBox_4_currentIndexChanged(int index);
-    void on_commandLinkButton_6_clicked();
-    void on_commandLinkButton_49_clicked();
+     void on_commandLinkButton_49_clicked();
     void on_commandLinkButton_50_clicked();
     void on_commandLinkButton_51_clicked();
-    void on_pushButton_2_clicked();
+
     void on_commandLinkButton_3_clicked();
     void on_commandLinkButton_52_clicked();
     void on_tableWidget_189_cellClicked(int row, int column);
@@ -125,6 +126,7 @@ private slots:
     void on_comboBox_19_currentIndexChanged(int index);
 
     void prestrLossRender(QVariant data);
+    void SetAp(vector<myPath> steelpath);
 
     void on_horizontalSlider_5_actionTriggered(int action);
     void  draw_prestrLossP();
@@ -135,10 +137,32 @@ private slots:
     void drawPermanentStress(int beamId);
     void draw_MainStress(int beamId);
     void drawfocescheaking(int beamId);//对所用应力验算进行绘图;
-
-    void on_spinBox_16_valueChanged(int arg1);
+   void drawcrackChecking(int beamId);//正截面抗裂验算
+   void draw_obliqueCrack(int beamId);
+   void draw_Copingdeadload_M();// 盖梁恒载弯矩
+   void draw_CopingDeadLoadSF();//绘制盖梁恒载剪力
+   void draw_CopingCombinas();
+   void on_spinBox_16_valueChanged(int arg1);
     void mainBeamdeadLoad();
+    void on_stackedWidget_currentChanged(int arg1);
+    void on_stackedWidget_2_currentChanged(int arg1);
+    void on_spinBox_valueChanged(int arg1);
+    void on_pushButton_2_clicked();
+    void SetPreSteelInfo();//预应力筋基本信息设置
+    void CavasSet(XxwCustomPlot * m_customPlot,QString str);
 
+
+   void on_spinBox_17_valueChanged(int arg1);
+
+   void on_commandLinkButton_58_clicked();
+
+   void on_horizontalSlider_7_valueChanged(int value);
+
+   void on_horizontalSlider_8_valueChanged(int value);
+
+   void on_comboBox_14_currentIndexChanged(const QString &arg1);
+
+   void on_comboBox_15_currentIndexChanged(int index);
 
 private:
     bool box_1_cheaked=false;

@@ -23,6 +23,7 @@ public:
     explicit CacularThread(QObject *parent = nullptr);
     MainBeam *mymb=NULL;
     OrdinaryBrigeSection *myobs=NULL; //支点边梁
+    Coping mycp;
     field_making_girder_beam *FulcrSideBeam=NULL;  //支点中梁
     field_making_girder_beam *FulcrMidBeam=NULL; //跨中边梁
     field_making_girder_beam *mid_SpanSideBeam=NULL; //跨中中梁
@@ -90,5 +91,7 @@ public slots:
     void  CombinLoadSolve(int beamId,int combinType,bool foceType);
     vector<float>  PermanentCheak(int beamID,float x);//永久状况验算
     vector<float> MainStressSolve(int beamId,float x);
+    vector<float> drawcrackChecking(int beamId,float x);//正截面抗裂
+    vector<float> obliqueCrack(int beamId,float x);
 };
 #endif // CACULARTHREAD_H

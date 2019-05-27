@@ -319,10 +319,32 @@ vector<float> CacularThread::MainStressSolve(int beamId,float x)
              Vq=myobs->getLiveLoad_Sf(beamId,x)[2];//
              return beamToSolve.MainStress(x,Mq,Vq);
 
+}
 
+vector<float> CacularThread::drawcrackChecking(int beamId, float x)
+{
+    bool beamType=(beamId==1|beamId==myobs->bean_nums)? false:true;
+     beam beamToSolve=beamType? MDemonBeam:SDemonBeam;
+      beamToSolve.setSteel(paths);
+          float M;
+       M=myobs->getLiveLoad_M(beamId,x);
+        float Mqs,Mql;
+        Mqs=0.7*M;Mql=0.4*M;
 
+       return beamToSolve.crackChecking(x,Mqs,Mql);
 
+}
 
+vector<float> CacularThread::obliqueCrack(int beamId, float x)
+{
+    bool beamType=(beamId==1|beamId==myobs->bean_nums)? false:true;
+     beam beamToSolve=beamType? MDemonBeam:SDemonBeam;
+      beamToSolve.setSteel(paths);
+          float Vq,Mq;
+       Mq=0.7*myobs->getLiveLoad_M(beamId,x);
+       Vq=0.7*myobs->getLiveLoad_Sf(beamId,x)[2];//
+
+       return beamToSolve.MainStress(x,Mq,Vq);
 }
 void CacularThread::get_Section_Combination(int beamId,float x)
 {

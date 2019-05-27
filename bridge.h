@@ -5,6 +5,7 @@ using namespace std;
 #include<iostream>
 #include<QDebug>
 #include<variables.h>
+#include<Casoa.h>
 
 //基本插值表类
 //提供给定表的任意x的插值结果计算;
@@ -26,7 +27,7 @@ public:
 		ivar = x;
 		idvar = y;
 
-	};
+    }
 	void update(float x[], float y[], int xsz) {
 		sizex = xsz;
 		ivar = x;
@@ -109,7 +110,7 @@ public:
 class half_box_girder {
 public:
     half_box_girder(vector<float> v,bool type);
-	half_box_girder() {};
+    half_box_girder() {}
 	half_box_girder(float h, float d1, float d2, float d3, float b1, float b2, float b4, float h4, float b5, float  h5, float b6, float h6, float p, bool type);
 	float h;
 	float d1, d2, d3, b1, b2;
@@ -136,9 +137,9 @@ public:
 };
 class small_box_girder {
 public:
-	small_box_girder() {};
+    small_box_girder() {}
 	small_box_girder(half_box_girder vleft, half_box_girder vright);
-	half_box_girder left;
+    half_box_girder left;
 	half_box_girder right;
 	float SmoaSlove(float yc);
 	float StaticMomentSolve();
@@ -311,10 +312,9 @@ public:
 	float getPerTireLoad(int bean_Id, float e) {
 		float param1 = moi_field_included[bean_Id - 1] / getVectorSum(moi_field_included, 1, moi_field_included.size());
 		float param2 = getVectorSum(get_aid_moif(), 1, get_aid_moif().size());
-		float param3 = (aid[bean_Id - 1] * e*moi_field_included[bean_Id - 1] / param2);
-		return param1 + getBeta()*param3 / param2;
-
-	}
+        float param3 = (-aid[bean_Id - 1] * e*moi_field_included[bean_Id - 1] );
+        return param1 + getBeta()*param3 / param2;
+    }
 	float vmcffe() {
 		//求解冲击系数
 		float Ic = getVectorSum(moi_field_included, 1, moi_field_included.size());
@@ -398,7 +398,7 @@ public:
 
 		float result;
 		if (beamId == 1 | beamId == bean_nums)
-		{
+        {
 			float a[3] = { 0,fsm.s1 + fsm.s2,fsm.s1 + fsm.s2 + fsm.s3 };
 			float b[3] = { 1,1,0 };
 			//一号梁单列
@@ -723,6 +723,7 @@ public:
 
 
         }
+   //横隔梁
     float get_Mr(float px,float s);
     float get_Vr(float px,float s);//单位力作用在px时对s截面产生的弯矩/剪力
     int getLeftBeamId(float s);//s截面位置;
@@ -734,6 +735,87 @@ public:
      float cross_bending(float s,bool symb);
      float cross_sf(float s);
      void cross_storge();
-};
+     float get_e_value(int VehicleNum );
+     float PartialLoadMcq(int beamId, int VehicleNum);//下部结构偏心压力法求mcq非对称布载
+     vector<float> getCenterLoadArrange(int VehicleNum);//返回对称布载轮胎分布向量数组
+    float getCenterLoadMcq(int beamId,int VehicleNum );//对称布载横向分布系数
+    vector<float> E_val_bulder(bool Type,int VehicleNum);//生成布载数组
 
+
+};
+class  Coping
+{
+   //盖梁
+public:
+  OrdinaryBrigeSection demobs;
+ int beamNum=4;
+ float Lj=33.8;
+ float l=10.4;//盖梁总长
+ float l1=2.1;
+ float l2=6.2;
+ float l3=2.1;
+ float lb=8.7;
+ float b=1;
+ float d=1.2;//柱直径
+ float D=1.4;//桩直径
+ float h0=1.8;//盖梁高
+ float h1=5;//柱长
+ float h2;//桩长
+ float bh=1.84;//盖梁宽度
+ float SideBeamLoad=50.18389;//边梁恒载;
+ float MidBeamLoad=49.75949;//中梁恒载;
+ float Lc=35;//桥梁总长;
+ float a=0.9;
+ float t=0.25;
+ float ht=0.3;
+ float bt=0.1;
+ float dt=0.5;
+ float Zx=0.5;
+ float C1=1.0;
+ float myfcd=18.4;//c40轴心抗压
+ float myfsd=330;//预设钢筋抗拉强度;
+ float myAs=12000;
+  float myAs2=12000;
+ float myas=50;
+  float myas1=50;
+  float steel_d1=28,steel_d2=28,Es=200000;
+ vector<float> beamLca={0.85,3.75,6.65,9.55};//盖梁受各主梁压力作用点数组
+ vector<float> LcaVal={0.6,1.1,3.5,4.0,6.4,6.9,9.3,9.8};
+ void focePointInit();
+ float getHeightSum();//自重
+ vector<float> getSupReaction();//返回边梁和中梁的恒载反力
+float getCodeByX(float x);//求解盖梁自重集度
+float getSideCodeByX();//即g′见 excel;
+float getGh();//盖梁总重
+float CoopingBendingSolve(float x);//求解指定位置截面自重弯矩;
+float CoopingSfSolve(float x);//求解指定位置截面自重剪力;
+float beamLoadBendig(float x);//求解指定截面梁重产生的弯矩;
+float beamLoadSf(float x);//求解指定截面梁重产生的剪力;
+vector<float> getBeamLoadReaction();//上部结构恒载产生的支反力RG1,RG2
+float CoopingTopBending(float x);//求解指定位置截面上部结构产生的弯矩;
+float CoopingTopSf(float x);//求解指定位置上部结构产生的剪力;
+float CoopingBendingSum(float x);//求解指定位置截面上部结构产生的弯矩;
+float CoopingSfSum(float x);//求解指定位置上部结构产生的剪力;
+vector<float> getSupReactionSum();
+float getRQi(bool loadType,bool SolveType,int VehicleNum,int beamId);//求解主梁活载支反力
+vector<float> getReactions(bool loadType,bool SolveType,int VehicleNum);//返回指定布车方式和指定荷载类型指定布载列数对应的各梁的支座反力;
+vector<float> getLiveReaction(bool loadType,bool SolveType,int VehicleNum);//返回指定布载和布车方式下盖梁两支座反力值
+float getLiveLoadBending(bool SolveType,int VehicleNum,float x);//指定截面活载弯矩(只算双孔)
+float getLiveLoadSf(bool SolveType,int VehicleNum,float x);//指定截面活载剪力(只算双孔)
+vector<float> getLiveLoadFoces(bool SolveType,int VehicleNum,float x);//只算双孔
+vector<float> InnerFoceSolve(float Xp,float p,float X);//xp力的作用点坐标 P作用力的值(向下取正), x截面位置
+vector<float> getInnerFoceAt(float X);//恒载内力
+vector<float> getBearLoad1(); //主梁自重对支座产生的压力数组(从左到右);
+vector<float> getExtremumfoces(float x);//求指定截面位置双控对称和非对称布载方式中的剪力最值和弯矩最值;
+vector<float> getCombinSud(float x);//基本组合
+vector<float> getCombinSfd(float x);//频遇组合
+vector<float> getCombinSqd(float x);//准永久组合
+bool getMembersType();//判断是否是深受弯构件是则返回true
+vector<float> getMinNM();//遍历1/2跨求最大负弯矩;
+vector<float>  getAs(float as);//返回对应假设as的正负弯矩配筋面积;
+float P_CrackSolve(float x);//求解正弯矩裂缝宽度;
+float N_CrackSolve(float x);//求解负弯矩裂缝宽度;
+float getRho(float mAs,float mas);//配筋率
+
+};
 

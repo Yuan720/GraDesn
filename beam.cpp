@@ -384,11 +384,20 @@ float Wl=Wql+WG1-fabs(delta_pel);
 vector<float> res;
 res.push_back(Wqs);
 res.push_back(Wql);
-res.push_back(Wqs);
 res.push_back(WG1);
 res.push_back(delta_pe);
 res.push_back(delta_pel);
 res.push_back(Wl);
+/*
+*说明
+*值1---可变荷载引起的挠度
+*值2---考虑长期效应的可变荷载引起的挠度
+*值3---由一期二期恒载引起的挠度
+*值4---跨中截面主梁上拱值
+*值5---考虑长期效应的预加力引起的上供值
+*值5---共同作用考虑长期效应的挠度值
+*
+*/
 return res;
 
 }
@@ -398,14 +407,15 @@ vector<float>  beam::obliqueSectionCheaking(float x)
     vector<float> res;
     float myd=(1e3*bridge_total_Span-spanLength)/2;
     float apha1=1, apha2=1.25, apha3=1.1;
-    float ap=getAverageSteelHeight(x+myd);
+   // float ap=getAverageSteelHeight(x+myd);
+    float ap=steelPaths[0].getYvalue(x+myd);
     float a=getSteel_a(ap);
     float h0=1e3*middleSetion.sbg.left.h-a;
     float b;
     field_making_girder_beam fb=getSectionAt(x);
     b=(fb.sbg.left.d2+fb.sbg.right.d2)*1e3;
     float Asv=nv*M_PI*pow(dv,2)/4;
-    float sv=x<divid_X? Sv1:Sv2;
+    float sv=(x<divid_X|x>spanLength-divid_X)? Sv1:Sv2;
     float rhosv=Asv/(sv*b);
     float p=100*(Ap+As)/(b*h0);
     float vcs=apha1*apha2*apha3*0.45*1e-3*b*h0*sqrt((2+0.6*p)*sqrt(fcuk)*rhosv*Fsv);
@@ -417,30 +427,32 @@ vector<float>  beam::obliqueSectionCheaking(float x)
     res.push_back(vcs+vpd);
     return res;
 }
-vector<float> beam::crackChecking(float MQs,float Mql)
+vector<float> beam::crackChecking(float x,float MQs,float Mql)
 {  //按照跨中截面计算
     //Wn    第一阶段
     //We0   阶段二
     //W0    阶段三
-    MQs*=1e6;
-    Mql*=1e6;
+    //x以毫米为单位
+    MQs*=1e6;//不计恒载的频遇组合弯矩
+    Mql*=1e6;//不计恒载的准永久组合弯矩
+    float myd=(bridge_total_Span*1e3-spanLength)/2;
     float NpII;
     float rho_pc;
     float rho_st;
     float rho_lt;
-    float  Wnb,An,epn, W,Wn,We0,W0,Ms,MG1,MG21,MG22,ynb;
+    float  Wnb,An,epn,Wn,We0,W0,MG1,MG21,MG22,ynb;
     vector<float> sectiondata1=sectionFeatures(false,false,spanLength/2);
     vector<float> sectiondata2=sectionFeatures(false,true,spanLength/2);
     vector<float> sectiondata3=sectionFeatures(true,true,spanLength/2);
     //todo;
     ynb=sectiondata1[3];
     Wn=sectiondata1[5];We0=sectiondata2[5];W0=sectiondata3[5];
-    NpII=getSigma_P_II(spanLength/2,Ap)*Ap-getSigma_l6(Ap)*As;
-     epn=(getSigma_P_II(spanLength/2,Ap)*Ap*(ynb-ap)-getSigma_l6(Ap)*As*(ynb-as))/(getSigma_P_II(spanLength/2,Ap)*Ap-getSigma_l6(Ap)*As);
+    NpII=getSigma_P_II(spanLength/2+myd,Ap)*Ap-getSigma_l6(Ap)*As;
+     epn=(getSigma_P_II(spanLength/2+myd,Ap)*Ap*(ynb-ap)-getSigma_l6(Ap)*As*(ynb-as))/(getSigma_P_II(spanLength/2+myd,Ap)*Ap-getSigma_l6(Ap)*As);
     An=sectiondata1[0];Wnb=sectiondata1[5];
-    MG1=1e6*bendingSolve(getFirstStageLoad(),spanLength/2/1e3);
-    MG21=1e6*bendingSolve(getSecondStageLoad(),spanLength/2/1e3);
-    MG22=1e6*bendingSolve(getThirdStageLoad(4),spanLength/2/1e3);
+    MG1=1e6*bendingSolve(getFirstStageLoad(),x/1e3);
+    MG21=1e6*bendingSolve(getSecondStageLoad(),x/1e3);
+    MG22=1e6*bendingSolve(getThirdStageLoad(4),x/1e3);
     rho_pc=NpII/An+(NpII*epn)/Wnb;
     rho_st=MG1/Wn+MG21/We0+MG22/W0+MQs/W0;
     rho_lt=MG1/Wn+MG21/We0+MG22/W0+Mql/W0;

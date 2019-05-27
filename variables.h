@@ -51,4 +51,5 @@ extern float divid_X;
 extern float sigma_con;//控制张拉应力;
 extern float feck;
 extern float fck;
+extern float ftk;
 #endif // VARIABLES_H
