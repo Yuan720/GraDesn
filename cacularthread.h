@@ -32,8 +32,9 @@ public:
     float bridgeSpan; //总跨径
     float Transationhalf_start;  //半桥长过渡段起点;
     float Transtionhalf_end;  //半桥长过渡段终点;
-     beam SDemonBeam;//主梁
-     beam MDemonBeam;//主梁
+    beam SDemonBeam;//主梁
+    beam MDemonBeam;//主梁
+
     void SetBeam(beam vbeam,beam sbeam);
 
     float getPipSmoaSum(float x,float newCenterHeight ,bool precounted);

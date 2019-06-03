@@ -66,6 +66,9 @@ public:
     void deflectionRender(int beamId);
     void draw_CoopingCombinaM();
     void draw_CoopingCombinaSf();
+    void draw_CoopingCrackWidth();
+    void draw_CoopNormalS();//正截面抗弯;
+
 signals:
     void task_1_send(QVariant v,bool taskType);
     void task_2_send(QVariant v,QVariant w,bool taskType);
@@ -108,6 +111,7 @@ private slots:
      void on_comboBox_34_currentIndexChanged(int index);
     void on_comboBox_5_currentIndexChanged(int index);
     void on_pushButton_clicked();
+
     void on_tabWidget_currentChanged(int index);
     void on_horizontalSlider_valueChanged(int value);
     void on_checkBox_3_clicked();
@@ -150,19 +154,14 @@ private slots:
     void on_pushButton_2_clicked();
     void SetPreSteelInfo();//预应力筋基本信息设置
     void CavasSet(XxwCustomPlot * m_customPlot,QString str);
+    void on_spinBox_17_valueChanged(int arg1);
+    void on_commandLinkButton_58_clicked();
+    void on_horizontalSlider_7_valueChanged(int value);
+    void on_horizontalSlider_8_valueChanged(int value);
+    void on_comboBox_14_currentIndexChanged(const QString &arg1);
+    void on_comboBox_15_currentIndexChanged(int index);
 
-
-   void on_spinBox_17_valueChanged(int arg1);
-
-   void on_commandLinkButton_58_clicked();
-
-   void on_horizontalSlider_7_valueChanged(int value);
-
-   void on_horizontalSlider_8_valueChanged(int value);
-
-   void on_comboBox_14_currentIndexChanged(const QString &arg1);
-
-   void on_comboBox_15_currentIndexChanged(int index);
+    void on_pushButton_3_clicked();
 
 private:
     bool box_1_cheaked=false;

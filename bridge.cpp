@@ -1117,9 +1117,9 @@ vector<float> Coping::getCombinSqd(float x)
 
 bool Coping::getMembersType()
 {
-  float ln=l2-0.8*d;
-  float ltemp=1.15*ln<l2? 1.15*ln:l2;
-  return 2<ltemp/h0<=5;
+ /* float ln=l2-0.8*d;
+  float ltemp=1.15*ln<l2? 1.15*ln:l2;*/
+  return 2<get_s_d_ratio()<=5;
 }
 
 vector<float> Coping::getMinNM()
@@ -1190,8 +1190,8 @@ float Coping::P_CrackSolve(float x)
     if(getMembersType()){
         float ln=l2-0.8*d;
         float ltemp=1.15*ln<l2? 1.15*ln:l2;
-        float Ms=getCombinSfd(x)[0];
-        P_C2=1+0.5*getCombinSqd(x)[0]/Ms;
+        float Ms=fabs(getCombinSfd(x)[0]);
+        P_C2=1+0.5*fabs(getCombinSqd(x)[0])/Ms;
         P_C3=(0.4*ltemp/h0+1)/3;
         sigma_ss=1e6*Ms/(0.87*myAs*(h0*1e3-myas));
         float rho=getRho(myAs,myas);
@@ -1227,6 +1227,150 @@ float Coping::getRho(float mAs,float mas)
 {
     return mAs/(bh*1e3*(h0*1e3-mas));
 
+}
+
+vector<float> Coping::NormalSCheak(float x)
+{// vector<float> mx=get_X(myas,x);
+    vector<float> mx;
+    mx.push_back(myfsd*myAs/myfcd/(bh*1e3));
+      mx.push_back(myfsd*myAs2/myfcd/(bh*1e3));
+        float mh0=1e3*h0-myas;
+        float Mu1;
+        float Mu2;
+    if(getMembersType()){
+        float ln=l2-0.8*d;
+        float ltemp=1.15*ln<l2? 1.15*ln:l2;
+        float param1= ltemp/h0;
+
+        float mh1=1e3*h0-myas1;
+        float z1=(0.75+0.05*param1)*(mh0-0.5*mx[0]);
+        float z2=(0.75+0.05*param1)*(mh1-0.5*mx[1]);
+         Mu1=myfsd*myAs*z1;
+         Mu2=-myfsd*myAs2*z2;
+
+    }else{
+        Mu1=myfsd*myAs*(mh0-mx[0]/2);
+         Mu2=-myfsd*myAs2*(mh0-mx[1]/2);
+
+    }
+
+
+    vector<float> res;
+
+    res.push_back(Mu1/1e6);
+
+    res.push_back(Mu2/1e6);
+    return  res;
+
+
+
+}
+
+vector<float> Coping::get_X(float as, float x)
+{    float x1=0,x2=0;
+    //单位m
+    /*float M_Max=fabs(getCombinSud(x)[0]);//跨中极限组合内力值
+    float M_Min=fabs(getCombinSud(x)[1]);
+     float param1,param2,param3,param4;
+
+    if(getMembersType()){
+        float h1=h0*1e3-as;
+     param1=0.5*myfcd*bh*1e3;
+     param2=-myfcd*bh*h1*1e3;
+     param3=M_Max*1e6;
+     param4=M_Min*1e6;
+     vector<float> root1;
+     vector<float> root2;
+
+     float temp=pow(param2,2)-4*param1*param3;
+     float temp1=pow(param2,2)-4*param1*param4;
+     if(temp>=0){
+         root1.push_back((-param2+sqrt(temp))/(2*param1));
+         root1.push_back((-param2-sqrt(temp))/(2*param1));
+         x1=0<root1[0]<1e3*h0?  root1[0]:x1;
+         x1=0<root1[1]<1e3*h0? root1[1]:x1;
+
+
+     }else{qDebug()<<"1无解的方程!";}
+     if(temp1>0){
+         root2.push_back((-param2+sqrt(temp1))/(2*param1));
+         root2.push_back((-param2-sqrt(temp1))/(2*param1));
+         x2=0<root2[0]<1e3*h0?  root2[0]:x2;
+         x2=0<root2[1]<1e3*h0? root2[1]:x2;
+
+     }else{
+         qDebug()<<"2无解的方程!";}
+
+    }else{
+
+
+
+    }*/
+    vector<float> res;
+
+    res.push_back(x1);
+    res.push_back(x2);
+    return res;
+}
+
+vector<float> Coping::obliqueCheake(float x)
+{
+
+vector<float> res;
+return res;
+
+}
+
+vector<float> Coping::ObShearStrenthCheak(float x)
+{// 斜截面抗剪计算;
+    float myasv=nv*3.1415926*pow(dv,2)/4;
+
+
+    float apha1=1.0;
+    float rho_sv=myasv/(1e3*bh*get_SvAt(x));
+    float test=get_SvAt(x);
+    float h=(h0*1e3-myas);
+
+    float p=myAs/(1e3*bh*h)*100;
+    float l_h=get_s_d_ratio();
+
+    vector<float> res;
+     if(getMembersType()){
+         //如果是短梁
+         res.push_back(0.33*1e-4*(l_h+10.3)*sqrt(myfcuk)*bh*1e3*h);
+         res.push_back(apha1*0.5*1e-4*(14-l_h)*bh*1e3*h*sqrt((2+0.6*p)*sqrt(myfcuk)*rho_sv*fsv));
+
+
+
+
+     }else{
+         //普通构件
+          res.push_back(0.51*1e-3*sqrt(myfcuk)*bh*h0);
+          res.push_back((apha1*0.45*1e-3)*bh*h0*sqrt((2+0.6*p)*sqrt(myfcuk)*rho_sv*fsv));
+     }
+return res;
+}
+
+float Coping::get_s_d_ratio()
+{
+    float ln=l2-0.8*d;
+    float ltemp=1.15*ln<l2? 1.15*ln:l2;
+   return ltemp/h0;
+
+}
+
+float Coping::get_SvAt(float x)
+{   x=x<l? x:l-x;
+    if(0<=x<divi_x1){
+        return Sv1;
+    }
+    if(divi_x1<x<=divi_x2){
+        return Sv2;
+    }
+    if(divi_x2<x<=divi_x3){
+        return Sv3;
+    }
+return 0;
 }
 
 

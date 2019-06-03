@@ -36,7 +36,7 @@
      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
     </property>
     <property name="currentIndex">
-     <number>5</number>
+     <number>4</number>
     </property>
     <widget class="QWidget" name="tab_4">
      <attribute name="title">
@@ -58,7 +58,7 @@
        <property name="geometry">
         <rect>
          <x>0</x>
-         <y>0</y>
+         <y>-1103</y>
          <width>1318</width>
          <height>3000</height>
         </rect>
@@ -1882,6 +1882,19 @@ border-radius:5px;</string>
          <string>10^5</string>
         </property>
        </widget>
+       <widget class="QPushButton" name="pushButton_3">
+        <property name="geometry">
+         <rect>
+          <x>710</x>
+          <y>2170</y>
+          <width>93</width>
+          <height>28</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>PushButton</string>
+        </property>
+       </widget>
       </widget>
      </widget>
     </widget>
@@ -2431,12 +2444,12 @@ border-radius:5px;</string>
         </item>
         <item row="0" column="3">
          <property name="text">
-          <string>M支</string>
+          <string>M中</string>
          </property>
         </item>
         <item row="0" column="4">
          <property name="text">
-          <string>M中</string>
+          <string>M支</string>
          </property>
         </item>
        </widget>
@@ -2601,14 +2614,29 @@ border-radius:5px;</string>
           <string>悬臂板长</string>
          </property>
         </item>
+        <item row="0" column="1">
+         <property name="text">
+          <string>0.9157</string>
+         </property>
+        </item>
         <item row="1" column="0">
          <property name="text">
           <string>翼缘板厚度</string>
          </property>
         </item>
+        <item row="1" column="1">
+         <property name="text">
+          <string>0.225</string>
+         </property>
+        </item>
         <item row="2" column="0">
          <property name="text">
           <string>栏杆集度</string>
+         </property>
+        </item>
+        <item row="2" column="1">
+         <property name="text">
+          <string>5</string>
          </property>
         </item>
        </widget>
@@ -2747,19 +2775,6 @@ border:0px</string>
        </property>
       </item>
      </widget>
-    </widget>
-    <widget class="QWidget" name="widget_2">
-     <property name="font">
-      <font>
-       <pointsize>13</pointsize>
-      </font>
-     </property>
-     <attribute name="title">
-      <string>主梁恒载内力计算</string>
-     </attribute>
-     <attribute name="toolTip">
-      <string>计算主梁内力</string>
-     </attribute>
     </widget>
     <widget class="QWidget" name="tab">
      <property name="font">
@@ -3892,8 +3907,8 @@ background-color:#a8a8a8;</string>
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>1351</width>
-        <height>920</height>
+        <width>1335</width>
+        <height>864</height>
        </rect>
       </property>
       <property name="widgetResizable">
@@ -3903,8 +3918,8 @@ background-color:#a8a8a8;</string>
        <property name="geometry">
         <rect>
          <x>0</x>
-         <y>-91</y>
-         <width>1328</width>
+         <y>0</y>
+         <width>1312</width>
          <height>4000</height>
         </rect>
        </property>
@@ -4156,6 +4171,16 @@ background-color:#a8a8a8;</string>
          </rect>
         </property>
        </widget>
+       <widget class="XxwCustomPlot" name="widget_15" native="true">
+        <property name="geometry">
+         <rect>
+          <x>89</x>
+          <y>3529</y>
+          <width>1151</width>
+          <height>351</height>
+         </rect>
+        </property>
+       </widget>
       </widget>
      </widget>
     </widget>
@@ -4185,7 +4210,7 @@ background-color:#a8a8a8;</string>
        <property name="geometry">
         <rect>
          <x>0</x>
-         <y>-488</y>
+         <y>-1693</y>
          <width>1318</width>
          <height>3000</height>
         </rect>
@@ -5298,15 +5323,15 @@ p, li { white-space: pre-wrap; }
        <property name="geometry">
         <rect>
          <x>0</x>
-         <y>-1430</y>
+         <y>-389</y>
          <width>1308</width>
-         <height>4000</height>
+         <height>5000</height>
         </rect>
        </property>
        <property name="minimumSize">
         <size>
          <width>0</width>
-         <height>4000</height>
+         <height>5000</height>
         </size>
        </property>
        <widget class="QLabel" name="label_45">
@@ -5331,9 +5356,9 @@ p, li { white-space: pre-wrap; }
        <widget class="XxwCustomPlot" name="widget_12" native="true">
         <property name="geometry">
          <rect>
-          <x>210</x>
-          <y>930</y>
-          <width>1031</width>
+          <x>120</x>
+          <y>1250</y>
+          <width>1111</width>
           <height>361</height>
          </rect>
         </property>
@@ -5341,8 +5366,8 @@ p, li { white-space: pre-wrap; }
        <widget class="QLabel" name="label_46">
         <property name="geometry">
          <rect>
-          <x>620</x>
-          <y>880</y>
+          <x>600</x>
+          <y>1210</y>
           <width>241</width>
           <height>31</height>
          </rect>
@@ -5355,7 +5380,7 @@ p, li { white-space: pre-wrap; }
         <property name="geometry">
          <rect>
           <x>470</x>
-          <y>1890</y>
+          <y>2130</y>
           <width>271</width>
           <height>31</height>
          </rect>
@@ -5368,7 +5393,7 @@ p, li { white-space: pre-wrap; }
         <property name="geometry">
          <rect>
           <x>120</x>
-          <y>1940</y>
+          <y>2180</y>
           <width>1111</width>
           <height>391</height>
          </rect>
@@ -5377,8 +5402,8 @@ p, li { white-space: pre-wrap; }
        <widget class="QLabel" name="label_48">
         <property name="geometry">
          <rect>
-          <x>610</x>
-          <y>1320</y>
+          <x>600</x>
+          <y>1620</y>
           <width>171</width>
           <height>31</height>
          </rect>
@@ -5390,8 +5415,8 @@ p, li { white-space: pre-wrap; }
        <widget class="XxwCustomPlot" name="widget_14" native="true">
         <property name="geometry">
          <rect>
-          <x>120</x>
-          <y>1390</y>
+          <x>130</x>
+          <y>1670</y>
           <width>1111</width>
           <height>451</height>
          </rect>
@@ -5401,9 +5426,9 @@ p, li { white-space: pre-wrap; }
         <property name="geometry">
          <rect>
           <x>120</x>
-          <y>2680</y>
-          <width>503</width>
-          <height>77</height>
+          <y>2900</y>
+          <width>502</width>
+          <height>76</height>
          </rect>
         </property>
         <property name="rowCount">
@@ -5448,8 +5473,8 @@ p, li { white-space: pre-wrap; }
        <widget class="QLabel" name="label_49">
         <property name="geometry">
          <rect>
-          <x>560</x>
-          <y>2340</y>
+          <x>540</x>
+          <y>2580</y>
           <width>251</width>
           <height>31</height>
          </rect>
@@ -5462,9 +5487,9 @@ p, li { white-space: pre-wrap; }
         <property name="geometry">
          <rect>
           <x>120</x>
-          <y>2390</y>
+          <y>2630</y>
           <width>302</width>
-          <height>77</height>
+          <height>76</height>
          </rect>
         </property>
         <property name="rowCount">
@@ -5507,8 +5532,8 @@ p, li { white-space: pre-wrap; }
         <property name="geometry">
          <rect>
           <x>120</x>
-          <y>2520</y>
-          <width>503</width>
+          <y>2750</y>
+          <width>502</width>
           <height>76</height>
          </rect>
         </property>
@@ -5555,7 +5580,7 @@ p, li { white-space: pre-wrap; }
         <property name="geometry">
          <rect>
           <x>120</x>
-          <y>2490</y>
+          <y>2720</y>
           <width>161</width>
           <height>16</height>
          </rect>
@@ -5568,7 +5593,7 @@ p, li { white-space: pre-wrap; }
         <property name="geometry">
          <rect>
           <x>120</x>
-          <y>2610</y>
+          <y>2830</y>
           <width>151</width>
           <height>16</height>
          </rect>
@@ -5581,7 +5606,7 @@ p, li { white-space: pre-wrap; }
         <property name="geometry">
          <rect>
           <x>120</x>
-          <y>2370</y>
+          <y>2600</y>
           <width>72</width>
           <height>15</height>
          </rect>
@@ -5594,7 +5619,7 @@ p, li { white-space: pre-wrap; }
         <property name="geometry">
          <rect>
           <x>120</x>
-          <y>2640</y>
+          <y>2860</y>
           <width>121</width>
           <height>31</height>
          </rect>
@@ -5619,7 +5644,7 @@ p, li { white-space: pre-wrap; }
         <property name="geometry">
          <rect>
           <x>120</x>
-          <y>2770</y>
+          <y>2990</y>
           <width>91</width>
           <height>21</height>
          </rect>
@@ -5635,7 +5660,7 @@ p, li { white-space: pre-wrap; }
         <property name="geometry">
          <rect>
           <x>220</x>
-          <y>2770</y>
+          <y>2990</y>
           <width>361</width>
           <height>22</height>
          </rect>
@@ -5657,7 +5682,7 @@ p, li { white-space: pre-wrap; }
         <property name="geometry">
          <rect>
           <x>590</x>
-          <y>2770</y>
+          <y>2990</y>
           <width>31</width>
           <height>20</height>
          </rect>
@@ -5669,8 +5694,8 @@ p, li { white-space: pre-wrap; }
        <widget class="QLabel" name="label_42">
         <property name="geometry">
          <rect>
-          <x>220</x>
-          <y>610</y>
+          <x>210</x>
+          <y>570</y>
           <width>141</width>
           <height>31</height>
          </rect>
@@ -5682,17 +5707,17 @@ p, li { white-space: pre-wrap; }
        <widget class="QTableWidget" name="tableWidget_5">
         <property name="geometry">
          <rect>
-          <x>210</x>
-          <y>710</y>
-          <width>1011</width>
-          <height>81</height>
+          <x>170</x>
+          <y>600</y>
+          <width>1128</width>
+          <height>76</height>
          </rect>
         </property>
         <property name="rowCount">
          <number>2</number>
         </property>
         <property name="columnCount">
-         <number>8</number>
+         <number>9</number>
         </property>
         <attribute name="horizontalHeaderVisible">
          <bool>false</bool>
@@ -5702,6 +5727,7 @@ p, li { white-space: pre-wrap; }
         </attribute>
         <row/>
         <row/>
+        <column/>
         <column/>
         <column/>
         <column/>
@@ -5750,6 +5776,11 @@ p, li { white-space: pre-wrap; }
           <string>a</string>
          </property>
         </item>
+        <item row="0" column="8">
+         <property name="text">
+          <string>fcu,k</string>
+         </property>
+        </item>
         <item row="1" column="0">
          <property name="text">
           <string/>
@@ -5760,7 +5791,7 @@ p, li { white-space: pre-wrap; }
         <property name="geometry">
          <rect>
           <x>120</x>
-          <y>2830</y>
+          <y>3020</y>
           <width>302</width>
           <height>76</height>
          </rect>
@@ -5802,7 +5833,7 @@ p, li { white-space: pre-wrap; }
         <property name="geometry">
          <rect>
           <x>120</x>
-          <y>2930</y>
+          <y>3110</y>
           <width>91</width>
           <height>21</height>
          </rect>
@@ -5818,7 +5849,7 @@ p, li { white-space: pre-wrap; }
         <property name="geometry">
          <rect>
           <x>220</x>
-          <y>2930</y>
+          <y>3110</y>
           <width>361</width>
           <height>22</height>
          </rect>
@@ -5840,7 +5871,7 @@ p, li { white-space: pre-wrap; }
         <property name="geometry">
          <rect>
           <x>120</x>
-          <y>2980</y>
+          <y>3150</y>
           <width>1091</width>
           <height>351</height>
          </rect>
@@ -5849,8 +5880,8 @@ p, li { white-space: pre-wrap; }
        <widget class="QDialogButtonBox" name="buttonBox">
         <property name="geometry">
          <rect>
-          <x>610</x>
-          <y>820</y>
+          <x>620</x>
+          <y>690</y>
           <width>193</width>
           <height>28</height>
          </rect>
@@ -5862,8 +5893,8 @@ p, li { white-space: pre-wrap; }
        <widget class="QComboBox" name="comboBox_15">
         <property name="geometry">
          <rect>
-          <x>810</x>
-          <y>1890</y>
+          <x>730</x>
+          <y>2130</y>
           <width>71</width>
           <height>31</height>
          </rect>
@@ -5882,8 +5913,8 @@ p, li { white-space: pre-wrap; }
        <widget class="QComboBox" name="comboBox_14">
         <property name="geometry">
          <rect>
-          <x>910</x>
-          <y>1890</y>
+          <x>810</x>
+          <y>2130</y>
           <width>101</width>
           <height>31</height>
          </rect>
@@ -5903,6 +5934,171 @@ p, li { white-space: pre-wrap; }
           <string>准永久组合</string>
          </property>
         </item>
+       </widget>
+       <widget class="XxwCustomPlot" name="widget_19" native="true">
+        <property name="geometry">
+         <rect>
+          <x>120</x>
+          <y>3580</y>
+          <width>1091</width>
+          <height>331</height>
+         </rect>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_53">
+        <property name="geometry">
+         <rect>
+          <x>650</x>
+          <y>3530</y>
+          <width>121</width>
+          <height>31</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:12pt; font-weight:600; color:#55007f;&quot;&gt;正截面抗弯&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
+       </widget>
+       <widget class="QTableWidget" name="tableWidget_23">
+        <property name="geometry">
+         <rect>
+          <x>530</x>
+          <y>770</y>
+          <width>377</width>
+          <height>76</height>
+         </rect>
+        </property>
+        <property name="rowCount">
+         <number>2</number>
+        </property>
+        <property name="columnCount">
+         <number>3</number>
+        </property>
+        <attribute name="horizontalHeaderVisible">
+         <bool>false</bool>
+        </attribute>
+        <attribute name="verticalHeaderVisible">
+         <bool>false</bool>
+        </attribute>
+        <row/>
+        <row/>
+        <column/>
+        <column/>
+        <column/>
+        <item row="0" column="0">
+         <property name="text">
+          <string>nv</string>
+         </property>
+        </item>
+        <item row="0" column="1">
+         <property name="text">
+          <string>dv</string>
+         </property>
+        </item>
+        <item row="0" column="2">
+         <property name="text">
+          <string>fsv</string>
+         </property>
+        </item>
+        <item row="1" column="0">
+         <property name="text">
+          <string>4</string>
+         </property>
+        </item>
+        <item row="1" column="1">
+         <property name="text">
+          <string>10</string>
+         </property>
+        </item>
+        <item row="1" column="2">
+         <property name="text">
+          <string>250</string>
+         </property>
+        </item>
+       </widget>
+       <widget class="QTableWidget" name="tableWidget_25">
+        <property name="geometry">
+         <rect>
+          <x>530</x>
+          <y>870</y>
+          <width>377</width>
+          <height>150</height>
+         </rect>
+        </property>
+        <property name="rowCount">
+         <number>4</number>
+        </property>
+        <property name="columnCount">
+         <number>3</number>
+        </property>
+        <attribute name="horizontalHeaderVisible">
+         <bool>false</bool>
+        </attribute>
+        <attribute name="verticalHeaderVisible">
+         <bool>false</bool>
+        </attribute>
+        <row/>
+        <row/>
+        <row/>
+        <row/>
+        <column/>
+        <column/>
+        <column/>
+        <item row="0" column="0">
+         <property name="text">
+          <string>x1</string>
+         </property>
+        </item>
+        <item row="0" column="1">
+         <property name="text">
+          <string>x2</string>
+         </property>
+        </item>
+        <item row="0" column="2">
+         <property name="text">
+          <string>x3</string>
+         </property>
+        </item>
+        <item row="2" column="0">
+         <property name="text">
+          <string>Sv1</string>
+         </property>
+        </item>
+        <item row="2" column="1">
+         <property name="text">
+          <string>Sv2</string>
+         </property>
+        </item>
+        <item row="2" column="2">
+         <property name="text">
+          <string>Sv3</string>
+         </property>
+        </item>
+       </widget>
+       <widget class="QDialogButtonBox" name="buttonBox_2">
+        <property name="geometry">
+         <rect>
+          <x>620</x>
+          <y>1050</y>
+          <width>193</width>
+          <height>28</height>
+         </rect>
+        </property>
+        <property name="standardButtons">
+         <set>QDialogButtonBox::Cancel|QDialogButtonBox::Save</set>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_43">
+        <property name="geometry">
+         <rect>
+          <x>690</x>
+          <y>725</y>
+          <width>171</width>
+          <height>31</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:12pt; font-weight:600; color:#55007f;&quot;&gt;箍筋设置&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
        </widget>
       </widget>
      </widget>
@@ -5943,22 +6139,6 @@ p, li { white-space: pre-wrap; }
  </resources>
  <connections>
   <connection>
-   <sender>horizontalSlider</sender>
-   <signal>valueChanged(int)</signal>
-   <receiver>spinBox_4</receiver>
-   <slot>setValue(int)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>466</x>
-     <y>764</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>322</x>
-     <y>764</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
    <sender>spinBox_4</sender>
    <signal>valueChanged(int)</signal>
    <receiver>horizontalSlider</receiver>
@@ -5970,6 +6150,22 @@ p, li { white-space: pre-wrap; }
     </hint>
     <hint type="destinationlabel">
      <x>466</x>
+     <y>764</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>horizontalSlider</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>spinBox_4</receiver>
+   <slot>setValue(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>466</x>
+     <y>764</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>322</x>
      <y>764</y>
     </hint>
    </hints>

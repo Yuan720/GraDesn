@@ -748,6 +748,8 @@ class  Coping
    //盖梁
 public:
   OrdinaryBrigeSection demobs;
+ float nv=4,dv=10,fsv=250,divi_x1=2.2,divi_x2=4.06,divi_x3=5.2,Sv1=100,Sv2=100,Sv3=300;
+ //nv 箍筋肢数 dv箍筋直径 divi_x 箍筋配置分割点 Sv箍筋间距 暂时认为箍筋分三段配置
  int beamNum=4;
  float Lj=33.8;
  float l=10.4;//盖梁总长
@@ -778,6 +780,7 @@ public:
   float myAs2=12000;
  float myas=50;
   float myas1=50;
+  float myfcuk=40;
   float steel_d1=28,steel_d2=28,Es=200000;
  vector<float> beamLca={0.85,3.75,6.65,9.55};//盖梁受各主梁压力作用点数组
  vector<float> LcaVal={0.6,1.1,3.5,4.0,6.4,6.9,9.3,9.8};
@@ -816,6 +819,12 @@ vector<float>  getAs(float as);//返回对应假设as的正负弯矩配筋面积
 float P_CrackSolve(float x);//求解正弯矩裂缝宽度;
 float N_CrackSolve(float x);//求解负弯矩裂缝宽度;
 float getRho(float mAs,float mas);//配筋率
+vector<float> NormalSCheak(float x);
+vector<float> get_X(float as,float x);//返回正弯矩和负弯矩对应的指定截面受压区高度;
+vector<float> obliqueCheake(float x);//斜截面抗剪
+vector<float> ObShearStrenthCheak(float x);//斜截面抗剪计算
+float get_s_d_ratio();
+float get_SvAt(float x);//返回指定位置处的箍筋间距;
 
 };
 

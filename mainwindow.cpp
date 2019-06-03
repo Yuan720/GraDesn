@@ -63,6 +63,10 @@ void MainWindow::on_commandLinkButton_2_clicked()
         vector<float> temp=data.value<vector<float>>();
         temp.insert(temp.begin(),mycat->mymb->mbd.MixedSoilLayer);
         temp.insert(temp.begin(),mycat->mymb->mbd.AspLayer);
+        data.setValue(temp);
+        emit task_5_send(data);
+
+
 
    }else{
 
@@ -855,7 +859,7 @@ void MainWindow::draw_CoopingCombinaM()
     CavasSet(m_customPlot, str);
     int nCount = 100;
     double ts=(mycat->mycp.l)/100;
-    QVector<double> x(nCount+1), y0(nCount+1), y1(nCount+1),y2(nCount+1),y3(nCount+1);
+    QVector<double> x(nCount+1), y0(nCount+1), y1(nCount+1),y2(nCount+1),y3(nCount+1),y4(nCount+1),y5(nCount+1);;
             //, y1(nCount),y2(nCount); // initialize with entries 0..100
      for (int i = 0; i <nCount; ++i)
      {      x[i]=ts*i;
@@ -878,10 +882,15 @@ void MainWindow::draw_CoopingCombinaM()
            default:
                break;
            }
+
+             vector<float> temp=mycat->mycp.NormalSCheak(x[i]);
+
            y0[i]=liveload[0];
            y1[i]=liveload[1];
            y2[i]=combinVal[0];
            y3[i]=combinVal[1];
+           y4[i]=temp[0];
+           y5[i]=temp[1];
 
 }
    x[100]=mycat->mycp.l;
@@ -909,22 +918,33 @@ void MainWindow::draw_CoopingCombinaM()
    }
   y2[100]=combinVal[0];
   y3[100]=combinVal[1];
+   vector<float> temp=mycat->mycp.NormalSCheak(x[100]);
+   y4[100]=temp[0];
+   y5[100]=temp[1];
   QCPGraph *PG1=m_customPlot->addGraph();
   QCPGraph *PG2=m_customPlot->addGraph();
   QCPGraph *PG3=m_customPlot->addGraph();
   QCPGraph *PG4=m_customPlot->addGraph();
+   QCPGraph *PG5=m_customPlot->addGraph();
+   QCPGraph *PG6=m_customPlot->addGraph();
   PG1->setData(x,y0);
   PG2->setData(x,y1);
   PG3->setData(x,y2);
   PG4->setData(x,y3);
+   PG5->setData(x,y4);
+   PG6->setData(x,y5);
   PG1->setName("活载最大弯矩");
    PG2->setName("活载最小弯矩");
    PG3->setName("组合最大弯矩");
    PG4->setName("组合最小弯矩");
+    PG5->setName("正弯矩抗弯承载力");
+    PG6->setName("负弯矩抗弯承载力");
   PG1->setPen(QPen(Qt::red));
    PG2->setPen(QPen(Qt::blue));
     PG3->setPen(QPen(Qt::green));
      PG4->setPen(QPen(Qt::darkMagenta));
+      PG5->setPen(QPen(Qt::darkRed));
+       PG6->setPen(QPen(Qt::darkCyan));
       m_customPlot->xAxis->setLabel("截面位置(mm)");
        m_customPlot->yAxis->setLabel("KN.m");
       m_customPlot->yAxis->setRangeReversed (true);
@@ -1017,13 +1037,82 @@ void MainWindow::draw_CoopingCombinaSf()
       PG2->setPen(QPen(Qt::blue));
        PG3->setPen(QPen(Qt::green));
         PG4->setPen(QPen(Qt::darkMagenta));
-         m_customPlot->xAxis->setLabel("截面位置(mm)");
+         m_customPlot->xAxis->setLabel("截面位置(m)");
           m_customPlot->yAxis->setLabel("KN");
 
           m_customPlot->rescaleAxes(true);
-          m_customPlot->yAxis->setRangeUpper( m_customPlot->yAxis->range().upper+500);
+          m_customPlot->yAxis->setRange( m_customPlot->yAxis->range().lower*1.1,m_customPlot->yAxis->range().upper*1.1);
         m_customPlot->replot();
 
+
+
+}
+
+void MainWindow::draw_CoopingCrackWidth()
+{
+    m_customPlot=ui->widget_16;
+     QString str="裂缝宽度";
+       CavasSet(m_customPlot, str);
+       int nCount = 100;
+       double ts=(mycat->mycp.l)/100;
+       QVector<double> x(nCount+1), y0(nCount+1), y1(nCount+1);
+               //, y1(nCount),y2(nCount); // initialize with entries 0..100
+        for (int i = 0; i <nCount; ++i)
+        {      x[i]=ts*i;
+         y0[i]=mycat->mycp.P_CrackSolve(x[i]);
+          y1[i]=mycat->mycp. N_CrackSolve(x[i]);
+
+   }     x[100]=mycat->mycp.l;
+        y0[100]=mycat->mycp.P_CrackSolve(x[100]);
+         y1[100]=mycat->mycp. N_CrackSolve(x[100]);
+         QCPGraph *PG1=m_customPlot->addGraph();
+         QCPGraph *PG2=m_customPlot->addGraph();
+         PG1->setData(x,y0);
+         PG2->setData(x,y1);
+         PG1->setName("正弯矩裂缝");
+          PG2->setName("负弯矩裂缝");
+          PG1->setPen(QPen(Qt::red));
+           PG2->setPen(QPen(Qt::blue));
+           m_customPlot->xAxis->setLabel("截面位置(m)");
+            m_customPlot->yAxis->setLabel("mm");
+            m_customPlot->rescaleAxes(true);
+            m_customPlot->yAxis->setRangeLower(-0.2);
+             m_customPlot->yAxis->setRangeUpper(0.2);
+          m_customPlot->replot();
+
+}
+
+void MainWindow::draw_CoopNormalS()
+{
+    m_customPlot=ui->widget_19;
+     QString str="正截面抗弯";
+       CavasSet(m_customPlot, str);
+       int nCount = 100;
+       double ts=(mycat->mycp.l)/100;
+       QVector<double> x(nCount+1), y0(nCount+1), y1(nCount+1);
+               //, y1(nCount),y2(nCount); // initialize with entries 0..100
+        for (int i = 0; i <nCount; ++i)
+        {      x[i]=ts*i;
+            vector<float> temp=mycat->mycp.NormalSCheak(x[i]);
+         y0[i]=temp[0];
+          y1[i]=temp[1];
+
+   }     x[100]=mycat->mycp.l;
+        vector<float> temp=mycat->mycp.NormalSCheak(x[100]);
+        y0[100]=temp[0];
+        y1[100]=temp[1];
+         QCPGraph *PG1=m_customPlot->addGraph();
+         QCPGraph *PG2=m_customPlot->addGraph();
+         PG1->setData(x,y0);
+         PG2->setData(x,y1);
+         PG1->setName("正弯矩");
+          PG2->setName("负弯矩");
+          PG1->setPen(QPen(Qt::red));
+           PG2->setPen(QPen(Qt::blue));
+           m_customPlot->xAxis->setLabel("截面位置(m)");
+            m_customPlot->yAxis->setLabel("KN.M");
+            m_customPlot->rescaleAxes(true);
+             m_customPlot->replot();
 
 
 }
@@ -1130,6 +1219,10 @@ void MainWindow::on_commandLinkButton_50_clicked()
                 ui->spinBox_16->setMaximum(mycat->myobs->bean_nums);
               numberOfBeam=mycat->mymb->mbd.mianBeanNum;
               beamInit();
+              field_making_girder_beam *smb=mycat->myobs->side_Fulcr_bean;
+               field_making_girder_beam *mmb=mycat->myobs->mid_Fulcr_bean;
+               mycat->mycp.demobs= OrdinaryBrigeSection(*smb, *mmb,smb, mmb, mycat->myobs->bean_nums,mycat->myobs->cal_span,mycat->myobs->stoneWidth);
+
               QMessageBox::information(this,QString("存入成功"),QString("已存储!"));
 
 
@@ -1154,7 +1247,10 @@ void MainWindow::on_commandLinkButton_50_clicked()
                      ui->spinBox_13->setMaximum(mycat->myobs->cal_span*1e3);
                     numberOfBeam=mycat->mymb->mbd.mianBeanNum;
                     beamInit();
-                    QMessageBox::information(this,QString("存入成功"),QString("已存储!"));
+                    field_making_girder_beam *smb=mycat->myobs->side_Fulcr_bean;
+                     field_making_girder_beam *mmb=mycat->myobs->mid_Fulcr_bean;
+                     mycat->mycp.demobs= OrdinaryBrigeSection(*smb, *mmb,smb, mmb, mycat->myobs->bean_nums,mycat->myobs->cal_span,mycat->myobs->stoneWidth);
+      QMessageBox::information(this,QString("存入成功"),QString("已存储!"));
 
 
                 }else{
@@ -1376,14 +1472,12 @@ void MainWindow::on_comboBox_5_currentIndexChanged(int index)
 }
 void MainWindow::on_pushButton_clicked()
 {   mycat->mycp.demobs=*mycat->myobs;
-    //draw_CoopingCombinaM();
-   // draw_CoopingCombinaSf();
+       Coping cp;
+       cp.demobs=*mycat->myobs;
+        draw_CoopingCrackWidth();
 
-     Coping cp;
-    cp.demobs=*mycat->myobs;
- qDebug()<<cp.CoopingSfSolve(5.1);
 
- //qDebug()<<cp.CoopingSfSolve(5.3);
+
 
 
 
@@ -1397,16 +1491,16 @@ void MainWindow::on_tabWidget_currentChanged(int index)
     ui->spinBox->show();
 
     }
-    if(index==5&!mycat->myobs==0&mycat->paths.size()>0){
+    if(index==4&!mycat->myobs==0&mycat->paths.size()>0){
 
          drawfocescheaking(ui->spinBox_16->value());
     }
-    if(index==6&!mycat->myobs==0&mycat->paths.size()>0){
+    if(index==5&!mycat->myobs==0&mycat->paths.size()>0){
 
          draw_prestrLossP();
        draw_prestrLossL();
     }
-    if(index==4&!mycat->myobs==0&mycat->paths.size()>0){
+    if(index==3&!mycat->myobs==0&mycat->paths.size()>0){
     mainBeamdeadLoad();
     bool beamType;
     if(ui->comboBox_7->currentIndex()==0){
@@ -1418,7 +1512,7 @@ void MainWindow::on_tabWidget_currentChanged(int index)
     draw_deadLoadFoce(beamType,false);
 
   }
-     if(index==7){
+     if(index==6){
 
       draw_Copingdeadload_M();
       draw_CopingDeadLoadSF();
@@ -1756,7 +1850,10 @@ void MainWindow::draw_prestrLossL()
    // give the axes some labels:
         m_customPlot->xAxis->setLabel("截面位置(mm)");
         m_customPlot->yAxis->setLabel("MPa");
+
         m_customPlot->rescaleAxes(true);
+        m_customPlot->yAxis->setRangeLower( m_customPlot->yAxis->range().lower-20);
+        m_customPlot->yAxis->setRangeUpper(m_customPlot->yAxis->range().upper+20);
         m_customPlot->replot();
 
 
@@ -1988,7 +2085,7 @@ void MainWindow::drawPermanentStress(int beamId)
                 m_customPlot->graph(0)->setData(x, y0);
                 QCPGraph *myGraph = n_customPlot->addGraph();
                   n_customPlot->graph(0)->setData(x, z0);
-                 pGraph->setName("截面混凝土正应力");
+                 pGraph->setName("截面混凝土正应力σ_cu");
                 myGraph->setName("预应力钢束拉应力");
                  pGraph->setData(x,y0);
                  pGraph->setPen(QPen(Qt::red));
@@ -2186,12 +2283,16 @@ void MainWindow::drawcrackChecking(int beamId)
 void MainWindow::draw_obliqueCrack(int beamId)
 {
     m_customPlot=ui->widget_11;
+
+    XxwCustomPlot  *n_customPlot=ui->widget_15;
    QString str="斜截面抗裂验算";
      CavasSet(m_customPlot, str);
+     CavasSet(n_customPlot,"sigma_tp");
       int nCount = 100;
       double ts=(mycat->myobs->cal_span*1e3/2)/100;
       QVector<double> x(nCount+1), y0(nCount+1), y1(nCount+1), y2(nCount+1), y3(nCount+1), y4(nCount+1),
-               y5(nCount+1),u0(2),V0(2);//, y1(nCount),y2(nCount); // initialize with entries 0..100
+               y5(nCount+1),y6(nCount+1), y7(nCount+1),
+              y8(nCount+1),u0(2),V0(2);//, y1(nCount),y2(nCount); // initialize with entries 0..100
        for (int i = 0; i <nCount; ++i)
        {
            x[i] =i*ts; // x goes from -1 to 1
@@ -2202,6 +2303,7 @@ void MainWindow::draw_obliqueCrack(int beamId)
            y3[i] = temp[3];
            y4[i] = temp[4];
            y5[i] = temp[5];
+
 }
        x[100]=mycat->myobs->cal_span*1e3/2;
        vector<float> temp=mycat->obliqueCrack(beamId,x[100]);
@@ -2211,17 +2313,18 @@ void MainWindow::draw_obliqueCrack(int beamId)
        y3[100] = temp[3];
        y4[100] = temp[4];
        y5[100] = temp[5];
-       u0[0]=0;
+         u0[0]=0;
        u0[1]=x[100];
        V0[0]=0.7*ftk;
         V0[1]=0.7*ftk;
         QCPGraph *pGraph1 = m_customPlot->addGraph();
         QCPGraph *pGraph2 = m_customPlot->addGraph();
         QCPGraph *pGraph3 = m_customPlot->addGraph();
-        QCPGraph *pGraph4 = m_customPlot->addGraph();
-        QCPGraph *pGraph5 = m_customPlot->addGraph();
-        QCPGraph *pGraph6 = m_customPlot->addGraph();
+        QCPGraph *pGraph4 = n_customPlot->addGraph();
+        QCPGraph *pGraph5 = n_customPlot->addGraph();
+        QCPGraph *pGraph6 = n_customPlot->addGraph();
         QCPGraph *pGraph7 = m_customPlot->addGraph();
+
          pGraph1->setData(x,y0);
          pGraph2->setData(x,y1);
          pGraph3->setData(x,y2);
@@ -2229,6 +2332,8 @@ void MainWindow::draw_obliqueCrack(int beamId)
          pGraph5->setData(x,y4);
          pGraph6->setData(x,y5);
          pGraph7->setData(u0,V0);
+
+
           pGraph1->setName("a-a截面sigma_cp");
           pGraph2->setName("b-b截面sigma_cp");
           pGraph3->setName("c-c截面sigma_cp");
@@ -2236,6 +2341,7 @@ void MainWindow::draw_obliqueCrack(int beamId)
           pGraph5->setName("b-b截面sigma_tp");
           pGraph6->setName("c-c截面sigma_tp");
           pGraph7->setName("0.7ftk");
+
            pGraph1->setPen(QPen(Qt::yellow));
            pGraph2->setPen(QPen(Qt::blue));
            pGraph3->setPen(QPen(Qt::green));
@@ -2244,18 +2350,21 @@ void MainWindow::draw_obliqueCrack(int beamId)
            pGraph6->setPen(QPen(Qt::darkYellow));
            pGraph7->setPen(QPen(Qt::red));
 
+
+
            m_customPlot->xAxis->setLabel("截面位置(mm)");
            m_customPlot->yAxis->setLabel("MPa");
 
-
-           m_customPlot->rescaleAxes(true);
+           n_customPlot->xAxis->setLabel("截面位置(mm)");
+           n_customPlot->yAxis->setLabel("MPa");
+           n_customPlot->rescaleAxes(true);
+         m_customPlot->rescaleAxes(true);
            m_customPlot->yAxis->setRangeUpper( m_customPlot->yAxis->range().upper+10);
 
-
-           m_customPlot->replot();
-
-
-}
+             n_customPlot->yAxis->setRange(n_customPlot->yAxis->range().lower*1.1,n_customPlot->yAxis->range().upper*1.1);
+            n_customPlot->replot();
+             m_customPlot->replot();
+        }
 
 void MainWindow::draw_Copingdeadload_M()
 { //盖梁上部结构弯矩剪力图;
@@ -2333,10 +2442,8 @@ void MainWindow::draw_CopingDeadLoadSF()
      m_customPlot->xAxis->setLabel("截面位置(mm)");
       m_customPlot->yAxis->setLabel("kN");
     m_customPlot->rescaleAxes(true);
-      m_customPlot->yAxis->setRangeUpper( m_customPlot->yAxis->range().upper+500);
-
-
-      m_customPlot->replot();
+     m_customPlot->yAxis->setRange(m_customPlot->yAxis->range().lower*1.1, m_customPlot->yAxis->range().upper*1.1);
+     m_customPlot->replot();
 
 }
 
@@ -2590,4 +2697,10 @@ void MainWindow::on_comboBox_14_currentIndexChanged(const QString &arg1)
 void MainWindow::on_comboBox_15_currentIndexChanged(int index)
 {
     draw_CopingCombinas();
+}
+
+void MainWindow::on_pushButton_3_clicked()
+{
+     mycat->MDemonBeam.setSteel(mycat->paths);
+    mycat->MDemonBeam.MainStress(16900, 1000,300);
 }
