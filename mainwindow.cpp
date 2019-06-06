@@ -1472,14 +1472,16 @@ void MainWindow::on_comboBox_5_currentIndexChanged(int index)
 }
 void MainWindow::on_pushButton_clicked()
 {   mycat->mycp.demobs=*mycat->myobs;
-       Coping cp;
-       cp.demobs=*mycat->myobs;
-        draw_CoopingCrackWidth();
+    //   Coping cp;
+// mycat->mycp.getRQi(true ,false,2, 1);
+ // mycat->mycp.getRQi(false ,false,2, 1);
+       //loadTye true视为单孔布载,否则视为双控布载;
+        //SolveType true表示杠杆法 ,否则表示修正偏压法;
+   /* qDebug()<< mycat->myobs->pk;
+     qDebug()<< mycat->myobs->qk;
+*/
 
-
-
-
-
+mycat->myobs->cross_storge();
 
 }
 void MainWindow::on_tabWidget_currentChanged(int index)
@@ -1499,6 +1501,7 @@ void MainWindow::on_tabWidget_currentChanged(int index)
 
          draw_prestrLossP();
        draw_prestrLossL();
+        deflectionRender(ui->spinBox_17->value());
     }
     if(index==3&!mycat->myobs==0&mycat->paths.size()>0){
     mainBeamdeadLoad();
@@ -1516,6 +1519,10 @@ void MainWindow::on_tabWidget_currentChanged(int index)
 
       draw_Copingdeadload_M();
       draw_CopingDeadLoadSF();
+      if(!mycat->myobs==0){
+      draw_CopingCombinas();
+      }
+
      }
 
 
@@ -2368,7 +2375,7 @@ void MainWindow::draw_obliqueCrack(int beamId)
 
 void MainWindow::draw_Copingdeadload_M()
 { //盖梁上部结构弯矩剪力图;
-    Coping mycp;
+    Coping mycp=mycat->mycp;
     m_customPlot=ui->widget_12;
    QString str="恒载弯矩";
     CavasSet(m_customPlot, str);
@@ -2548,22 +2555,6 @@ void MainWindow::on_spinBox_valueChanged(int arg1)
 
 }
 
-void MainWindow::on_pushButton_2_clicked()
-{
-
-/*QTreeWidget *tw=ui->treeWidget;
-QTreeWidgetItem *topItem1=tw->topLevelItem(0);
-QTreeWidgetItem *topItem2=tw->topLevelItem(1);
-QTreeWidgetItem *topItem3=tw->topLevelItem(2);
-QTreeWidgetItem *items[6]={topItem1->child(0),topItem1->child(1),topItem1->child(2),topItem2->child(0),topItem2->child(1),topItem3->child(0)};
-QTreeWidgetItem *qit=new QTreeWidgetItem();
-qit->setText(0,"测试一个");
-items[1]->addChild(qit);*/
-//qDebug()<<mycat->myobs->PartialLoadMcq(1, 2)<<endl<<mycat->myobs->PartialLoadMcq(2, 2)<<endl<<mycat->myobs->PartialLoadMcq(3, 2)<<endl<<mycat->myobs->PartialLoadMcq(4, 2);
-
-
-
-}
 void MainWindow::SetPreSteelInfo()
 {   QTableWidget *steeInfo=ui->tableWidget_46;
     for(int i=0;i<steeInfo->columnCount();i++){
@@ -2683,12 +2674,6 @@ void MainWindow::on_horizontalSlider_7_valueChanged(int value)
 
 
 }
-
-void MainWindow::on_horizontalSlider_8_valueChanged(int value)
-{
-
-}
-
 void MainWindow::on_comboBox_14_currentIndexChanged(const QString &arg1)
 {
     draw_CopingCombinas();
@@ -2699,8 +2684,9 @@ void MainWindow::on_comboBox_15_currentIndexChanged(int index)
     draw_CopingCombinas();
 }
 
-void MainWindow::on_pushButton_3_clicked()
+
+
+void MainWindow::on_spinBox_17_valueChanged(const QString &arg1)
 {
-     mycat->MDemonBeam.setSteel(mycat->paths);
-    mycat->MDemonBeam.MainStress(16900, 1000,300);
+
 }

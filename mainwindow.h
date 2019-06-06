@@ -151,17 +151,15 @@ private slots:
     void on_stackedWidget_currentChanged(int arg1);
     void on_stackedWidget_2_currentChanged(int arg1);
     void on_spinBox_valueChanged(int arg1);
-    void on_pushButton_2_clicked();
+
     void SetPreSteelInfo();//预应力筋基本信息设置
     void CavasSet(XxwCustomPlot * m_customPlot,QString str);
     void on_spinBox_17_valueChanged(int arg1);
     void on_commandLinkButton_58_clicked();
     void on_horizontalSlider_7_valueChanged(int value);
-    void on_horizontalSlider_8_valueChanged(int value);
     void on_comboBox_14_currentIndexChanged(const QString &arg1);
     void on_comboBox_15_currentIndexChanged(int index);
-
-    void on_pushButton_3_clicked();
+    void on_spinBox_17_valueChanged(const QString &arg1);
 
 private:
     bool box_1_cheaked=false;

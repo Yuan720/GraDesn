@@ -474,6 +474,16 @@ void OrdinaryBrigeSection::cross_storge()
    }
 
 
+        for(int j=0;j<5;j++){
+       qDebug()<<cross_beam_foce[j][0]<<"------"<< cross_beam_foce[j][1]<<"-----"<<  cross_beam_foce[j][2]
+      <<"-----------"<< cross_beam_foce[j][3]<<"--------"<<cross_beam_foce[j][4]<<"-------------"<<cross_beam_foce[j][5];
+
+
+
+
+   }
+
+
 
 
 

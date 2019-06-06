@@ -200,7 +200,7 @@ public:
     //横隔梁
     float f_c_lca;
 	float qk = 10.5;
-	float pk = cal_span <= 5 ? 270 : cal_span > 50 ? 360 : 2 * (130 + cal_span);
+    float pk;
 	vector<float> area_es;
 	vector<float> ais;
 	vector<float> aix;
@@ -292,7 +292,8 @@ public:
 		{
 			aid.push_back(aix[i] - total_span / 2);
 		}
-	}
+    pk = cal_span <= 5 ? 270 : cal_span > 50 ? 360 : 2 * (130 + cal_span);
+    }
 	vector<float> get_aid_moif() {
 		vector<float> temp;
         for (int i = 0; i < aid.size(); i++)
@@ -497,7 +498,6 @@ public:
 		result.push_back(temp1);
 		result.push_back(temp2);
 		result.push_back(temp3);
-        qDebug()<<temp2<<"1/4截面弯矩_____"<<endl<<"----1/4截面弯矩-----"<<getLiveLoad_M(beamId,(cal_span/4)*1e3)<<"----halo!";
 		return	result;
 	}
 	vector<float> getLivaLoadSF(int beamId) {
